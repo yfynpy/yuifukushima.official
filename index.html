@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-width=1.0">
+    <title>Yui Fukushima Official Website | 組織・人事コンサルタント兼ライフコーチ</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* Variables */
+        :root {
+            --color-base: #FAFAFA;
+            --color-text: #333333;
+            --color-main: #2C4C3B; /* 深い森のグリーン */
+            --color-accent: #C5A059; /* マットゴールド */
+            --font-heading: 'Shippori Mincho', serif;
+            --font-body: 'Noto Sans JP', sans-serif;
+            --header-height: 80px;
+        }
+
+        /* Reset & Base */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-text);
+            background-color: var(--color-base);
+            background-image: url('https://www.transparenttextures.com/patterns/subtle-white-feathers.png'); 
+            background-repeat: repeat;
+            line-height: 2;
+            letter-spacing: 0.05em;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 500; color: var(--color-main); }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; height: auto; display: block; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        .section-padding { padding: 120px 0; }
+        @media (max-width: 768px) { .section-padding { padding: 80px 0; } }
+        .text-center { text-align: center; }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            background-color: var(--color-accent); color: #fff;
+            padding: 12px 32px; border-radius: 4px; font-size: 15px;
+            min-height: 44px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .btn:hover { background-color: #B38F4D; transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
+
+        /* Header */
+        header {
+            position: fixed; top: 0; width: 100%; height: var(--header-height);
+            background: rgba(250, 250, 250, 0.85);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            z-index: 1000; display: flex; align-items: center;
+            border-bottom: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease;
+        }
+        .header-inner { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: var(--font-heading); font-size: 20px; color: var(--color-main); letter-spacing: 0.1em; }
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a.link-item { font-size: 14px; color: var(--color-text); transition: color 0.3s ease; }
+        .nav-links a.link-item:hover { color: var(--color-accent); }
+        @media (max-width: 768px) { .nav-links .link-item { display: none; } }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh; /* heightからmin-heightに変更し、コンテンツに合わせて伸長させる */
+            display: flex; 
+            align-items: center; /* 中央揃えに戻す */
+            justify-content: center;
+            text-align: center; position: relative; color: #fff;
+            background-image: url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 120px 0; /* 上下に余白を追加 */
+        }
+        .hero::before {
+            content: ''; position: absolute; top:0; left:0; width:100%; height:100%;
+            background: linear-gradient(135deg, rgba(44, 76, 59, 0.7) 0%, rgba(20, 40, 50, 0.5) 100%);
+            backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+            z-index: 0;
+        }
+        .hero-content { 
+            position: relative; z-index: 1; 
+            padding: 0 20px; /* padding-bottomを削除 */
+        }
+        .hero-title { font-size: 34px; line-height: 1.5; margin-bottom: 30px; font-weight: 400; text-shadow: 0 2px 10px rgba(0,0,0,0.3); color: #fff; }
+        .hero-subtitle { font-size: 16px; color: rgba(255,255,255,0.9); line-height: 2; font-weight: 300; }
+        @media (max-width: 768px) { 
+            .hero-title { font-size: 26px; } 
+            .hero-subtitle { font-size: 14px; } 
+        }
+
+        /* Message & Empathy Section */
+        .message-box {
+            background: rgba(255, 255, 255, 0.95); 
+            padding: 60px 80px; border-radius: 2px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            margin: 0 auto; /* ネガティブマージンを削除 */
+            position: relative; z-index: 2; max-width: 800px;
+        }
+        @media (max-width: 768px) { .message-box { padding: 40px 20px; } }
+        .section-title { font-size: 28px; text-align: center; margin-bottom: 60px; position: relative; }
+        .section-title::after { content: ''; display: block; width: 40px; height: 1px; background-color: var(--color-accent); margin: 20px auto 0; }
+        .story-text { margin-bottom: 40px; font-size: 15px; }
+        .story-text h3 { font-size: 20px; margin-bottom: 20px; color: var(--color-main); }
+
+        /* Service Section */
+        .flow-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px 30px; text-align: center; border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.03);
+        }
+        .flow-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px; }
+        .flow-icon { font-size: 32px; color: var(--color-accent); margin-bottom: 20px; }
+        .flow-title { font-size: 18px; margin-bottom: 15px; }
+        .flow-desc { font-size: 14px; color: #666; text-align: left; }
+        @media (max-width: 768px) { .flow-grid { grid-template-columns: 1fr; gap: 20px; } }
+
+        /* Policy Box */
+        .policy-box {
+            border: 1px solid rgba(197, 160, 89, 0.3); padding: 40px; margin-top: 60px;
+            background: rgba(255, 255, 255, 0.9);
+        }
+        .policy-box ul { list-style: none; margin-top: 20px; }
+        .policy-box li { margin-bottom: 15px; padding-left: 1.5em; text-indent: -1.5em; }
+        .policy-box li::before { content: "・"; color: var(--color-accent); }
+
+        /* Profile Section */
+        .profile-flex { display: flex; gap: 60px; align-items: center; }
+        .profile-img { flex: 1; }
+        .profile-img img { border-radius: 2px; box-shadow: 0 15px 30px rgba(0,0,0,0.05); }
+        .profile-info { flex: 1; }
+        .profile-name { font-size: 24px; margin-bottom: 5px; }
+        .profile-title { font-size: 14px; color: var(--color-accent); margin-bottom: 20px; font-family: var(--font-body); }
+        @media (max-width: 768px) { .profile-flex { flex-direction: column; gap: 30px; } }
+
+        /* CTA Section */
+        .cta-section { background-color: var(--color-main); color: #fff; text-align: center; padding: 100px 20px; position: relative; overflow: hidden; }
+        .cta-section h2 { color: #fff; }
+        .cta-section .section-title::after { background-color: var(--color-accent); }
+
+        /* Footer */
+        footer { background-color: #222; color: #aaa; text-align: center; padding: 40px 20px; font-size: 13px; }
+        .social-links { margin-bottom: 20px; }
+        .social-links a { display: inline-block; margin: 0 10px; font-size: 20px; color: #aaa; transition: color 0.3s ease; }
+        .social-links a:hover { color: var(--color-accent); }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <div class="logo">Yui Fukushima</div>
+            <nav class="nav-links">
+                <a href="#message" class="link-item">Message</a>
+                <a href="#service" class="link-item">Service</a>
+                <a href="#profile" class="link-item">Profile</a>
+                <a href="#contact" class="btn">体験セッション</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content" data-aos="fade-up" data-aos-duration="1500">
+            <h1 class="hero-title">
+                お待ちしていました。<br>
+                よく、ここまで来ましたね。
+            </h1>
+            <p class="hero-subtitle">
+                自分に驚かされる人生を、ここから。<br>
+                〜自分を愛し、ともに世界を創る旅〜
+            </p>
+        </div>
+    </section>
+
+    <section class="section-padding" id="message"> <div class="container">
+            <div class="message-box" data-aos="fade-up" data-aos-duration="1000">
+                <p class="story-text">
+                    ひとの命は、本来、抗いようのないほど美しく煌めいています。<br><br>
+                    けれど私たちは、社会の通念や過去の痛みによって自分を削り、<br>
+                    「制限」という檻の中で、その光を忘れてしまうことがあります。<br><br>
+                    私もまた、かつては真っ暗闇のどん底でもがいた一人です。<br>
+                    ありたい姿とのギャップに苦悩し、自己嫌悪に陥り、自分を攻撃してしまう日々。<br>
+                    本来、この世でたった一人の「絶対的な味方」であるはずの自分が、いつしか一番の敵になっていたのです。
+                </p>
+                <p class="story-text">
+                    しかし、そんな痛みの底から見えてきた真実がありました。<br>
+                    それは、世界を変える一歩は外側ではなく、常に「内側」にあるということです。<br><br>
+                    環境の犠牲者でいることをやめ、まず自分のために立ち上がる。<br>
+                    自分を無条件に愛することから、すべては始まります。<br>
+                    自分自身が、一番の理解者となり、愛で満たされたとき。不思議なことに、外側の世界の見え方も変わり始めます。
+                </p>
+            </div>
+            
+            <div class="section-padding" data-aos="fade-up">
+                <h2 class="section-title">私の願い</h2>
+                <p class="story-text text-center">
+                    かつては脅威に感じていた他者との違いを、かけがえのない「豊かさ」として受け取れるようになり、奪い合いや対立を超えた、新しいつながりを創り出すことができる。<br>
+                    自分を愛し、慈しむ人が増えることで、この世界がもっと優しく、美しい場所に変わっていく。<br>
+                    それが、私が心から信じ、活動を続ける理由であり、私の願いです。<br><br>
+                    自己受容のその先で、本領が動き出す瞬間。<br>
+                    人智を超えた大きな流れに、自然と導かれていく感覚。<br>
+                    そんな、自分自身に驚かされ続ける時間に、私は立ち会いたいと願っています。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding service-bg" id="service">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">アプローチと流れ</h2>
+            
+            <div class="text-center" data-aos="fade-up">
+                <p>思考を超えた「身体知」と、目に見えないエネルギーのリソースを統合し、あなたの変容をサポートします。<br>
+                IFS（内的家族システム療法）、伝統霊気、ヒプノセラピーのエッセンスを取り入れ、過去の痛みや無意識のブレーキを優しく解いていきます。</p>
+            </div>
+
+            <div class="flow-grid">
+                <div class="flow-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flow-icon"><i class="fa-solid fa-seedling"></i></div>
+                    <h3 class="flow-title">1. 静寂の探索</h3>
+                    <p class="flow-desc">まずは呼吸を整え、今ここにある感覚に意識を向けます。「体の一部が重い」「イメージが浮かんだ」といった思考を超えたサインを拾い上げます。</p>
+                </div>
+                <div class="flow-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flow-icon"><i class="fa-solid fa-hands-holding-circle"></i></div>
+                    <h3 class="flow-title">2. 深層へのアプローチ</h3>
+                    <p class="flow-desc">内なるパーツ（葛藤）との対話や、エネルギーの調律を行います。無理に何者かになろうとするのではなく、あなた本来の力を整えます。</p>
+                </div>
+                <div class="flow-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flow-icon"><i class="fa-solid fa-dove"></i></div>
+                    <h3 class="flow-title">3. 日常への統合</h3>
+                    <p class="flow-desc">セッションで得た気づきや解放された感覚を、実際の仕事や生活の中でどう育んでいくかを分かち合い、現実に定着させます。</p>
+                </div>
+            </div>
+
+            <div class="policy-box" data-aos="fade-up">
+                <h3 class="text-center" style="margin-bottom: 20px;">安心安全な「場」のお約束</h3>
+                <p class="text-center">あなたの内なる叡智を信じ、ともに静寂に留まります。</p>
+                <ul>
+                    <li><strong>非審判的であること：</strong>どんな感情が現れても否定せず、あるがままに迎え入れます。</li>
+                    <li><strong>あなたのペースを尊重する：</strong>変化を急がせず、身体の感覚や直感が「今だ」と告げるタイミングを待ちます。</li>
+                    <li><strong>多次元的なリソースの活用：</strong>対話、エネルギー（霊気）、身体感覚など、その時に必要なリソースを動員します。</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" id="profile">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">証人としての私</h2>
+            
+            <div class="profile-flex">
+                <div class="profile-img" data-aos="fade-right">
+                    <img src="profile.jpg" alt="Yui Fukushima">
+                </div>
+                <div class="profile-info" data-aos="fade-left">
+                    <h3 class="profile-name">福島 結 <span style="font-size:14px; color:#666; font-weight:normal; margin-left:10px;">Yui Fukushima</span></h3>
+                    <p class="profile-title">組織・人事コンサルタント / ライフコーチ</p>
+                    <p class="story-text">
+                        神奈川県西湘エリア。海・山・富士山が見えるこの地で、自然のリソースと共に生きています。散歩や登山を通じて感性を研ぎ澄ます時間は、私にとって大切な「宇宙と繋がる」ひとときです。<br><br>
+                        組織のエンゲージメントと、個人の魂の解放。二つの道が交差する場所で、あなたが本来の力を100%発揮する「共創」の旅に伴走します。<br><br>
+                        組織のダイナミクスを理解しているからこそ、あなたが抱える現実的な葛藤に寄り添えます。そして、見えない世界のリソースを信じているからこそ、その葛藤を超えた先にある「本来の力」を引き出すお手伝いができると信じています。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" id="contact">
+        <div class="container" data-aos="fade-up">
+            <h2 class="section-title" style="color:#fff;">世界を創る旅へ</h2>
+            <p style="margin-bottom: 40px;">
+                もし、この言葉があなたの心にそっと触れたなら。<br>
+                今はまだ、ピンとこなくても大丈夫です。<br>
+                いつか、あなたの中に「その時」が訪れたとき、<br>
+                ここにひとりの証人がいることを、どうか思い出してください。<br><br>
+                私は、いつでもここで待っています。
+            </p>
+            <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 4px; display: inline-block; margin-bottom: 40px; text-align:left;">
+                <h3 style="color:var(--color-accent); font-size:18px; margin-bottom:10px;">メニュー</h3>
+                <ul style="list-style:none; font-size:15px;">
+                    <li style="margin-bottom:10px;"><i class="fa-solid fa-check" style="color:var(--color-accent); margin-right:8px;"></i>60分無料体験セッション</li>
+                    <li><i class="fa-solid fa-check" style="color:var(--color-accent); margin-right:8px;"></i>継続コーチング（はじめての方・ひさしぶりの方）<br>
+                    <span style="font-size:13px; color:#ddd; margin-left:24px;">導入セッション（2時間）＋通常セッション6回（各60分）：50,000円</span></li>
+                </ul>
+                <p style="font-size:12px; color:#bbb; margin-top:10px; margin-left:24px;">※価格応相談。お気軽にお問合わせください</p>
+            </div>
+            <br>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScfo6HCvgpYV6VIWGXcKvcIGgCzM4LcSo2YXtS3GX2YTadM1w/viewform?usp=publish-editor" target="_blank" class="btn" style="font-size: 16px; padding: 15px 40px;">
+                体験セッションを申し込む <i class="fa-solid fa-arrow-right" style="margin-left: 10px;"></i>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://www.instagram.com/yf_ynpy?igsh=Mmd5bGU2dzh3ZmZ3&utm_source=qr" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.facebook.com/yui.fukushima.56/" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+        <p>&copy; 2026 Yui Fukushima. All Rights Reserved.</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // アニメーションの初期化
+        AOS.init({
+            once: true, // スクロール時に一度だけアニメーションを実行
+            offset: 50,
+        });
+    </script>
+</body>
+</html>
