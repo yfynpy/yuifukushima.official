@@ -110,81 +110,158 @@
         @media (max-width: 768px) { .nav-links .link-item { display: none; } }
 
         /* =========================================
-           Hero Section (hero2.jpg 左配置・引きの構図)
+           Hero Section (モダン・ホリゾンタル ＋ 温かな光)
            ========================================= */
         .hero {
-            min-height: 100vh; display: flex; align-items: center; justify-content: flex-start; 
-            text-align: left; position: relative; 
-            
-            /* 背景の白壁と馴染ませるためにベース色を設定 */
+            min-height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: flex-start; 
+            text-align: left; 
+            position: relative; 
             background-color: var(--color-base); 
             background-image: url('hero2.jpg'); 
             
-            /* cover（全画面を埋める）をやめ、高さを基準にして引きの構図にします */
-            /* 120% の数値を小さくする（例: 100%）とさらに引きになり、大きくする（例: 150%）と寄りの構図になります */
-            background-size: auto 150%; 
+            /* 【変更点】100%ではなく130%に拡大し、腰上あたりにズームします */
+            background-size: auto 175%; 
+            /* 【変更点】右に配置しつつ、頭が切れないよう上から5%の余白を持たせます */
+            background-position: right 13% top 15%; 
             background-repeat: no-repeat;
-            
-            /* 右寄りに配置し、頭が切れないよう縦位置は上から10%あたりに設定 */
-            background-position: right 15% top 10%; 
-        }
-        .hero::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            /* テキストが読みやすいよう、左から右へ溶け込むような白いグラデーションを敷く */
-            background: linear-gradient(to right, rgba(252, 252, 252, 1) 35%, rgba(252, 252, 252, 0.6) 60%, rgba(252, 252, 252, 0) 100%); 
-            z-index: 0; 
-            pointer-events: none;
-        }
-        .hero-content { 
-            position: relative; z-index: 10; 
-            padding-left: 12%; 
-            writing-mode: vertical-rl; 
-            text-orientation: mixed;
-            color: var(--color-main); 
-        }
-        .hero-title { 
-            font-size: 38px; line-height: 2.2; 
-            margin-left: 50px; 
-            color: var(--color-main); 
-            letter-spacing: 0.15em; 
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.9); 
-        }
-        .hero-subtitle { 
-            font-size: 15px; color: #555555; line-height: 2.6; 
-            margin-left: 70px; 
-            letter-spacing: 0.15em; 
-            text-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
-        }
-        .hero-name { 
-            font-size: 13px; 
-            margin-left: 60px; 
-            margin-top: 38vh; 
-            letter-spacing: 0.2em; 
-            color: var(--color-main); 
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.9); 
-        }
-        .hero-name span { 
-            display: inline-block; 
-            font-size: 15px; 
-            margin-top: 20px; 
-            color: var(--color-main); 
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.9); 
+            overflow: hidden; 
         }
 
-        /* スマホ用調整: 重複を解消し、縦横のバランスを整える */
+        /* モノトーンの硬さを和らげる、ふんわりとした温かい光（ゴールド〜サンド系） */
+        .hero-glow {
+            position: absolute;
+            top: 15%;
+            left: -10%;
+            width: 55vw;
+            height: 55vw;
+            background: radial-gradient(circle, rgba(184, 156, 106, 0.08) 0%, rgba(249, 248, 246, 0.5) 40%, rgba(252, 252, 252, 0) 70%);
+            border-radius: 50%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* 白壁と同化させ、画像の境目を完全に隠すグラデーション */
+        .hero::before {
+            content: ''; 
+            position: absolute; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%;
+            /* 変更点：不透明の白(1)の範囲を50%まで広げ、境目をすっぽり塗りつぶします */
+            background: linear-gradient(to right, 
+                rgba(252, 252, 252, 1) 0%, 
+                rgba(252, 252, 252, 1) 50%, 
+                rgba(252, 252, 252, 0) 77%
+            ); 
+            z-index: 2; 
+            pointer-events: none;
+        }
+
+        .hero-content { 
+            position: relative; 
+            z-index: 10; 
+            /* 変更点：テキストを右にずらします（お好みで 25% 〜 28% など調整してください） */
+            padding-left: 25%; 
+            /* 変更点：文字が壁にぶつからないよう、箱の幅を広げます */
+            max-width: 1100px;
+        }
+
+        /* スタイリッシュさを引き立てる英語のアクセント */
+        .hero-en-title {
+            display: block;
+            font-family: var(--font-body);
+            font-size: 13px;
+            color: var(--color-accent);
+            letter-spacing: 0.2em;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .hero-title { 
+            /* 変更：画面幅に合わせて文字サイズが滑らかに縮みます（最小22px 〜 最大34px） */
+            font-size: clamp(22px, 2.8vw, 34px); 
+            line-height: 1.8; 
+            color: var(--color-main); 
+            letter-spacing: 0.1em; 
+            margin-bottom: 30px;
+            text-shadow: none;
+            white-space: nowrap; 
+        }
+
+        .hero-subtitle { 
+            font-size: 15px; 
+            color: #555555; 
+            line-height: 2.2; 
+            letter-spacing: 0.1em; 
+            margin-bottom: 40px;
+            text-shadow: none;
+        }
+
+        .hero-name { 
+            font-size: 14px; 
+            letter-spacing: 0.15em; 
+            color: var(--color-main);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 0;
+        }
+
+        .hero-name span { 
+            font-size: 16px; 
+            color: var(--color-main);
+            font-family: var(--font-heading);
+            margin-top: 0;
+        }
+
+        /* =========================================
+           ノートPC・タブレット用調整（文字と画像の被り防止）
+           ========================================= */
+        @media (max-width: 1150px) and (min-width: 769px) {
+            .hero {
+                /* 人物の位置を右端に固定し、中央に寄ってくるのを防ぎます */
+                background-position: right 0% top 15%; 
+            }
+            .hero-content {
+                /* 画面が狭くなったらテキスト全体を左に寄せて、画像とのスペースを確保します */
+                padding-left: 8%; 
+            }
+            .hero::before {
+                /* テキストが左に寄る分、グラデーションの不透明な白の幅も少し狭めます */
+                background: linear-gradient(to right, 
+                    rgba(252, 252, 252, 1) 0%, 
+                    rgba(252, 252, 252, 1) 30%, 
+                    rgba(252, 252, 252, 0) 70%
+                );
+            }
+        }
+
+        /* スマホ用調整 */
         @media (max-width: 768px) { 
             .hero {
-                /* スマホでは縦長になるため、ちょうどよく全身が収まるように調整 */
-                background-size: auto 100%; 
-                background-position: 80% top 5%; 
+                /* 【変更点】スマホでも少しズームさせ、腰上からの表示にします */
+                background-size: auto 115%;
+                /* 【変更点】人物を少し右に寄せ、頭の余白を確保します */
+                background-position: 85% top 5%; 
+            }
+            .hero::before {
+                background: linear-gradient(to bottom, rgba(252, 252, 252, 0.9) 0%, rgba(252, 252, 252, 0.8) 50%, rgba(252, 252, 252, 0.3) 100%); 
             }
             .hero-content { 
-                padding-left: 5%; 
-                padding-right: 0; 
+                padding: 0 5%; 
+                margin-top: -15vh; 
             }
-            .hero-title { font-size: 26px; line-height: 2.0; margin-left: 20px; }
-            .hero-subtitle { font-size: 13px; margin-left: 30px; }
-            .hero-name { margin-top: 10vh; margin-left: 20px; }
+            .hero-title { 
+                font-size: 24px; 
+                line-height: 1.7; 
+                margin-bottom: 20px; 
+                /* 追加：スマホ画面では幅が狭いため、自然な折り返しを許可します */
+                white-space: normal; 
+            }
+            .hero-subtitle { font-size: 13px; margin-bottom: 30px; }
+            .hero-name { gap: 10px; }
         }
 
         /* =========================================
@@ -200,6 +277,23 @@
         .vision-card h3 { font-size: 17px; margin-bottom: 20px; line-height: 1.7; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 15px; }
         .vision-card p { font-size: 14px; color: #555; }
         @media (max-width: 768px) { .vision-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+.vision-title-inline {
+    font-size: 17px;
+    margin-bottom: 20px;
+    line-height: 1.7;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding-bottom: 15px;
+    display: flex;        /* 横並びにする設定 */
+    align-items: center;  /* 縦方向の中央で揃える */
+    gap: 12px;            /* アイコンと文字の間の隙間 */
+}
+
+.vision-title-inline i {
+    font-size: 20px;      /* アイコンのサイズ */
+    color: var(--color-accent);
+    opacity: 0.8;
+}
 
         .vision-closing { text-align: center; margin-top: 100px; padding: 60px 0; border-top: 1px solid rgba(0,0,0,0.03); border-bottom: 1px solid rgba(0,0,0,0.03); position: relative; z-index: 10;}
         .closing-text { font-family: var(--font-heading); font-size: 18px; line-height: 2.4; color: var(--color-main); letter-spacing: 0.15em; }
@@ -233,9 +327,24 @@
         .flow-desc { font-size: 14px; color: #555; }
         @media (max-width: 768px) { .flow-grid { grid-template-columns: 1fr; gap: 40px; } }
 
-        .safe-space-box { background: rgba(255,255,255,0.9); padding: 60px 50px; margin-top: 80px; border: 1px solid rgba(0,0,0,0.03); position: relative; z-index: 10; }
-        /* スマホ用調整: 横幅の余白を縮めて読みやすく */
-        @media (max-width: 768px) { .safe-space-box { padding: 40px 20px; margin-top: 50px; } }
+        .safe-space-box { 
+    background: rgba(255,255,255,0.9); 
+    padding: 60px 50px; 
+    margin: 80px auto 100px;  /* ◀︎ 【変更】最後の数値を「100px」にして、下部に豊かな余白を作ります */
+    max-width: 900px;     
+    border: 1px solid rgba(0,0,0,0.03); 
+    border-radius: 8px;   
+    position: relative; 
+    z-index: 10; 
+}
+
+/* スマホ用調整: 横幅と上下の余白を調整 */
+@media (max-width: 768px) { 
+    .safe-space-box { 
+        padding: 40px 20px; 
+        margin: 50px auto 80px; /* ◀︎ 【変更】スマホ表示でも下に80pxの余白を確保します */
+    } 
+}
         
         .safe-space-title { text-align: center; margin-bottom: 15px; font-size: 20px; }
         .safe-space-intro { text-align: center; margin-bottom: 35px; font-size: 14px; color: #777; letter-spacing: 0.1em; }
@@ -269,6 +378,94 @@
         .profile-data { margin-top: 60px; font-size: 13px; border-top: 1px solid var(--color-accent); padding-top: 30px; }
         .profile-data ul { list-style: none; color: #555; }
         .profile-data li { margin-bottom: 15px; }
+
+        /* =========================================
+           Modal (My Story)
+           ========================================= */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 2000; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            height: 100%; 
+            /* 背景を深い緑色で少し透けさせ、静寂を演出します */
+            background-color: rgba(42, 59, 50, 0.80); 
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+        }
+        .modal-wrapper {
+            position: relative;
+            width: 90%;
+            max-width: 700px;
+        }
+        .modal-content {
+            background-color: var(--color-base);
+            /* 変更：幅の指定を100%にし、サイズ調整はwrapperに任せます */
+            width: 100%; 
+            max-height: 85vh;
+            overflow-y: auto; 
+            padding: 60px 50px;
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .modal.show .modal-content {
+            transform: translateY(0);
+        }
+        .close-btn {
+            /* 変更：画面全体ではなく、wrapper（枠）を基準に位置を固定します */
+            position: absolute; 
+            top: 0;             /* 枠の上端に合わせる */
+            right: -50px;       /* 枠の右端から50px外側に配置する */
+            font-size: 32px;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2010;
+        }
+        .close-btn:hover { 
+            color: #ffffff; 
+            transform: scale(1.1); 
+        }
+        .modal-title { text-align: center; font-size: 22px; margin-bottom: 40px; letter-spacing: 0.1em; }
+        .modal-chapter { font-size: 16px; color: var(--color-accent); margin-bottom: 15px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 10px; }
+        .modal-body .story-text { margin-bottom: 80px; }
+        .modal-body .story-text:last-child { margin-bottom: 0; }
+        
+        /* My Storyを読むボタンのデザイン */
+        .btn-story { 
+            background-color: transparent; 
+            color: var(--color-main); 
+            border: 1px solid var(--color-main); 
+            padding: 12px 32px;
+            font-size: 14px;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+        .btn-story:hover { 
+            background-color: var(--color-main); 
+            color: #fff; 
+        }
+        
+        /* スマホ用調整 */
+        @media (max-width: 768px) {
+            .close-btn {
+                top: -45px; /* 枠の少し「上」に配置 */
+                right: 0;   /* 枠の右端にピッタリ揃える */
+                font-size: 28px;
+            }
+            .modal-content { padding: 40px 25px; max-height: 80vh; }
+        }
 
         /* =========================================
            FAQ Section
@@ -332,10 +529,11 @@
         }
         @media (max-width: 768px) { .cta-footer-text { margin-top: 60px; } }
 
-/* =========================================
+        /* =========================================
            Contact Form (埋め込みフォーム用)
            ========================================= */
         .contact-form {
+            margin-top: 100px; 
             max-width: 600px;
             margin: 0 auto;
             text-align: left;
@@ -355,7 +553,7 @@
         .form-input, .form-textarea {
             width: 100%;
             padding: 15px;
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: rgba(255, 255, 255, 0.09);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: #fff;
             font-family: var(--font-body);
@@ -389,6 +587,139 @@
         .social-links { margin-bottom: 25px; }
         .social-links a { display: inline-block; margin: 0 15px; font-size: 18px; color: #888; transition: color 0.3s ease; }
         .social-links a:hover { color: #fff; }
+
+/* =========================================
+   プロセス・アニメーション (カード型・大画面用)
+   ========================================= */
+.flow-grid-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    /* ▼追加・変更箇所▼ */
+    max-width: 1000px;     /* カード全体の最大幅（この数値を減らすとさらに狭くなります） */
+    margin: 50px auto 0;  /* 左右を中央寄せ（auto）にし、上部に50pxの余白を持たせる */
+}
+
+@media (max-width: 900px) {
+    .flow-grid-cards { grid-template-columns: 1fr; gap: 40px; }
+}
+
+.flow-card-large {
+    background-color: #ffffff;
+    border-radius: 8px; /* 少しだけ丸みを持たせて柔らかな印象に */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.flow-card-large:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
+
+/* アニメーションを表示する上部の「窓」 */
+.anim-showcase {
+    width: 100%;
+    height: 220px;
+    background-color: var(--color-base); /* ベースの静謐な白 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-bottom: 1px solid rgba(0,0,0,0.02);
+    overflow: hidden;
+}
+
+/* テキストを配置する下部のエリア */
+.flow-card-content {
+    padding: 35px 25px;
+    text-align: left;
+    flex: 1; /* 高さを揃える */
+}
+.flow-card-content .flow-title {
+    font-size: 16px;
+    margin-bottom: 15px;
+    line-height: 1.6;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding-bottom: 15px;
+}
+
+/* 共通の光（セルフ・安全基地の象徴） */
+.core-light-large {
+    width: 60px;
+    height: 60px;
+    background-color: var(--color-accent);
+    border-radius: 50%;
+    box-shadow: 0 0 30px rgba(184, 156, 106, 0.4);
+    position: relative;
+    z-index: 2;
+}
+
+/* -----------------------------------------
+   プロセス1：深層へのアクセス
+   ----------------------------------------- */
+.step1-showcase .core-light-large {
+    opacity: 0.8;
+}
+.parts-large {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background-color: var(--color-main);
+    border-radius: 50%;
+    opacity: 0.6;
+}
+/* それぞれのパーツが中央の光に向かって引き寄せられる動き */
+.part-1 { top: 15%; left: 15%; animation: gather1 5s infinite ease-in-out; }
+.part-2 { bottom: 20%; right: 15%; animation: gather2 5s infinite ease-in-out; animation-delay: 1.5s; }
+.part-3 { top: 25%; right: 10%; animation: gather3 5s infinite ease-in-out; animation-delay: 3s; }
+
+@keyframes gather1 { 0%, 100% { transform: translate(0, 0); opacity: 0.2; } 50% { transform: translate(60px, 40px); opacity: 0.8; } }
+@keyframes gather2 { 0%, 100% { transform: translate(0, 0); opacity: 0.2; } 50% { transform: translate(-50px, -40px); opacity: 0.8; } }
+@keyframes gather3 { 0%, 100% { transform: translate(0, 0); opacity: 0.2; } 50% { transform: translate(-50px, 20px); opacity: 0.8; } }
+
+/* -----------------------------------------
+   プロセス2：深い統合（自律神経の休息・深呼吸）
+   ----------------------------------------- */
+.step2-showcase .core-light-large {
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, var(--color-accent) 0%, var(--color-main) 100%);
+    animation: somaticBreatheLarge 6s infinite ease-in-out;
+}
+@keyframes somaticBreatheLarge {
+    0%, 100% { transform: scale(0.9); box-shadow: 0 0 15px rgba(184, 156, 106, 0.2); }
+    50% { transform: scale(1.15); box-shadow: 0 0 50px rgba(184, 156, 106, 0.6); }
+}
+
+/* -----------------------------------------
+   プロセス3：真の自己主導（波紋・エネルギーの広がり）
+   ----------------------------------------- */
+.step3-showcase .core-light-large {
+    background-color: var(--color-accent);
+    box-shadow: 0 0 35px rgba(184, 156, 106, 0.7);
+}
+.step3-showcase .core-light-large::before,
+.step3-showcase .core-light-large::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%; height: 100%;
+    border: 1px solid var(--color-accent);
+    border-radius: 50%;
+    animation: rippleEffectLarge 4s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+.step3-showcase .core-light-large::after {
+    animation-delay: 2s;
+}
+@keyframes rippleEffectLarge {
+    0% { width: 100%; height: 100%; opacity: 0.8; }
+    100% { width: 350%; height: 350%; opacity: 0; }
+}
+
     </style>
 </head>
 <body>
@@ -408,7 +739,10 @@
     </header>
 
     <section class="hero" id="home">
+        <div class="hero-glow"></div>
+        
         <div class="hero-content" data-aos="fade-in" data-aos-duration="2500">
+            <span class="hero-en-title">Awaken Your Authentic Self</span>
             <h1 class="hero-title">「制限」という檻を抜け出し、<br>１００％のあなたを生きる</h1>
             <p class="hero-subtitle">内なる平和から、人生の完全なリーダーへ<br>自分に驚かされる人生を、ここから</p>
             <div class="hero-name">深層変容コーチ<span>福島 ゆい</span></div>
@@ -418,6 +752,7 @@
     <section class="section-padding" id="vision"> 
         <div class="container">
             <div class="message-box" data-aos="fade-up">
+            <h2 class="section-title" data-aos="fade-up">Message</h2>
                 <p class="story-text">これまで、傷つかないように、あるいは正しい道から外れないようにと、<br class="br-pc">懸命に自分を守りながら生きてきたあなたへ。</p>
                 <p class="story-text">ありたい姿とのギャップに苦しみ、自分を責めてしまう日々は、<br class="br-pc">決してあなたが弱いからではありません。<br class="br-pc">それは、本来の煌めくような命の力が、行き場を失っているサインです。</p>
                 <p class="story-text">現実を根本から変える鍵は、外側の世界にはありません。<br class="br-pc">唯一の鍵は、あなた自身の「内側」を統合し、<br class="br-pc">人生の主導権を取り戻すことにあります。</p>
@@ -426,22 +761,19 @@
             
             <h2 class="section-title" data-aos="fade-up">Vision & Concept</h2>
             <div class="vision-grid">
-                <div class="vision-card" data-aos="fade-up" data-aos-delay="0">
-                    <div class="vision-icon"><i class="fa-solid fa-moon"></i></div>
-                    <h3>光を忘れ、制限の中で<br class="br-pc">生きる痛み</h3>
-                    <p>ひとの命は本来、美しく煌めいています。けれど私たちは、社会の通念や過去の痛みによって自分を削り、「制限」という檻の中で光を忘れてしまいます。一番の味方であるはずの自分が、いつしか一番の敵になっている。その苦しみに、まずはそっと光を当てます。</p>
-                </div>
-                <div class="vision-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="vision-icon"><i class="fa-solid fa-spa"></i></div>
-                    <h3>外側ではなく、内なる<br class="br-pc">平和へのフルコミット</h3>
-                    <p>外側の世界や他者をコントロールしようとする力みを手放し、自分自身の内なる平和（統合）に100％コミットします。バラバラになっていた自分の内側を赦し、無条件に受け入れること。環境の犠牲者をやめ、完全な自己主導として立ち上がるプロセスです。</p>
-                </div>
-                <div class="vision-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="vision-icon"><i class="fa-solid fa-dove"></i></div>
-                    <h3>自己主導の確立が、<br class="br-pc">最高の関係性を創る</h3>
-                    <p>内なる平和が訪れたとき、外側の世界の見え方も静かに変わり始めます。自分の中心が定まることで、他者との違いを脅威ではなく「豊かさ」として受け取れるようになります。個が確立されて初めて、対立を超えた真の共創や、新しいつながりが生まれるのです。</p>
-                </div>
-            </div>
+    <div class="vision-card" data-aos="fade-up" data-aos-delay="0">
+        <h3 class="vision-title-inline"><i class="fa-solid fa-moon"></i>制限からの解放</h3>
+        <p>ひとの命は本来、美しく煌めいています。けれど私たちは、社会の通念や過去の痛みによって自分を削り、「制限」という檻の中で光を忘れてしまいます。一番の味方であるはずの自分が、いつしか一番の敵になっている。その苦しみに、まずはそっと光を当てます。</p>
+    </div>
+    <div class="vision-card" data-aos="fade-up" data-aos-delay="100">
+        <h3 class="vision-title-inline"><i class="fa-solid fa-spa"></i>内なる平和</h3>
+        <p>外側の世界や他者をコントロールしようとする力みを手放し、自分自身の内なる平和（統合）に100％コミットします。バラバラになっていた自分の内側を赦し、無条件に受け入れること。環境の犠牲者をやめ、完全な自己主導として立ち上がるプロセスです。</p>
+    </div>
+    <div class="vision-card" data-aos="fade-up" data-aos-delay="200">
+        <h3 class="vision-title-inline"><i class="fa-solid fa-dove"></i>セルフ・リーダーシップ</h3>
+        <p>内なる平和が訪れたとき、外側の世界の見え方も静かに変わり始めます。自分の中心が定まることで、他者との違いを脅威ではなく「豊かさ」として受け取れるようになります。個が確立されて初めて、対立を超えた真の共創や、新しいつながりが生まれるのです。</p>
+    </div>
+</div>
             
             <div class="vision-closing" data-aos="fade-up">
                 <p class="closing-text">内なる平和を取り戻し、満たされたあなたとして、<br class="br-pc">他者とともに新しい世界を創り出す。<br class="br-pc">その静かな夜明けのプロセスを、<br class="br-pc">私は一番近くで、見守っています。</p>
@@ -453,30 +785,40 @@
         <span class="divider-icon"><i class="fa-solid fa-moon"></i></span>
     </div>
 
-    <section class="section-padding bg-sage" id="service">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Services & Approach</h2>
-            <div style="text-align: center; margin-bottom: 60px; color: #555; font-size: 15px;" data-aos="fade-up">
-                <p>表面的な対症療法ではなく、意識のさらに奥深い領域（無意識）や、<br class="br-pc">目に見えない大きな繋がりにまで安全にアクセスし、真の変容を起こします。</p>
-            </div>
-            
-            <div class="flow-grid">
-                <div class="flow-card" data-aos="fade-up" data-aos-delay="0">
-                    <div class="flow-icon"><i class="fa-solid fa-seedling"></i></div>
-                    <h3 class="flow-title">1. 深層へのアクセスと受容</h3>
-                    <p class="flow-desc">私たちの内側には、「傷ついた自分」や、「厳しく批判する自分」など、様々な無意識の「部分」が存在しています。これまでは見ないように蓋をしてきた痛みや否定してきた自分自身の感情を、ジャッジすることなく、ただあるがままに迎え入れ、深いレベルで対話を行います。</p>
-                </div>
-                <div class="flow-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="flow-icon"><i class="fa-solid fa-hands-holding-circle"></i></div>
-                    <h3 class="flow-title">2. 身体感覚を通じた深い統合</h3>
-                    <p class="flow-desc">反発し合い、バラバラになっていた内側の「部分」たちが安心を取り戻すと、「内なる平和（統合）」が訪れます。安心感を「頭の理解」だけで終わらせず、身体感覚（ソマティック）のレベルへ定着させます。圧倒的な安心感のなかで神経系を深く休息させ、エネルギーを根本から回復させます。</p>
-                </div>
-                <div class="flow-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="flow-icon"><i class="fa-solid fa-sun"></i></div>
-                    <h3 class="flow-title">3. 真の自己主導の確立</h3>
-                    <p class="flow-desc">内側の統合が進むと訪れるのは、深い自己受容です。自分自身が揺るぎない「安全基地」になるからこそ、恐れを乗り越え、自ら人生の舵を握ることができます。この「自己主導（セルフ・リーダーシップ）」が確立されることで、あなたは本来持っていた100％の力を発揮できるようになります。</p>
-                </div>
-            </div>
+    <div class="flow-grid-cards">
+    <div class="flow-card-large" data-aos="fade-up" data-aos-delay="0">
+        <div class="anim-showcase step1-showcase">
+            <div class="parts-large part-1"></div>
+            <div class="parts-large part-2"></div>
+            <div class="parts-large part-3"></div>
+            <div class="core-light-large"></div>
+        </div>
+        <div class="flow-card-content">
+            <h3 class="flow-title">1. 深層へのアクセスと受容</h3>
+            <p class="flow-desc">私たちの内側には、「傷ついた自分」や、「厳しく批判する自分」など、様々な無意識の「部分」が存在しています。これまでは見ないように蓋をしてきた痛みや否定してきた感情を、ジャッジすることなく、ただあるがままに迎え入れ、深いレベルで対話を行います。</p>
+        </div>
+    </div>
+
+    <div class="flow-card-large" data-aos="fade-up" data-aos-delay="100">
+        <div class="anim-showcase step2-showcase">
+            <div class="core-light-large"></div>
+        </div>
+        <div class="flow-card-content">
+            <h3 class="flow-title">2. 身体感覚を通じた深い統合</h3>
+            <p class="flow-desc">反発し合い、バラバラになっていた内側の「部分」たちが安心を取り戻すと、「内なる平和（統合）」が訪れます。安心感を「頭の理解」だけで終わらせず、身体感覚のレベルへ定着させます。圧倒的な安心感のなかで神経系を深く休息させ、エネルギーを根本から回復させます。</p>
+        </div>
+    </div>
+
+    <div class="flow-card-large" data-aos="fade-up" data-aos-delay="200">
+        <div class="anim-showcase step3-showcase">
+            <div class="core-light-large"></div>
+        </div>
+        <div class="flow-card-content">
+            <h3 class="flow-title">3. 真の自己主導の確立</h3>
+            <p class="flow-desc">内側の統合が進むと訪れるのは、深い自己受容です。自分自身が揺るぎない「安全基地」になるからこそ、恐れを乗り越え、自ら人生の舵を握ることができます。この「自己主導（セルフ・リーダーシップ）」が確立されることで、あなたは本来持っていた100％の力を発揮できるようになります。</p>
+        </div>
+    </div>
+</div>
 
             <div class="safe-space-box" data-aos="fade-up">
                 <h3 class="safe-space-title">安心安全な「場」のお約束</h3>
@@ -512,39 +854,16 @@
 
             <div data-aos="fade-up" style="max-width: 700px; margin: 0 auto;">
                 <h3 class="story-main-title">My Story</h3>
-                <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <h4 class="profile-story-title">1. 崩れ落ちた夜と、たった一人の「敵」</h4>
-                        <span class="accordion-icon"><i class="fa-solid fa-plus"></i></span>
-                    </div>
-                    <div class="accordion-content">
-                        <p class="story-text">仕事に人生のすべてを懸けていた私に突きつけられた「離婚」という現実。<br>「女性として見られない」という言葉に心を抉られ、私は自分に「欠陥品」というレッテルを貼りました。<br>そして、数年経ったある夜のこと。何も悲しいことが起きたわけではないのに、ただポロポロと涙が流れ落ちる暗闇の中で、ふと気づいたのです。<br>「周りの誰も、私のことを責めていない。世界中でただ一人、私を攻撃し続け、私を嫌っているのは、私自身だけだった」と。</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <h4 class="profile-story-title">2. 思考の限界と、「身体の感覚」という真実</h4>
-                        <span class="accordion-icon"><i class="fa-solid fa-plus"></i></span>
-                    </div>
-                    <div class="accordion-content">
-                        <p class="story-text">「もう、こんなことはやめよう。私が私の一番の理解者になろう」 そう決意したものの、長年染み付いた自己否定は、頭（思考）で言い聞かせるだけでは簡単に拭い去れるものではありませんでした。<br>そして、コーチングと出会い、その学びを深める中で、本当の変容の鍵は「思考」ではなく「深層」にあることに気づきます。<br>頭は巧妙に言い訳を作り、感情をごまかします。しかし、身体の感覚にアクセスしたとき、そこには「本当はもう傷つきたくない、愛されたい」という本心がありました。<br>理屈を超えて、自分の身体の声や直感に繋がったとき、自分がダメだからと握りしめていた「制限の檻」が消え、内側から本来の力が溢れ出すのを感じました。<br>思考の整理だけでなく、身体知や潜在意識へのアプローチを大切にしているのは、この原体験があるからです。</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <h4 class="profile-story-title">3. 自己主導の先にある、「共創」への挑戦</h4>
-                        <span class="accordion-icon"><i class="fa-solid fa-plus"></i></span>
-                    </div>
-                    <div class="accordion-content">
-                        <p class="story-text">自分との関係が修復され、「内なる平和」を取り戻した私に起きた一番の変化は、最も避けていた「パートナーシップ」に、再び自らの意志で飛び込めたことです。<br>かつての私にとって、関係性とは「自己犠牲」の上に成り立つものでした。<br>しかし、自分が自分の絶対的な味方となり「自己主導」を取り戻したとき、相手の反応を恐れず、自分の本当の願いに真っ直ぐ手を伸ばすことができたのです。その一歩が起点となり、現在私はパートナーとともに、日々「真のパートナーシップ」を探求しています。<br>本当の関係性とは、自分を削って相手に差し出すことではなく、自立した二人が響き合い、対立を超えた未知の世界をともに創り出していく喜びなのだと、今なら心から言えます</p>
-                    </div>
-                </div>
+                <div data-aos="fade-up" style="max-width: 700px; margin: 0 auto; text-align: center;">
+                <p style="font-size: 14px; color: #555; margin-bottom: 30px;">私がなぜ、このプロセスを提供するに至ったのか。<br class="br-pc">暗闇の中で見つけた、真実の物語をお伝えします。</p>
+                <button onclick="openModal()" class="btn btn-story">My Story を読む</button>
+            </div>
             </div>
 
             <div class="profile-data" data-aos="fade-up">
                 <ul>
-                    <li><strong>経歴</strong><br>大手通信・グローバルIT企業でのカスタマーサポート現場責任者を経て、組織・人事領域へキャリアチェンジ。<br>現在は大手外資系組織・人事コンサルティング企業で、クライアントの従業員エンゲージメント調査を率いるプロジェクトマネージャー兼コンサルタントとして従事。<br>コンサルタントとして働く傍ら、ライフワークであるコーチングを副業として提供。</li>
-                    <li><strong>資格</strong><br>国際コーチング連盟 アソシエイト認定コーチ（ACC）<br>CTI認定 プロフェッショナル・コーアクティブ・コーチ（CPCC）<br>CTI提供 Co-Active Leadership® Program 参加中</li>
+                    <li><strong>経歴</strong><br>大手通信・グローバルIT企業でのカスタマーサポート現場責任者を経て、組織・人事領域へキャリアチェンジ。<br>現在は外資系コンサルティング企業で、大手日本企業の従業員エンゲージメント調査プロジェクトを率いるコンサルタントとして従事。<br>会社員として働く傍ら、ライフワークであるコーチングを副業で提供。教育現場への関りも積極的に行っている。</li>
+                    <li><strong>資格</strong><br>国際コーチング連盟 アソシエイト認定コーチ（ACC）<br>CTI認定 プロフェッショナル・コーアクティブ・コーチ（CPCC）<br>CTI提供 Co-Active Leadership® Program 参加中（2025年12月～）<br>CRR Global提供 Organization & Relationship Systems Coaching 基礎コース 修了</li>
                 </ul>
             </div>
         </div>
@@ -616,6 +935,10 @@
                 </ul>
                 <p style="font-size: 12px; color: rgba(255,255,255,0.5); text-align: center; margin-top: 30px;">※価格についてご相談に応じます。お気軽にお問い合わせください。</p>
             </div>
+
+            <p class="cta-intro">
+                <br><br>各種お問い合わせ、体験セッションのご希望は、<br class="br-pc">以下の項目をご入力のうえ、「送信」ボタンを押してください。
+            </p>
             
             <div class="contact-form-wrapper" data-aos="fade-up">
                 <form action="https://ssgform.com/s/2zoPj1X0LeSY" method="POST" class="contact-form">
@@ -652,7 +975,26 @@
         </div>
         <p>&copy; 2026 Yui Fukushima. All Rights Reserved.</p>
     </footer>
+    <div id="storyModal" class="modal">
+        <div class="modal-wrapper">
+        <span class="close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></span>
+        
+        <div class="modal-content">
+            <h3 class="modal-title">My Story</h3>
+            <div class="modal-body">
+                
+                <h4 class="modal-chapter">崩れ落ちた夜と、たった一人の「敵」</h4>
+                <p class="story-text">仕事に人生のすべてを懸けていた私に突きつけられた「離婚」という現実。<br>「女性として見られない」という言葉に心を抉られ、私は自分に「欠陥品」というレッテルを貼りました。<br>そして、数年経ったある夜のこと。何も悲しいことが起きたわけではないのに、ただポロポロと涙が流れ落ちる暗闇の中で、ふと気づいたのです。<br>「周りの誰も、私のことを責めていない。世界中でただ一人、私を攻撃し続け、私を嫌っているのは、私自身だけだった」と。</p>
 
+                <h4 class="modal-chapter">思考の限界と、「身体の感覚」という真実</h4>
+                <p class="story-text">「もう、こんなことはやめよう。私が私の一番の理解者になろう」 そう決意したものの、長年染み付いた自己否定は、頭（思考）で言い聞かせるだけでは簡単に拭い去れるものではありませんでした。<br>そして、コーチングと出会い、その学びを深める中で、本当の変容の鍵は「思考」ではなく「深層」にあることに気づきます。<br>頭は巧妙に言い訳を作り、感情をごまかします。しかし、身体の感覚にアクセスしたとき、そこには「本当はもう傷つきたくない、愛されたい」という本心がありました。<br>理屈を超えて、自分の身体の声や直感に繋がったとき、自分がダメだからと握りしめていた「制限の檻」が消え、内側から本来の力が溢れ出すのを感じました。<br>思考の整理だけでなく、身体知や潜在意識へのアプローチを大切にしているのは、この原体験があるからです。</p>
+
+                <h4 class="modal-chapter">自己主導の先にある、「共創」への挑戦</h4>
+                <p class="story-text">自分との関係が修復され、「内なる平和」を取り戻した私に起きた一番の変化は、最も避けていた「パートナーシップ」に、再び自らの意志で飛び込めたことです。<br>かつての私にとって、関係性とは「自己犠牲」の上に成り立つものでした。<br>しかし、自分が自分の絶対的な味方となり「自己主導」を取り戻したとき、相手の反応を恐れず、自分の本当の願いに真っ直ぐ手を伸ばすことができたのです。その一歩が起点となり、現在私はパートナーとともに、日々「真のパートナーシップ」を探求しています。<br>本当の関係性とは、自分を削って相手に差し出すことではなく、自立した二人が響き合い、対立を超えた未知の世界をともに創り出していく喜びなのだと、今なら心から言えます。</p>
+
+            </div>
+        </div>
+    </div>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({
@@ -662,15 +1004,35 @@
             easing: 'ease-out-quad',
         });
 
-        function toggleAccordion(element) {
-            const item = element.parentElement;
-            const content = item.querySelector('.accordion-content');
-            if (item.classList.contains('active')) {
-                item.classList.remove('active');
-                content.style.maxHeight = null;
-            } else {
-                item.classList.add('active');
-                content.style.maxHeight = content.scrollHeight + "px";
+        // モーダルを開く
+        function openModal() {
+            const modal = document.getElementById("storyModal");
+            modal.style.display = "flex";
+            // フワッと表示させるための遅延処理
+            setTimeout(() => {
+                modal.classList.add("show");
+            }, 10);
+            // モーダルが開いている間は、後ろの背景がスクロールしないように固定
+            document.body.style.overflow = "hidden"; 
+        }
+
+        // モーダルを閉じる
+        function closeModal() {
+            const modal = document.getElementById("storyModal");
+            modal.classList.remove("show");
+            // フワッと消えるアニメーションが終わってから非表示にする
+            setTimeout(() => {
+                modal.style.display = "none";
+            }, 400);
+            // 背景のスクロール固定を解除
+            document.body.style.overflow = "auto";
+        }
+
+        // モーダルの外側（暗い背景）をクリックした時も閉じるようにする
+        window.onclick = function(event) {
+            const modal = document.getElementById("storyModal");
+            if (event.target == modal) {
+                closeModal();
             }
         }
 
