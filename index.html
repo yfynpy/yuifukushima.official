@@ -103,11 +103,85 @@
             z-index: 1000; display: flex; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.03);
         }
         .header-inner { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 30px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: var(--font-heading); font-size: 18px; color: var(--color-main); letter-spacing: 0.15em; }
+        
+        .logo { 
+            font-family: var(--font-heading); 
+            font-size: 18px; 
+            color: var(--color-main); 
+            letter-spacing: 0.15em; 
+            white-space: nowrap; /* 改行を禁止 */
+            position: relative; 
+            z-index: 1001; 
+        }
+
+        /* ハンバーガーボタン（PCでは非表示） */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 18px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1001; 
+        }
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: var(--color-main);
+            transition: all 0.3s ease;
+        }
+
+        /* メニューの基本スタイル（PC用） */
         .nav-links { display: flex; gap: 40px; align-items: center; }
         .nav-links a.link-item { font-size: 13px; color: var(--color-text); letter-spacing: 0.1em; transition: opacity 0.3s; }
         .nav-links a.link-item:hover { opacity: 0.6; }
-        @media (max-width: 768px) { .nav-links .link-item { display: none; } }
+
+        /* スマホ用メニューのスタイル */
+        @media (max-width: 768px) { 
+            .hamburger {
+                display: flex;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%; /* 初期状態は画面右の外側に配置 */
+                width: 100%;
+                height: 100vh;
+                background-color: rgba(252, 252, 252, 0.98); 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+                transition: right 0.4s ease; 
+                z-index: 1000;
+            }
+            
+            /* JavaScriptで .open クラスが付与されたらスライドイン */
+            .nav-links.open {
+                right: 0; 
+            }
+            
+            .nav-links .link-item { 
+                display: block; 
+                font-size: 18px; 
+            }
+            
+            /* ハンバーガーが「×」に変化するアニメーション */
+            .hamburger.open span:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            .hamburger.open span:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger.open span:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+        }
 
         /* =========================================
            Hero Section (モダン・ホリゾンタル ＋ 温かな光)
@@ -727,16 +801,23 @@
     <canvas id="stardust-canvas"></canvas>
 
     <header>
-        <div class="header-inner">
-            <div class="logo">Yui Fukushima</div>
-            <nav class="nav-links">
-                <a href="#vision" class="link-item">Vision</a>
-                <a href="#service" class="link-item">Service</a>
-                <a href="#profile" class="link-item">Profile</a>
-                <a href="#contact" class="btn" style="padding: 8px 24px;">体験セッション</a>
-            </nav>
-        </div>
-    </header>
+    <div class="header-inner">
+        <div class="logo">Yui Fukushima</div>
+        
+        <button class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav class="nav-links" id="nav-links">
+            <a href="#vision" class="link-item">Vision</a>
+            <a href="#service" class="link-item">Service</a>
+            <a href="#profile" class="link-item">Profile</a>
+            <a href="#contact" class="btn" style="padding: 8px 24px;">体験セッション</a>
+        </nav>
+    </div>
+</header>
 
     <section class="hero" id="home">
         <div class="hero-glow"></div>
@@ -1109,7 +1190,27 @@
 
             init();
             animate();
+
+// 追加：ハンバーガーメニューの開閉処理
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('nav-links');
+const navItems = document.querySelectorAll('.nav-links a');
+
+// ハンバーガーボタンをクリックした時の処理
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+});
+
+// メニュー内のリンク（ボタン含む）をクリックしたらメニューを閉じる
+navItems.forEach(item => {
+    item.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        navLinks.classList.remove('open');
+    });
+});
         });
+
     </script>
 </body>
 </html>
