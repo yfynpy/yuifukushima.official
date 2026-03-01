@@ -2,301 +2,646 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-width=1.0">
-    <title>Yui Fukushima Official Website | 組織・人事コンサルタント兼ライフコーチ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yui Fukushima Official Website | 深層変容コーチ</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* Variables */
+        /* =========================================
+           Variables (変数定義) 
+           ========================================= */
         :root {
-            --color-base: #FAFAFA;
+            --color-base: #FCFCFC; 
             --color-text: #333333;
-            --color-main: #2C4C3B; /* 深い森のグリーン */
-            --color-accent: #C5A059; /* マットゴールド */
+            --color-main: #2A3B32; 
+            --color-accent: #B89C6A; 
+            
+            --color-bg-sage: #F2F5F3; 
+            --color-bg-sand: #F9F8F6; 
+            
             --font-heading: 'Shippori Mincho', serif;
             --font-body: 'Noto Sans JP', sans-serif;
             --header-height: 80px;
         }
 
-        /* Reset & Base */
+        /* =========================================
+           Reset & Base
+           ========================================= */
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: var(--font-body);
             color: var(--color-text);
             background-color: var(--color-base);
-            background-image: url('https://www.transparenttextures.com/patterns/subtle-white-feathers.png'); 
-            background-repeat: repeat;
-            line-height: 2;
-            letter-spacing: 0.05em;
+            line-height: 2.2;
+            letter-spacing: 0.06em;
+            font-weight: 300;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden; 
         }
 
-        h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 500; color: var(--color-main); }
+        h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 400; color: var(--color-main); }
         a { text-decoration: none; color: inherit; }
         img { max-width: 100%; height: auto; display: block; }
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-        .section-padding { padding: 120px 0; }
+        
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 10; }
+        .section-padding { padding: 140px 0; position: relative; }
+        /* スマホ用調整: セクションの余白を少し引き締める */
         @media (max-width: 768px) { .section-padding { padding: 80px 0; } }
-        .text-center { text-align: center; }
 
-        /* Buttons */
+        .section-title { font-size: 24px; text-align: center; margin-bottom: 80px; letter-spacing: 0.1em; }
+        .section-title::after { content: ''; display: block; width: 1px; height: 30px; background-color: var(--color-accent); margin: 20px auto 0; }
+
+        /* スマホ用調整: PC表示用の改行を無効化 */
+        @media (max-width: 768px) { 
+            .br-pc { display: none; }
+        }
+
+        /* =========================================
+           Canvas Stardust (金箔のような星)
+           ========================================= */
+        #stardust-canvas {
+            position: fixed;
+            top: 0; 
+            left: 0; 
+            width: 100vw; 
+            height: 100vh;
+            pointer-events: none; 
+            z-index: 5; 
+        }
+
+        /* =========================================
+           Buttons
+           ========================================= */
         .btn {
             display: inline-flex; align-items: center; justify-content: center;
-            background-color: var(--color-accent); color: #fff;
-            padding: 12px 32px; border-radius: 4px; font-size: 15px;
-            min-height: 44px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            background-color: var(--color-accent); 
+            color: #fff; 
+            padding: 12px 32px; 
+            border: none; 
+            border-radius: 0; font-size: 14px;
+            letter-spacing: 0.1em; transition: all 0.4s ease; position: relative; z-index: 10;
         }
-        .btn:hover { background-color: #B38F4D; transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
+        .btn:hover { 
+            background-color: #c4a977; 
+            color: #fff; 
+            box-shadow: 0 0 15px rgba(184, 156, 106, 0.6); 
+            transform: translateY(-1px); 
+        }
 
-        /* Header */
+        /* =========================================
+           Header
+           ========================================= */
         header {
             position: fixed; top: 0; width: 100%; height: var(--header-height);
-            background: rgba(250, 250, 250, 0.85);
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            z-index: 1000; display: flex; align-items: center;
-            border-bottom: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease;
+            background: rgba(252, 252, 252, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            z-index: 1000; display: flex; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.03);
         }
-        .header-inner { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: var(--font-heading); font-size: 20px; color: var(--color-main); letter-spacing: 0.1em; }
-        .nav-links { display: flex; gap: 30px; align-items: center; }
-        .nav-links a.link-item { font-size: 14px; color: var(--color-text); transition: color 0.3s ease; }
-        .nav-links a.link-item:hover { color: var(--color-accent); }
+        .header-inner { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 30px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: var(--font-heading); font-size: 18px; color: var(--color-main); letter-spacing: 0.15em; }
+        .nav-links { display: flex; gap: 40px; align-items: center; }
+        .nav-links a.link-item { font-size: 13px; color: var(--color-text); letter-spacing: 0.1em; transition: opacity 0.3s; }
+        .nav-links a.link-item:hover { opacity: 0.6; }
         @media (max-width: 768px) { .nav-links .link-item { display: none; } }
 
-        /* Hero Section */
+        /* =========================================
+           Hero Section (hero2.jpg 左配置・引きの構図)
+           ========================================= */
         .hero {
-            min-height: 100vh; /* heightからmin-heightに変更し、コンテンツに合わせて伸長させる */
-            display: flex; 
-            align-items: center; /* 中央揃えに戻す */
-            justify-content: center;
-            text-align: center; position: relative; color: #fff;
-            background-image: url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-            background-size: cover;
-            background-position: center;
-            padding: 120px 0; /* 上下に余白を追加 */
+            min-height: 100vh; display: flex; align-items: center; justify-content: flex-start; 
+            text-align: left; position: relative; 
+            
+            /* 背景の白壁と馴染ませるためにベース色を設定 */
+            background-color: var(--color-base); 
+            background-image: url('hero2.jpg'); 
+            
+            /* cover（全画面を埋める）をやめ、高さを基準にして引きの構図にします */
+            /* 120% の数値を小さくする（例: 100%）とさらに引きになり、大きくする（例: 150%）と寄りの構図になります */
+            background-size: auto 150%; 
+            background-repeat: no-repeat;
+            
+            /* 右寄りに配置し、頭が切れないよう縦位置は上から10%あたりに設定 */
+            background-position: right 15% top 10%; 
         }
         .hero::before {
-            content: ''; position: absolute; top:0; left:0; width:100%; height:100%;
-            background: linear-gradient(135deg, rgba(44, 76, 59, 0.7) 0%, rgba(20, 40, 50, 0.5) 100%);
-            backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
-            z-index: 0;
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            /* テキストが読みやすいよう、左から右へ溶け込むような白いグラデーションを敷く */
+            background: linear-gradient(to right, rgba(252, 252, 252, 1) 35%, rgba(252, 252, 252, 0.6) 60%, rgba(252, 252, 252, 0) 100%); 
+            z-index: 0; 
+            pointer-events: none;
         }
         .hero-content { 
-            position: relative; z-index: 1; 
-            padding: 0 20px; /* padding-bottomを削除 */
+            position: relative; z-index: 10; 
+            padding-left: 12%; 
+            writing-mode: vertical-rl; 
+            text-orientation: mixed;
+            color: var(--color-main); 
         }
-        .hero-title { font-size: 34px; line-height: 1.5; margin-bottom: 30px; font-weight: 400; text-shadow: 0 2px 10px rgba(0,0,0,0.3); color: #fff; }
-        .hero-subtitle { font-size: 16px; color: rgba(255,255,255,0.9); line-height: 2; font-weight: 300; }
+        .hero-title { 
+            font-size: 38px; line-height: 2.2; 
+            margin-left: 50px; 
+            color: var(--color-main); 
+            letter-spacing: 0.15em; 
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.9); 
+        }
+        .hero-subtitle { 
+            font-size: 15px; color: #555555; line-height: 2.6; 
+            margin-left: 70px; 
+            letter-spacing: 0.15em; 
+            text-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+        }
+        .hero-name { 
+            font-size: 13px; 
+            margin-left: 60px; 
+            margin-top: 38vh; 
+            letter-spacing: 0.2em; 
+            color: var(--color-main); 
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.9); 
+        }
+        .hero-name span { 
+            display: inline-block; 
+            font-size: 15px; 
+            margin-top: 20px; 
+            color: var(--color-main); 
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.9); 
+        }
+
+        /* スマホ用調整: 重複を解消し、縦横のバランスを整える */
         @media (max-width: 768px) { 
-            .hero-title { font-size: 26px; } 
-            .hero-subtitle { font-size: 14px; } 
+            .hero {
+                /* スマホでは縦長になるため、ちょうどよく全身が収まるように調整 */
+                background-size: auto 100%; 
+                background-position: 80% top 5%; 
+            }
+            .hero-content { 
+                padding-left: 5%; 
+                padding-right: 0; 
+            }
+            .hero-title { font-size: 26px; line-height: 2.0; margin-left: 20px; }
+            .hero-subtitle { font-size: 13px; margin-left: 30px; }
+            .hero-name { margin-top: 10vh; margin-left: 20px; }
         }
 
-        /* Message & Empathy Section */
-        .message-box {
-            background: rgba(255, 255, 255, 0.95); 
-            padding: 60px 80px; border-radius: 2px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            margin: 0 auto; /* ネガティブマージンを削除 */
-            position: relative; z-index: 2; max-width: 800px;
-        }
-        @media (max-width: 768px) { .message-box { padding: 40px 20px; } }
-        .section-title { font-size: 28px; text-align: center; margin-bottom: 60px; position: relative; }
-        .section-title::after { content: ''; display: block; width: 40px; height: 1px; background-color: var(--color-accent); margin: 20px auto 0; }
-        .story-text { margin-bottom: 40px; font-size: 15px; }
-        .story-text h3 { font-size: 20px; margin-bottom: 20px; color: var(--color-main); }
+        /* =========================================
+           Vision & Concept Section
+           ========================================= */
+        .message-box { max-width: 680px; margin: 0 auto 100px; padding-left: 40px; border-left: 1px solid var(--color-accent); position: relative; z-index: 10;}
+        .story-text { font-size: 15px; color: #444; margin-bottom: 30px; line-height: 2.2; }
+        @media (max-width: 768px) { .message-box { padding-left: 20px; margin-bottom: 60px; } }
 
-        /* Service Section */
-        .flow-card {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 40px 30px; text-align: center; border-radius: 4px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.03);
-        }
-        .flow-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px; }
-        .flow-icon { font-size: 32px; color: var(--color-accent); margin-bottom: 20px; }
-        .flow-title { font-size: 18px; margin-bottom: 15px; }
-        .flow-desc { font-size: 14px; color: #666; text-align: left; }
-        @media (max-width: 768px) { .flow-grid { grid-template-columns: 1fr; gap: 20px; } }
+        .vision-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px; position: relative; z-index: 10;}
+        .vision-card { text-align: left; }
+        .vision-icon { font-size: 24px; color: var(--color-accent); margin-bottom: 25px; opacity: 0.8; }
+        .vision-card h3 { font-size: 17px; margin-bottom: 20px; line-height: 1.7; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 15px; }
+        .vision-card p { font-size: 14px; color: #555; }
+        @media (max-width: 768px) { .vision-grid { grid-template-columns: 1fr; gap: 40px; } }
 
-        /* Policy Box */
-        .policy-box {
-            border: 1px solid rgba(197, 160, 89, 0.3); padding: 40px; margin-top: 60px;
-            background: rgba(255, 255, 255, 0.9);
-        }
-        .policy-box ul { list-style: none; margin-top: 20px; }
-        .policy-box li { margin-bottom: 15px; padding-left: 1.5em; text-indent: -1.5em; }
-        .policy-box li::before { content: "・"; color: var(--color-accent); }
+        .vision-closing { text-align: center; margin-top: 100px; padding: 60px 0; border-top: 1px solid rgba(0,0,0,0.03); border-bottom: 1px solid rgba(0,0,0,0.03); position: relative; z-index: 10;}
+        .closing-text { font-family: var(--font-heading); font-size: 18px; line-height: 2.4; color: var(--color-main); letter-spacing: 0.15em; }
+        @media (max-width: 768px) { .vision-closing { margin-top: 60px; padding: 40px 0; } .closing-text { font-size: 16px; } }
 
-        /* Profile Section */
-        .profile-flex { display: flex; gap: 60px; align-items: center; }
-        .profile-img { flex: 1; }
-        .profile-img img { border-radius: 2px; box-shadow: 0 15px 30px rgba(0,0,0,0.05); }
+        /* =========================================
+           Delicate Divider
+           ========================================= */
+        .delicate-divider {
+            display: flex; align-items: center; justify-content: center;
+            padding: 100px 20px; position: relative; z-index: 10;
+        }
+        @media (max-width: 768px) { .delicate-divider { padding: 60px 20px; } }
+        
+        .delicate-divider::before, .delicate-divider::after {
+            content: ''; flex: 1; max-width: 200px; height: 1px;
+            background: linear-gradient(to right, transparent, var(--color-accent));
+        }
+        .delicate-divider::after { background: linear-gradient(to left, transparent, var(--color-accent)); }
+        .divider-icon { color: var(--color-accent); font-size: 14px; margin: 0 25px; opacity: 0.8; }
+
+        /* =========================================
+           Service Section
+           ========================================= */
+        .bg-sage { background-color: rgba(242, 245, 243, 0.7); }
+        
+        .flow-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 50px; }
+        .flow-card { background: transparent; padding: 0; text-align: left; }
+        .flow-icon { font-size: 20px; color: var(--color-accent); margin-bottom: 15px; }
+        .flow-title { font-size: 16px; margin-bottom: 15px; }
+        .flow-desc { font-size: 14px; color: #555; }
+        @media (max-width: 768px) { .flow-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+        .safe-space-box { background: rgba(255,255,255,0.9); padding: 60px 50px; margin-top: 80px; border: 1px solid rgba(0,0,0,0.03); position: relative; z-index: 10; }
+        /* スマホ用調整: 横幅の余白を縮めて読みやすく */
+        @media (max-width: 768px) { .safe-space-box { padding: 40px 20px; margin-top: 50px; } }
+        
+        .safe-space-title { text-align: center; margin-bottom: 15px; font-size: 20px; }
+        .safe-space-intro { text-align: center; margin-bottom: 35px; font-size: 14px; color: #777; letter-spacing: 0.1em; }
+        .safe-space-list { list-style: none; margin: 0 auto; max-width: 680px; }
+        .safe-space-list li { position: relative; margin-bottom: 25px; padding-left: 2em; font-size: 14px; color: #444; line-height: 1.8; }
+        .safe-space-list li::before { content: ""; position: absolute; left: 0; top: 11px; width: 6px; height: 6px; background-color: var(--color-accent); border-radius: 50%; }
+        .safe-space-list strong { color: var(--color-main); font-weight: 500; display: block; margin-bottom: 4px; font-size: 15px; }
+
+        /* =========================================
+           Profile Section
+           ========================================= */
+        .bg-sand { background-color: rgba(249, 248, 246, 0.7); }
+        .profile-flex { display: flex; gap: 80px; align-items: center; margin-bottom: 80px; }
+        .profile-img { flex: 0 0 45%; }
         .profile-info { flex: 1; }
-        .profile-name { font-size: 24px; margin-bottom: 5px; }
-        .profile-title { font-size: 14px; color: var(--color-accent); margin-bottom: 20px; font-family: var(--font-body); }
-        @media (max-width: 768px) { .profile-flex { flex-direction: column; gap: 30px; } }
+        .profile-name { font-size: 24px; margin-bottom: 10px; }
+        .profile-title { font-size: 13px; color: var(--color-accent); margin-bottom: 30px; letter-spacing: 0.15em; }
+        @media (max-width: 768px) { .profile-flex { flex-direction: column; gap: 40px; margin-bottom: 50px; } }
 
-        /* CTA Section */
-        .cta-section { background-color: var(--color-main); color: #fff; text-align: center; padding: 100px 20px; position: relative; overflow: hidden; }
-        .cta-section h2 { color: #fff; }
-        .cta-section .section-title::after { background-color: var(--color-accent); }
+        .story-main-title { text-align: center; font-size: 20px; margin-bottom: 40px; letter-spacing: 0.1em; }
+        .accordion-item { border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .accordion-item:first-of-type { border-top: 1px solid rgba(0,0,0,0.05); }
+        .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 25px 0; cursor: pointer; }
+        .profile-story-title { font-size: 16px; margin: 0; }
+        .accordion-icon { color: var(--color-accent); font-size: 14px; transition: transform 0.3s ease; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
+        .accordion-item.active .accordion-content { padding-bottom: 25px; }
+        .accordion-item.active .accordion-icon { transform: rotate(45deg); }
+        .accordion-content .story-text { font-size: 14px; margin-bottom: 0; }
 
-        /* Footer */
-        footer { background-color: #222; color: #aaa; text-align: center; padding: 40px 20px; font-size: 13px; }
-        .social-links { margin-bottom: 20px; }
-        .social-links a { display: inline-block; margin: 0 10px; font-size: 20px; color: #aaa; transition: color 0.3s ease; }
-        .social-links a:hover { color: var(--color-accent); }
+        .profile-data { margin-top: 60px; font-size: 13px; border-top: 1px solid var(--color-accent); padding-top: 30px; }
+        .profile-data ul { list-style: none; color: #555; }
+        .profile-data li { margin-bottom: 15px; }
+
+        /* =========================================
+           FAQ Section
+           ========================================= */
+        .faq-list { margin: 0 0 0 1.5em; padding-left: 0.5em; }
+        .faq-list li { margin-bottom: 15px; line-height: 1.8; color: #666; }
+        .faq-list strong { color: var(--color-main); font-weight: 500; }
+        .faq-question { font-size: 15px; color: var(--color-main); font-weight: 500; margin: 0; line-height: 1.6; }
+        .faq-answer-box { font-size: 14px; color: #666; padding-top: 10px; }
+
+        /* =========================================
+           CTA Section
+           ========================================= */
+        .cta-section { background-color: var(--color-main); color: #fff; text-align: center; padding: 140px 20px; position: relative; }
+        @media (max-width: 768px) { .cta-section { padding: 80px 20px; } }
+        
+        .cta-header { margin-bottom: 60px; position: relative; z-index: 10; }
+        .cta-section .section-title { color: #fff; margin-bottom: 15px; }
+        .cta-subtitle { display: block; color: var(--color-accent); font-style: italic; letter-spacing: 0.15em; font-size: 14px; }
+        .cta-intro { margin-bottom: 80px; font-size: 15px; color: rgba(255,255,255,0.8); position: relative; z-index: 10; }
+        @media (max-width: 768px) { .cta-intro { margin-bottom: 50px; } }
+
+        .cta-box { background: transparent; padding: 0; border: none; max-width: 600px; margin: 0 auto 60px; text-align: left; position: relative; z-index: 10; }
+        .cta-box-title { color: var(--color-accent); font-size: 16px; margin-bottom: 40px; text-align: center; letter-spacing: 0.2em; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
+        .cta-menu-list { list-style: none; font-size: 14px; }
+        .cta-menu-list li { margin-bottom: 40px; }
+        .menu-title { font-size: 16px; margin-bottom: 10px; color: #fff; letter-spacing: 0.05em; }
+        .menu-desc { color: rgba(255,255,255,0.6); display: block; line-height: 1.8; }
+        .menu-price { text-align: right; color: var(--color-accent); font-size: 18px; margin-top: 10px; font-family: var(--font-heading); }
+        
+        .btn-large { 
+            font-size: 14px; 
+            padding: 18px 60px; 
+            background-color: var(--color-accent); 
+            color: #fff; 
+            border: none; 
+            transition: all 0.4s ease; 
+            position: relative; 
+            z-index: 10; 
+        }
+        .btn-large:hover { 
+            background-color: #c4a977; 
+            color: #fff; 
+            box-shadow: 0 0 20px rgba(184, 156, 106, 0.6); 
+            transform: translateY(-1px); 
+        }
+        /* スマホ用調整: ボタンの左右の余白を調整し、画面に収まりやすくする */
+        @media (max-width: 768px) { 
+            .btn-large { padding: 15px 40px; display: inline-block; width: auto; } 
+        }
+
+        .cta-footer-text { 
+            margin-top: 100px; 
+            font-size: 15px; 
+            color: rgba(255, 255, 255, 0.8); 
+            font-family: var(--font-heading); 
+            letter-spacing: 0.15em; 
+            line-height: 2.4; 
+            position: relative; 
+            z-index: 10; 
+        }
+        @media (max-width: 768px) { .cta-footer-text { margin-top: 60px; } }
+
+/* =========================================
+           Contact Form (埋め込みフォーム用)
+           ========================================= */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+            position: relative;
+            z-index: 10;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            letter-spacing: 0.1em;
+        }
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-family: var(--font-body);
+            font-size: 15px;
+            border-radius: 0;
+            transition: all 0.3s ease;
+        }
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        .form-submit {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .required-mark {
+            color: var(--color-accent);
+            font-size: 12px;
+            margin-left: 5px;
+        }
+
+        /* =========================================
+           Footer
+           ========================================= */
+        footer { background-color: #1A261F; color: #888; text-align: center; padding: 50px 20px; font-size: 12px; letter-spacing: 0.1em; position: relative; z-index: 10; }
+        .social-links { margin-bottom: 25px; }
+        .social-links a { display: inline-block; margin: 0 15px; font-size: 18px; color: #888; transition: color 0.3s ease; }
+        .social-links a:hover { color: #fff; }
     </style>
 </head>
 <body>
+
+    <canvas id="stardust-canvas"></canvas>
+
     <header>
         <div class="header-inner">
             <div class="logo">Yui Fukushima</div>
             <nav class="nav-links">
-                <a href="#message" class="link-item">Message</a>
+                <a href="#vision" class="link-item">Vision</a>
                 <a href="#service" class="link-item">Service</a>
                 <a href="#profile" class="link-item">Profile</a>
-                <a href="#contact" class="btn">体験セッション</a>
+                <a href="#contact" class="btn" style="padding: 8px 24px;">体験セッション</a>
             </nav>
         </div>
     </header>
 
     <section class="hero" id="home">
-        <div class="hero-content" data-aos="fade-up" data-aos-duration="1500">
-            <h1 class="hero-title">
-                お待ちしていました。<br>
-                よく、ここまで来ましたね。
-            </h1>
-            <p class="hero-subtitle">
-                自分に驚かされる人生を、ここから。<br>
-                〜自分を愛し、ともに世界を創る旅〜
-            </p>
+        <div class="hero-content" data-aos="fade-in" data-aos-duration="2500">
+            <h1 class="hero-title">「制限」という檻を抜け出し、<br>１００％のあなたを生きる</h1>
+            <p class="hero-subtitle">内なる平和から、人生の完全なリーダーへ<br>自分に驚かされる人生を、ここから</p>
+            <div class="hero-name">深層変容コーチ<span>福島 ゆい</span></div>
         </div>
     </section>
 
-    <section class="section-padding" id="message"> <div class="container">
-            <div class="message-box" data-aos="fade-up" data-aos-duration="1000">
-                <p class="story-text">
-                    ひとの命は、本来、抗いようのないほど美しく煌めいています。<br><br>
-                    けれど私たちは、社会の通念や過去の痛みによって自分を削り、<br>
-                    「制限」という檻の中で、その光を忘れてしまうことがあります。<br><br>
-                    私もまた、かつては真っ暗闇のどん底でもがいた一人です。<br>
-                    ありたい姿とのギャップに苦悩し、自己嫌悪に陥り、自分を攻撃してしまう日々。<br>
-                    本来、この世でたった一人の「絶対的な味方」であるはずの自分が、いつしか一番の敵になっていたのです。
-                </p>
-                <p class="story-text">
-                    しかし、そんな痛みの底から見えてきた真実がありました。<br>
-                    それは、世界を変える一歩は外側ではなく、常に「内側」にあるということです。<br><br>
-                    環境の犠牲者でいることをやめ、まず自分のために立ち上がる。<br>
-                    自分を無条件に愛することから、すべては始まります。<br>
-                    自分自身が、一番の理解者となり、愛で満たされたとき。不思議なことに、外側の世界の見え方も変わり始めます。
-                </p>
-            </div>
-            
-            <div class="section-padding" data-aos="fade-up">
-                <h2 class="section-title">私の願い</h2>
-                <p class="story-text text-center">
-                    かつては脅威に感じていた他者との違いを、かけがえのない「豊かさ」として受け取れるようになり、奪い合いや対立を超えた、新しいつながりを創り出すことができる。<br>
-                    自分を愛し、慈しむ人が増えることで、この世界がもっと優しく、美しい場所に変わっていく。<br>
-                    それが、私が心から信じ、活動を続ける理由であり、私の願いです。<br><br>
-                    自己受容のその先で、本領が動き出す瞬間。<br>
-                    人智を超えた大きな流れに、自然と導かれていく感覚。<br>
-                    そんな、自分自身に驚かされ続ける時間に、私は立ち会いたいと願っています。
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <section class="section-padding service-bg" id="service">
+    <section class="section-padding" id="vision"> 
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">アプローチと流れ</h2>
-            
-            <div class="text-center" data-aos="fade-up">
-                <p>思考を超えた「身体知」と、目に見えないエネルギーのリソースを統合し、あなたの変容をサポートします。<br>
-                IFS（内的家族システム療法）、伝統霊気、ヒプノセラピーのエッセンスを取り入れ、過去の痛みや無意識のブレーキを優しく解いていきます。</p>
+            <div class="message-box" data-aos="fade-up">
+                <p class="story-text">これまで、傷つかないように、あるいは正しい道から外れないようにと、<br class="br-pc">懸命に自分を守りながら生きてきたあなたへ。</p>
+                <p class="story-text">ありたい姿とのギャップに苦しみ、自分を責めてしまう日々は、<br class="br-pc">決してあなたが弱いからではありません。<br class="br-pc">それは、本来の煌めくような命の力が、行き場を失っているサインです。</p>
+                <p class="story-text">現実を根本から変える鍵は、外側の世界にはありません。<br class="br-pc">唯一の鍵は、あなた自身の「内側」を統合し、<br class="br-pc">人生の主導権を取り戻すことにあります。</p>
+                <p class="story-text" style="margin-bottom: 0;">否定してきた自分の一部を赦し、一番の味方として自己受容の土台を築いたとき。<br class="br-pc">想像をはるかに超える可能性がひらき、世界は全く新しい姿を見せ始めます。<br class="br-pc">あなたがあなた自身に驚かされるような、本領発揮のプロセスをご一緒します。</p>
             </div>
+            
+            <h2 class="section-title" data-aos="fade-up">Vision & Concept</h2>
+            <div class="vision-grid">
+                <div class="vision-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="vision-icon"><i class="fa-solid fa-moon"></i></div>
+                    <h3>光を忘れ、制限の中で<br class="br-pc">生きる痛み</h3>
+                    <p>ひとの命は本来、美しく煌めいています。けれど私たちは、社会の通念や過去の痛みによって自分を削り、「制限」という檻の中で光を忘れてしまいます。一番の味方であるはずの自分が、いつしか一番の敵になっている。その苦しみに、まずはそっと光を当てます。</p>
+                </div>
+                <div class="vision-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="vision-icon"><i class="fa-solid fa-spa"></i></div>
+                    <h3>外側ではなく、内なる<br class="br-pc">平和へのフルコミット</h3>
+                    <p>外側の世界や他者をコントロールしようとする力みを手放し、自分自身の内なる平和（統合）に100％コミットします。バラバラになっていた自分の内側を赦し、無条件に受け入れること。環境の犠牲者をやめ、完全な自己主導として立ち上がるプロセスです。</p>
+                </div>
+                <div class="vision-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="vision-icon"><i class="fa-solid fa-dove"></i></div>
+                    <h3>自己主導の確立が、<br class="br-pc">最高の関係性を創る</h3>
+                    <p>内なる平和が訪れたとき、外側の世界の見え方も静かに変わり始めます。自分の中心が定まることで、他者との違いを脅威ではなく「豊かさ」として受け取れるようになります。個が確立されて初めて、対立を超えた真の共創や、新しいつながりが生まれるのです。</p>
+                </div>
+            </div>
+            
+            <div class="vision-closing" data-aos="fade-up">
+                <p class="closing-text">内なる平和を取り戻し、満たされたあなたとして、<br class="br-pc">他者とともに新しい世界を創り出す。<br class="br-pc">その静かな夜明けのプロセスを、<br class="br-pc">私は一番近くで、見守っています。</p>
+            </div>
+        </div>
+    </section>
 
+    <div class="delicate-divider" data-aos="fade-in" data-aos-duration="1500">
+        <span class="divider-icon"><i class="fa-solid fa-moon"></i></span>
+    </div>
+
+    <section class="section-padding bg-sage" id="service">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Services & Approach</h2>
+            <div style="text-align: center; margin-bottom: 60px; color: #555; font-size: 15px;" data-aos="fade-up">
+                <p>表面的な対症療法ではなく、意識のさらに奥深い領域（無意識）や、<br class="br-pc">目に見えない大きな繋がりにまで安全にアクセスし、真の変容を起こします。</p>
+            </div>
+            
             <div class="flow-grid">
-                <div class="flow-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="flow-card" data-aos="fade-up" data-aos-delay="0">
                     <div class="flow-icon"><i class="fa-solid fa-seedling"></i></div>
-                    <h3 class="flow-title">1. 静寂の探索</h3>
-                    <p class="flow-desc">まずは呼吸を整え、今ここにある感覚に意識を向けます。「体の一部が重い」「イメージが浮かんだ」といった思考を超えたサインを拾い上げます。</p>
+                    <h3 class="flow-title">1. 深層へのアクセスと受容</h3>
+                    <p class="flow-desc">私たちの内側には、「傷ついた自分」や、「厳しく批判する自分」など、様々な無意識の「部分」が存在しています。これまでは見ないように蓋をしてきた痛みや否定してきた自分自身の感情を、ジャッジすることなく、ただあるがままに迎え入れ、深いレベルで対話を行います。</p>
+                </div>
+                <div class="flow-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flow-icon"><i class="fa-solid fa-hands-holding-circle"></i></div>
+                    <h3 class="flow-title">2. 身体感覚を通じた深い統合</h3>
+                    <p class="flow-desc">反発し合い、バラバラになっていた内側の「部分」たちが安心を取り戻すと、「内なる平和（統合）」が訪れます。安心感を「頭の理解」だけで終わらせず、身体感覚（ソマティック）のレベルへ定着させます。圧倒的な安心感のなかで神経系を深く休息させ、エネルギーを根本から回復させます。</p>
                 </div>
                 <div class="flow-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="flow-icon"><i class="fa-solid fa-hands-holding-circle"></i></div>
-                    <h3 class="flow-title">2. 深層へのアプローチ</h3>
-                    <p class="flow-desc">内なるパーツ（葛藤）との対話や、エネルギーの調律を行います。無理に何者かになろうとするのではなく、あなた本来の力を整えます。</p>
-                </div>
-                <div class="flow-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="flow-icon"><i class="fa-solid fa-dove"></i></div>
-                    <h3 class="flow-title">3. 日常への統合</h3>
-                    <p class="flow-desc">セッションで得た気づきや解放された感覚を、実際の仕事や生活の中でどう育んでいくかを分かち合い、現実に定着させます。</p>
+                    <div class="flow-icon"><i class="fa-solid fa-sun"></i></div>
+                    <h3 class="flow-title">3. 真の自己主導の確立</h3>
+                    <p class="flow-desc">内側の統合が進むと訪れるのは、深い自己受容です。自分自身が揺るぎない「安全基地」になるからこそ、恐れを乗り越え、自ら人生の舵を握ることができます。この「自己主導（セルフ・リーダーシップ）」が確立されることで、あなたは本来持っていた100％の力を発揮できるようになります。</p>
                 </div>
             </div>
 
-            <div class="policy-box" data-aos="fade-up">
-                <h3 class="text-center" style="margin-bottom: 20px;">安心安全な「場」のお約束</h3>
-                <p class="text-center">あなたの内なる叡智を信じ、ともに静寂に留まります。</p>
-                <ul>
-                    <li><strong>非審判的であること：</strong>どんな感情が現れても否定せず、あるがままに迎え入れます。</li>
-                    <li><strong>あなたのペースを尊重する：</strong>変化を急がせず、身体の感覚や直感が「今だ」と告げるタイミングを待ちます。</li>
-                    <li><strong>多次元的なリソースの活用：</strong>対話、エネルギー（霊気）、身体感覚など、その時に必要なリソースを動員します。</li>
+            <div class="safe-space-box" data-aos="fade-up">
+                <h3 class="safe-space-title">安心安全な「場」のお約束</h3>
+                <p class="safe-space-intro">あなたの内なる叡智を信じ、ともに静寂に留まります。</p>
+                <ul class="safe-space-list">
+                    <li><strong>非審判的であること</strong>どんな感情やパーツ（内なる側面）が現れても、それを否定せず、あるがままに迎え入れます。社会通念や「正しさ」から離れ、あなたの真実にのみ光を当てます。</li>
+                    <li><strong>あなたのペースを尊重する</strong>変化を急がせることはしません。身体の感覚や直感が「今だ」と告げるタイミングを待ち、安全にプロセスを進めます。</li>
+                    <li><strong>多次元的なリソースの活用</strong>言語的な対話だけでなく、エネルギーやイメージ、身体感覚など、その時に必要なあらゆるリソースを動員して、あなたの解放をサポートします。</li>
                 </ul>
             </div>
         </div>
     </section>
 
-    <section class="section-padding" id="profile">
+    <section class="section-padding bg-sand" id="profile">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">証人としての私</h2>
-            
+            <h2 class="section-title" data-aos="fade-up">Profile</h2>
             <div class="profile-flex">
                 <div class="profile-img" data-aos="fade-right">
-                    <img src="profile.jpg" alt="Yui Fukushima">
+                    <img src="profile.jpg" alt="Yui Fukushima" style="width: 100%; object-fit: cover; aspect-ratio: 3/4; object-position: 12% center;">
                 </div>
                 <div class="profile-info" data-aos="fade-left">
-                    <h3 class="profile-name">福島 結 <span style="font-size:14px; color:#666; font-weight:normal; margin-left:10px;">Yui Fukushima</span></h3>
-                    <p class="profile-title">組織・人事コンサルタント / ライフコーチ</p>
-                    <p class="story-text">
-                        神奈川県西湘エリア。海・山・富士山が見えるこの地で、自然のリソースと共に生きています。散歩や登山を通じて感性を研ぎ澄ます時間は、私にとって大切な「宇宙と繋がる」ひとときです。<br><br>
-                        組織のエンゲージメントと、個人の魂の解放。二つの道が交差する場所で、あなたが本来の力を100%発揮する「共創」の旅に伴走します。<br><br>
-                        組織のダイナミクスを理解しているからこそ、あなたが抱える現実的な葛藤に寄り添えます。そして、見えない世界のリソースを信じているからこそ、その葛藤を超えた先にある「本来の力」を引き出すお手伝いができると信じています。
+                    <h3 class="profile-name">福島 ゆい</h3>
+                    <p class="profile-title">YUI FUKUSHIMA / 深層変容コーチ</p>
+                    <p style="font-size: 14px; color: #444; line-height: 2.2; margin-bottom: 20px;">
+                        <strong>自分のために立ち上がり、他者とともに世界を創る</strong><br><br>
+                        私はこれまで、組織・人事領域で数多くの「関係性」の現場に立ち会い、同時にライフコーチとして個人の「魂の深層」に触れる対話を重ねてきました。<br>
+                        その二つの道の先に見つけた答え。それは、「すべての始まりは、自分自身との関係を修復することから」という真実です。<br><br>
+                        かつて自分を一番の敵にしていた私が、自分を無条件に愛すると決めたとき、世界は一変しました。<br>
+                        個が立ち上がり、今度はその光が響き合って、対立を超えたつながりが生まれる。その「共創」の瞬間の証人として、私はここに在り続けます。
                     </p>
                 </div>
             </div>
+
+            <div data-aos="fade-up" style="max-width: 700px; margin: 0 auto;">
+                <h3 class="story-main-title">My Story</h3>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h4 class="profile-story-title">1. 崩れ落ちた夜と、たった一人の「敵」</h4>
+                        <span class="accordion-icon"><i class="fa-solid fa-plus"></i></span>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="story-text">仕事に人生のすべてを懸けていた私に突きつけられた「離婚」という現実。<br>「女性として見られない」という言葉に心を抉られ、私は自分に「欠陥品」というレッテルを貼りました。<br>そして、数年経ったある夜のこと。何も悲しいことが起きたわけではないのに、ただポロポロと涙が流れ落ちる暗闇の中で、ふと気づいたのです。<br>「周りの誰も、私のことを責めていない。世界中でただ一人、私を攻撃し続け、私を嫌っているのは、私自身だけだった」と。</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h4 class="profile-story-title">2. 思考の限界と、「身体の感覚」という真実</h4>
+                        <span class="accordion-icon"><i class="fa-solid fa-plus"></i></span>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="story-text">「もう、こんなことはやめよう。私が私の一番の理解者になろう」 そう決意したものの、長年染み付いた自己否定は、頭（思考）で言い聞かせるだけでは簡単に拭い去れるものではありませんでした。<br>そして、コーチングと出会い、その学びを深める中で、本当の変容の鍵は「思考」ではなく「深層」にあることに気づきます。<br>頭は巧妙に言い訳を作り、感情をごまかします。しかし、身体の感覚にアクセスしたとき、そこには「本当はもう傷つきたくない、愛されたい」という本心がありました。<br>理屈を超えて、自分の身体の声や直感に繋がったとき、自分がダメだからと握りしめていた「制限の檻」が消え、内側から本来の力が溢れ出すのを感じました。<br>思考の整理だけでなく、身体知や潜在意識へのアプローチを大切にしているのは、この原体験があるからです。</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h4 class="profile-story-title">3. 自己主導の先にある、「共創」への挑戦</h4>
+                        <span class="accordion-icon"><i class="fa-solid fa-plus"></i></span>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="story-text">自分との関係が修復され、「内なる平和」を取り戻した私に起きた一番の変化は、最も避けていた「パートナーシップ」に、再び自らの意志で飛び込めたことです。<br>かつての私にとって、関係性とは「自己犠牲」の上に成り立つものでした。<br>しかし、自分が自分の絶対的な味方となり「自己主導」を取り戻したとき、相手の反応を恐れず、自分の本当の願いに真っ直ぐ手を伸ばすことができたのです。その一歩が起点となり、現在私はパートナーとともに、日々「真のパートナーシップ」を探求しています。<br>本当の関係性とは、自分を削って相手に差し出すことではなく、自立した二人が響き合い、対立を超えた未知の世界をともに創り出していく喜びなのだと、今なら心から言えます</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-data" data-aos="fade-up">
+                <ul>
+                    <li><strong>経歴</strong><br>大手通信・グローバルIT企業でのカスタマーサポート現場責任者を経て、組織・人事領域へキャリアチェンジ。<br>現在は大手外資系組織・人事コンサルティング企業で、クライアントの従業員エンゲージメント調査を率いるプロジェクトマネージャー兼コンサルタントとして従事。<br>コンサルタントとして働く傍ら、ライフワークであるコーチングを副業として提供。</li>
+                    <li><strong>資格</strong><br>国際コーチング連盟 アソシエイト認定コーチ（ACC）<br>CTI認定 プロフェッショナル・コーアクティブ・コーチ（CPCC）<br>CTI提供 Co-Active Leadership® Program 参加中</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" style="background-color: var(--color-base);">
+        <div class="container" data-aos="fade-up" style="max-width: 700px;">
+            <h2 class="section-title">FAQ</h2>
+            
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h4 class="faq-question">Q. まだ自分の中に明確な目標や願いがないのですが、申し込んでもいいですか？</h4>
+                    <span class="accordion-icon"><i class="fa-solid fa-plus"></i></span>
+                </div>
+                <div class="accordion-content">
+                    <div class="faq-answer-box">
+                        <p>A. もちろんです。「モヤモヤしている」「何かが違う気がする」という感覚こそが、変容の素晴らしい入り口です。お話しする中で、一緒に「本当の願い」の輪郭を見つけていきましょう。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h4 class="faq-question">Q. コーチングセッションの流れを教えてください。</h4>
+                    <span class="accordion-icon"><i class="fa-solid fa-plus"></i></span>
+                </div>
+                <div class="accordion-content">
+                    <div class="faq-answer-box">
+                        <p style="margin-bottom: 15px;">A. 以下はセッションの流れの一例です。対話のテーマにより最適なアプローチをとります。</p>
+                        <ol class="faq-list">
+                            <li><strong>チェックイン：</strong>日常の中にあるセッションの時間をより良いものにするために、まずは今ここにある感覚に意識を向けます。</li>
+                            <li><strong>身体知と直感の探索：</strong>現在の課題（テーマ）について対話しながら、同時に「体の一部が重い」「ふとあるイメージが浮かんだ」といった、思考を超えたサインを拾い上げていきます。</li>
+                            <li><strong>深層へのアプローチ：</strong>必要に応じて、内なるパーツとの対話や、潜在意識へのリサーチを行います。過去の制限を優しく解いていく時間です。</li>
+                            <li><strong>日常への統合：</strong>セッションで得た気づきや解放された感覚を、日常（仕事や生活）の中でどう育んでいくかを分かち合います。</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
         </div>
     </section>
 
     <section class="cta-section" id="contact">
         <div class="container" data-aos="fade-up">
-            <h2 class="section-title" style="color:#fff;">世界を創る旅へ</h2>
-            <p style="margin-bottom: 40px;">
-                もし、この言葉があなたの心にそっと触れたなら。<br>
-                今はまだ、ピンとこなくても大丈夫です。<br>
-                いつか、あなたの中に「その時」が訪れたとき、<br>
-                ここにひとりの証人がいることを、どうか思い出してください。<br><br>
+            <div class="cta-header">
+                <h2 class="section-title">世界を創る旅へ</h2>
+                <span class="cta-subtitle">A Journey to the New World</span>
+            </div>
+            
+            <p class="cta-intro">
+                ここまで読んでくださり、ありがとうございます。<br class="br-pc">
+                頭（思考）でどうにかしようとするのを少しだけお休みして、<br class="br-pc">
+                あなたの奥底にある「身体の声」や「本当の願い」に耳を澄ませてみませんか？
+            </p>
+
+            <div class="cta-box">
+                <h3 class="cta-box-title">MENU</h3>
+                <ul class="cta-menu-list">
+                    <li>
+                        <div class="menu-title">初回体験セッション（60分）</div>
+                        <span class="menu-desc">まずは現在地の整理を。無理な勧誘は一切行いません。</span>
+                        <div class="menu-price">無料</div>
+                    </li>
+                    <li>
+                        <div class="menu-title">継続プログラム</div>
+                        <span class="menu-desc">導入セッション（120分）＋通常セッション6回（各60分）<br class="br-pc">自己主導の人生を取り戻すための伴走プログラム。</span>
+                        <div class="menu-price">50,000円 <span style="font-size: 12px; font-family: var(--font-body);">(税込)</span></div>
+                    </li>
+                </ul>
+                <p style="font-size: 12px; color: rgba(255,255,255,0.5); text-align: center; margin-top: 30px;">※価格についてご相談に応じます。お気軽にお問い合わせください。</p>
+            </div>
+            
+            <div class="contact-form-wrapper" data-aos="fade-up">
+                <form action="https://ssgform.com/s/2zoPj1X0LeSY" method="POST" class="contact-form">
+                    <div class="form-group">
+                        <label for="name" class="form-label">お名前 <span class="required-mark">*</span></label>
+                        <input type="text" id="name" name="お名前" class="form-input" required placeholder="例：山田 花子">
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="form-label">メールアドレス <span class="required-mark">*</span></label>
+                        <input type="email" id="email" name="メールアドレス" class="form-input" required placeholder="例：mail@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="message" class="form-label">メッセージ・ご希望の日時など <span class="required-mark">*</span></label>
+                        <textarea id="message" name="メッセージ" class="form-textarea" required placeholder="現在気になっていることや、体験セッションのご希望日時などをご自由にご記入ください。"></textarea>
+                    </div>
+                    <div class="form-submit">
+                        <button type="submit" class="btn btn-large">送信する</button>
+                    </div>
+                </form>
+            </div>
+
+            <p class="cta-footer-text">
+                いつか、あなたの中に「その時」が訪れたとき、<br class="br-pc">
+                ここにひとりの証人がいることを、どうか思い出してください。<br class="br-pc">
                 私は、いつでもここで待っています。
             </p>
-            <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 4px; display: inline-block; margin-bottom: 40px; text-align:left;">
-                <h3 style="color:var(--color-accent); font-size:18px; margin-bottom:10px;">メニュー</h3>
-                <ul style="list-style:none; font-size:15px;">
-                    <li style="margin-bottom:10px;"><i class="fa-solid fa-check" style="color:var(--color-accent); margin-right:8px;"></i>60分無料体験セッション</li>
-                    <li><i class="fa-solid fa-check" style="color:var(--color-accent); margin-right:8px;"></i>継続コーチング（はじめての方・ひさしぶりの方）<br>
-                    <span style="font-size:13px; color:#ddd; margin-left:24px;">導入セッション（2時間）＋通常セッション6回（各60分）：50,000円</span></li>
-                </ul>
-                <p style="font-size:12px; color:#bbb; margin-top:10px; margin-left:24px;">※価格応相談。お気軽にお問合わせください</p>
-            </div>
-            <br>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLScfo6HCvgpYV6VIWGXcKvcIGgCzM4LcSo2YXtS3GX2YTadM1w/viewform?usp=publish-editor" target="_blank" class="btn" style="font-size: 16px; padding: 15px 40px;">
-                体験セッションを申し込む <i class="fa-solid fa-arrow-right" style="margin-left: 10px;"></i>
-            </a>
         </div>
     </section>
 
@@ -310,10 +655,98 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // アニメーションの初期化
         AOS.init({
-            once: true, // スクロール時に一度だけアニメーションを実行
+            once: true,
             offset: 50,
+            duration: 1500,
+            easing: 'ease-out-quad',
+        });
+
+        function toggleAccordion(element) {
+            const item = element.parentElement;
+            const content = item.querySelector('.accordion-content');
+            if (item.classList.contains('active')) {
+                item.classList.remove('active');
+                content.style.maxHeight = null;
+            } else {
+                item.classList.add('active');
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const canvas = document.getElementById('stardust-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            let width, height;
+            let particles = [];
+            const particleCount = 200; 
+
+            function resize() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+            }
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.radius = Math.random() * 1.3 + 0.5;
+                    this.maxAlpha = Math.random() * 0.8 + 0.2; 
+                    this.alpha = Math.random() * this.maxAlpha; 
+                    this.alphaSpeed = (Math.random() * 0.005) + 0.002; 
+                    this.isFading = Math.random() > 0.5; 
+                }
+
+                update() {
+                    if (this.isFading) {
+                        this.alpha -= this.alphaSpeed;
+                        if (this.alpha <= 0) {
+                            this.isFading = false;
+                            this.alpha = 0;
+                            this.x = Math.random() * width;
+                            this.y = Math.random() * height;
+                        }
+                    } else {
+                        this.alpha += this.alphaSpeed;
+                        if (this.alpha >= this.maxAlpha) {
+                            this.isFading = true;
+                            this.alpha = this.maxAlpha;
+                        }
+                    }
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(197, 160, 89, ${this.alpha})`;
+                    ctx.fill();
+                }
+            }
+
+            function init() {
+                resize();
+                particles = [];
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push(new Particle());
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(particle => {
+                    particle.update();
+                    particle.draw();
+                });
+                requestAnimationFrame(animate);
+            }
+
+            window.addEventListener('resize', init);
+
+            init();
+            animate();
         });
     </script>
 </body>
