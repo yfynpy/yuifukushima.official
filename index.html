@@ -354,7 +354,50 @@
            ========================================= */
         .message-box { max-width: 680px; margin: 0 auto 100px; padding-left: 40px; border-left: 1px solid var(--color-accent); position: relative; z-index: 10;}
         .story-text { font-size: 15px; color: #444; margin-bottom: 30px; line-height: 2.2; }
-        @media (max-width: 768px) { .message-box { padding-left: 20px; margin-bottom: 60px; } }
+        
+        /* Messageの続きを読む機能（PCではすべて表示、ボタンは非表示） */
+        .btn-read-more { display: none; }
+        .message-more-content { display: block; }
+
+        @media (max-width: 768px) { 
+            .message-box { padding-left: 20px; margin-bottom: 60px; } 
+            
+            /* スマホ版のみ、続きを読むの中身を隠す */
+            .message-more-content {
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                transition: max-height 0.8s ease, opacity 0.8s ease;
+            }
+            /* 開いたときの設定 */
+            .message-more-content.is-open {
+                max-height: 800px; /* テキストが十分に収まる高さを指定 */
+                opacity: 1;
+            }
+            /* スマホ版のみ、ボタンを表示 */
+            .btn-read-more {
+                display: inline-flex;
+                align-items: center;
+                background: transparent;
+                border: none;
+                color: var(--color-accent);
+                font-size: 14px;
+                letter-spacing: 0.1em;
+                margin-top: 5px;
+                padding: 0;
+                cursor: pointer;
+                border-bottom: 1px solid var(--color-accent);
+            }
+            .btn-read-more i {
+                margin-left: 8px;
+                font-size: 12px;
+                transition: transform 0.3s ease;
+            }
+            /* 開いたときに矢印を上に向ける */
+            .btn-read-more.is-open i {
+                transform: rotate(180deg);
+            }
+        }
 
         .vision-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px; position: relative; z-index: 10;}
         .vision-card { text-align: left; }
@@ -550,6 +593,16 @@
                 font-size: 28px;
             }
             .modal-content { padding: 40px 25px; max-height: 80vh; }
+        .btn-story { 
+            background-color: transparent; 
+            color: #fff; 
+            background-color: var(--color-main); 
+            padding: 12px 32px;
+            font-size: 14px;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
         }
 
         /* =========================================
@@ -680,9 +733,8 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 30px;
-            /* ▼追加・変更箇所▼ */
-            max-width: 1000px;     /* カード全体の最大幅（この数値を減らすとさらに狭くなります） */
-            margin: 50px auto 0;  /* 左右を中央寄せ（auto）にし、上部に50pxの余白を持たせる */
+            max-width: 1000px;     
+            margin: 50px auto 0;  
         }
 
         @media (max-width: 900px) {
@@ -691,7 +743,7 @@
 
         .flow-card-large {
             background-color: #ffffff;
-            border-radius: 8px; /* 少しだけ丸みを持たせて柔らかな印象に */
+            border-radius: 8px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.04);
             overflow: hidden;
             display: flex;
@@ -703,11 +755,10 @@
             box-shadow: 0 15px 40px rgba(0,0,0,0.08);
         }
 
-        /* アニメーションを表示する上部の「窓」 */
         .anim-showcase {
             width: 100%;
             height: 220px;
-            background-color: var(--color-base); /* ベースの静謐な白 */
+            background-color: var(--color-base); 
             display: flex;
             align-items: center;
             justify-content: center;
@@ -716,11 +767,10 @@
             overflow: hidden;
         }
 
-        /* テキストを配置する下部のエリア */
         .flow-card-content {
             padding: 35px 25px;
             text-align: left;
-            flex: 1; /* 高さを揃える */
+            flex: 1; 
         }
         .flow-card-content .flow-title {
             font-size: 16px;
@@ -731,7 +781,6 @@
             padding-bottom: 15px;
         }
 
-        /* 共通の光（セルフ・安全基地の象徴） */
         .core-light-large {
             width: 60px;
             height: 60px;
@@ -756,7 +805,6 @@
             border-radius: 50%;
             opacity: 0.6;
         }
-        /* それぞれのパーツが中央の光に向かって引き寄せられる動き */
         .part-1 { top: 15%; left: 15%; animation: gather1 5s infinite ease-in-out; }
         .part-2 { bottom: 20%; right: 15%; animation: gather2 5s infinite ease-in-out; animation-delay: 1.5s; }
         .part-3 { top: 25%; right: 10%; animation: gather3 5s infinite ease-in-out; animation-delay: 3s; }
@@ -846,9 +894,14 @@
             <div class="message-box" data-aos="fade-up">
             <h2 class="section-title" data-aos="fade-up">Message</h2>
                 <p class="story-text">これまで、傷つかないように、あるいは正しい道から外れないようにと、<br class="br-pc">懸命に自分を守りながら生きてきたあなたへ。</p>
-                <p class="story-text">ありたい姿とのギャップに苦しみ、自分を責めてしまう日々は、<br class="br-pc">決してあなたが弱いからではありません。<br class="br-pc">それは、本来の煌めくような命の力が、行き場を失っているサインです。</p>
-                <p class="story-text">現実を根本から変える鍵は、外側の世界にはありません。<br class="br-pc">唯一の鍵は、あなた自身の「内側」を統合し、<br class="br-pc">人生の主導権を取り戻すことにあります。</p>
-                <p class="story-text" style="margin-bottom: 0;">否定してきた自分の一部を赦し、一番の味方として自己受容の土台を築いたとき。<br class="br-pc">想像をはるかに超える可能性がひらき、世界は全く新しい姿を見せ始めます。<br class="br-pc">あなたがあなた自身に驚かされるような、本領発揮のプロセスをご一緒します。</p>
+                
+                <div class="message-more-content" id="messageMoreContent">
+                    <p class="story-text">ありたい姿とのギャップに苦しみ、自分を責めてしまう日々は、<br class="br-pc">決してあなたが弱いからではありません。<br class="br-pc">それは、本来の煌めくような命の力が、行き場を失っているサインです。</p>
+                    <p class="story-text">現実を根本から変える鍵は、外側の世界にはありません。<br class="br-pc">唯一の鍵は、あなた自身の「内側」を統合し、<br class="br-pc">人生の主導権を取り戻すことにあります。</p>
+                    <p class="story-text" style="margin-bottom: 0;">否定してきた自分の一部を赦し、一番の味方として自己受容の土台を築いたとき。<br class="br-pc">想像をはるかに超える可能性がひらき、世界は全く新しい姿を見せ始めます。<br class="br-pc">あなたがあなた自身に驚かされるような、本領発揮のプロセスをご一緒します。</p>
+                </div>
+                
+                <button class="btn-read-more" id="btnReadMore" onclick="toggleMessage()">続きを読む <i class="fa-solid fa-chevron-down"></i></button>
             </div>
             
             <h2 class="section-title" data-aos="fade-up">Vision & Concept</h2>
@@ -1222,6 +1275,37 @@
         });
         });
 
+        // FAQのアコーディオンを開閉する関数
+        function toggleAccordion(element) {
+            const item = element.parentElement;
+            const content = element.nextElementSibling;
+            
+            // activeクラスを付け外しして、アイコンの十字を回転させる
+            item.classList.toggle('active');
+            
+            // 中身の高さ（scrollHeight）を取得して、アニメーション付きで開閉する
+            if (item.classList.contains('active')) {
+                // CSSで指定されている padding-bottom: 25px 分を足して高さを設定します
+                content.style.maxHeight = content.scrollHeight + 25 + "px";
+            } else {
+                content.style.maxHeight = null;
+            }
+        }
+
+        // Messageの「続きを読む」アコーディオン機能
+        function toggleMessage() {
+            const content = document.getElementById('messageMoreContent');
+            const btn = document.getElementById('btnReadMore');
+            
+            content.classList.toggle('is-open');
+            btn.classList.toggle('is-open');
+            
+            if (content.classList.contains('is-open')) {
+                btn.innerHTML = '閉じる <i class="fa-solid fa-chevron-up"></i>';
+            } else {
+                btn.innerHTML = '続きを読む <i class="fa-solid fa-chevron-down"></i>';
+            }
+        }
     </script>
 </body>
 </html>
