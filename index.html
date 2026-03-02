@@ -51,6 +51,7 @@
         
         .container { max-width: 900px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 10; }
         .section-padding { padding: 140px 0; position: relative; }
+
         /* スマホ用調整: セクションの余白を少し引き締める */
         @media (max-width: 768px) { .section-padding { padding: 80px 0; } }
 
@@ -60,6 +61,14 @@
         /* スマホ用調整: PC表示用の改行を無効化 */
         @media (max-width: 768px) { 
             .br-pc { display: none; }
+        }
+
+        /* スマホ用調整: PC・スマホの改行コントロール */
+        .br-sp { display: none; } /* PCではスマホ用改行を隠す */
+
+        @media (max-width: 768px) { 
+            .br-pc { display: none; }   /* スマホではPC用改行を隠す */
+            .br-sp { display: inline; } /* スマホではスマホ用改行を表示する */
         }
 
         /* =========================================
@@ -921,7 +930,12 @@
 </div>
             
             <div class="vision-closing" data-aos="fade-up">
-                <p class="closing-text">内なる平和を取り戻し、満たされたあなたとして、<br class="br-pc">他者とともに新しい世界を創り出す。<br class="br-pc">その静かな夜明けのプロセスを、<br class="br-pc">私は一番近くで、見守っています。</p>
+                <p class="closing-text">
+                    内なる平和を取り戻し、<br class="br-sp">満たされたあなたとして、<br class="br-sp"><br class="br-pc">
+                    他者とともに新しい世界を創り出す。<br class="br-sp"><br class="br-pc">
+                    その静かな夜明けのプロセスを、<br class="br-sp"><br class="br-pc">
+                    私は一番近くで、見守っています。
+                </p>
             </div>
         </div>
     </section>
