@@ -315,24 +315,35 @@
         /* スマホ用調整 */
         @media (max-width: 768px) { 
             .hero {
-                /* 【変更点】スマホでも少しズームさせ、腰上からの表示にします */
-                background-size: auto 115%;
-                /* 【変更点】人物を少し右に寄せ、頭の余白を確保します */
-                background-position: 85% top 5%; 
+                /* 【変更】テキストを画面上部に配置するため、縦の並びを「上揃え」に変更 */
+                align-items: flex-start; 
+                padding-top: 140px; /* ヘッダーの高さ＋少しの余白分、上から下げる */
+
+                /* 【変更】画像をさらにズームさせ、腰上の表示にする（数値でズーム率を調整可能） */
+                background-size: auto 140%; 
+                /* 【変更】人物を画面の右下に配置し、テキストとの重なりを回避 */
+                background-position: right 40% bottom 175%; 
             }
+            
             .hero::before {
-                background: linear-gradient(to bottom, rgba(252, 252, 252, 0.9) 0%, rgba(252, 252, 252, 0.8) 50%, rgba(252, 252, 252, 0.3) 100%); 
+                /* 【変更】上半分（テキスト背景）は白くはっきりさせ、下半分（人物）は透けさせるグラデーション */
+                background: linear-gradient(to bottom, 
+                    rgba(252, 252, 252, 1) 0%, 
+                    rgba(252, 252, 252, 0.95) 45%, 
+                    rgba(252, 252, 252, 0) 65%
+                ); 
             }
+            
             .hero-content { 
                 padding: 0 5%; 
-                margin-top: -15vh; 
+                margin-top: 0; /* 以前設定されていたマイナスの余白（上にずらす設定）を解除 */
             }
+            
             .hero-title { 
-                font-size: 24px; 
+                font-size: clamp(16px, 5vw, 24px); 
                 line-height: 1.7; 
                 margin-bottom: 20px; 
-                /* 追加：スマホ画面では幅が狭いため、自然な折り返しを許可します */
-                white-space: normal; 
+                white-space: nowrap; 
             }
             .hero-subtitle { font-size: 13px; margin-bottom: 30px; }
             .hero-name { gap: 10px; }
@@ -352,22 +363,22 @@
         .vision-card p { font-size: 14px; color: #555; }
         @media (max-width: 768px) { .vision-grid { grid-template-columns: 1fr; gap: 40px; } }
 
-.vision-title-inline {
-    font-size: 17px;
-    margin-bottom: 20px;
-    line-height: 1.7;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-    padding-bottom: 15px;
-    display: flex;        /* 横並びにする設定 */
-    align-items: center;  /* 縦方向の中央で揃える */
-    gap: 12px;            /* アイコンと文字の間の隙間 */
-}
+        .vision-title-inline {
+            font-size: 17px;
+            margin-bottom: 20px;
+            line-height: 1.7;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding-bottom: 15px;
+            display: flex;        /* 横並びにする設定 */
+            align-items: center;  /* 縦方向の中央で揃える */
+            gap: 12px;            /* アイコンと文字の間の隙間 */
+        }
 
-.vision-title-inline i {
-    font-size: 20px;      /* アイコンのサイズ */
-    color: var(--color-accent);
-    opacity: 0.8;
-}
+        .vision-title-inline i {
+            font-size: 20px;      /* アイコンのサイズ */
+            color: var(--color-accent);
+            opacity: 0.8;
+        }
 
         .vision-closing { text-align: center; margin-top: 100px; padding: 60px 0; border-top: 1px solid rgba(0,0,0,0.03); border-bottom: 1px solid rgba(0,0,0,0.03); position: relative; z-index: 10;}
         .closing-text { font-family: var(--font-heading); font-size: 18px; line-height: 2.4; color: var(--color-main); letter-spacing: 0.15em; }
@@ -402,23 +413,23 @@
         @media (max-width: 768px) { .flow-grid { grid-template-columns: 1fr; gap: 40px; } }
 
         .safe-space-box { 
-    background: rgba(255,255,255,0.9); 
-    padding: 60px 50px; 
-    margin: 80px auto 100px;  /* ◀︎ 【変更】最後の数値を「100px」にして、下部に豊かな余白を作ります */
-    max-width: 900px;     
-    border: 1px solid rgba(0,0,0,0.03); 
-    border-radius: 8px;   
-    position: relative; 
-    z-index: 10; 
-}
+            background: rgba(255,255,255,0.9); 
+            padding: 60px 50px; 
+            margin: 80px auto 100px;  /* ◀︎ 【変更】最後の数値を「100px」にして、下部に豊かな余白を作ります */
+            max-width: 900px;     
+            border: 1px solid rgba(0,0,0,0.03); 
+            border-radius: 8px;   
+            position: relative; 
+            z-index: 10; 
+        }
 
-/* スマホ用調整: 横幅と上下の余白を調整 */
-@media (max-width: 768px) { 
-    .safe-space-box { 
-        padding: 40px 20px; 
-        margin: 50px auto 80px; /* ◀︎ 【変更】スマホ表示でも下に80pxの余白を確保します */
-    } 
-}
+        /* スマホ用調整: 横幅と上下の余白を調整 */
+        @media (max-width: 768px) { 
+            .safe-space-box { 
+                padding: 40px 20px; 
+                margin: 50px auto 80px; /* ◀︎ 【変更】スマホ表示でも下に80pxの余白を確保します */
+            } 
+        }
         
         .safe-space-title { text-align: center; margin-bottom: 15px; font-size: 20px; }
         .safe-space-intro { text-align: center; margin-bottom: 35px; font-size: 14px; color: #777; letter-spacing: 0.1em; }
@@ -662,137 +673,137 @@
         .social-links a { display: inline-block; margin: 0 15px; font-size: 18px; color: #888; transition: color 0.3s ease; }
         .social-links a:hover { color: #fff; }
 
-/* =========================================
-   プロセス・アニメーション (カード型・大画面用)
-   ========================================= */
-.flow-grid-cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    /* ▼追加・変更箇所▼ */
-    max-width: 1000px;     /* カード全体の最大幅（この数値を減らすとさらに狭くなります） */
-    margin: 50px auto 0;  /* 左右を中央寄せ（auto）にし、上部に50pxの余白を持たせる */
-}
+        /* =========================================
+           プロセス・アニメーション (カード型・大画面用)
+           ========================================= */
+        .flow-grid-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            /* ▼追加・変更箇所▼ */
+            max-width: 1000px;     /* カード全体の最大幅（この数値を減らすとさらに狭くなります） */
+            margin: 50px auto 0;  /* 左右を中央寄せ（auto）にし、上部に50pxの余白を持たせる */
+        }
 
-@media (max-width: 900px) {
-    .flow-grid-cards { grid-template-columns: 1fr; gap: 40px; }
-}
+        @media (max-width: 900px) {
+            .flow-grid-cards { grid-template-columns: 1fr; gap: 40px; }
+        }
 
-.flow-card-large {
-    background-color: #ffffff;
-    border-radius: 8px; /* 少しだけ丸みを持たせて柔らかな印象に */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-.flow-card-large:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-}
+        .flow-card-large {
+            background-color: #ffffff;
+            border-radius: 8px; /* 少しだけ丸みを持たせて柔らかな印象に */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .flow-card-large:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+        }
 
-/* アニメーションを表示する上部の「窓」 */
-.anim-showcase {
-    width: 100%;
-    height: 220px;
-    background-color: var(--color-base); /* ベースの静謐な白 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    border-bottom: 1px solid rgba(0,0,0,0.02);
-    overflow: hidden;
-}
+        /* アニメーションを表示する上部の「窓」 */
+        .anim-showcase {
+            width: 100%;
+            height: 220px;
+            background-color: var(--color-base); /* ベースの静謐な白 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border-bottom: 1px solid rgba(0,0,0,0.02);
+            overflow: hidden;
+        }
 
-/* テキストを配置する下部のエリア */
-.flow-card-content {
-    padding: 35px 25px;
-    text-align: left;
-    flex: 1; /* 高さを揃える */
-}
-.flow-card-content .flow-title {
-    font-size: 16px;
-    margin-bottom: 15px;
-    line-height: 1.6;
-    letter-spacing: 0.05em;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-    padding-bottom: 15px;
-}
+        /* テキストを配置する下部のエリア */
+        .flow-card-content {
+            padding: 35px 25px;
+            text-align: left;
+            flex: 1; /* 高さを揃える */
+        }
+        .flow-card-content .flow-title {
+            font-size: 16px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding-bottom: 15px;
+        }
 
-/* 共通の光（セルフ・安全基地の象徴） */
-.core-light-large {
-    width: 60px;
-    height: 60px;
-    background-color: var(--color-accent);
-    border-radius: 50%;
-    box-shadow: 0 0 30px rgba(184, 156, 106, 0.4);
-    position: relative;
-    z-index: 2;
-}
+        /* 共通の光（セルフ・安全基地の象徴） */
+        .core-light-large {
+            width: 60px;
+            height: 60px;
+            background-color: var(--color-accent);
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(184, 156, 106, 0.4);
+            position: relative;
+            z-index: 2;
+        }
 
-/* -----------------------------------------
-   プロセス1：深層へのアクセス
-   ----------------------------------------- */
-.step1-showcase .core-light-large {
-    opacity: 0.8;
-}
-.parts-large {
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    background-color: var(--color-main);
-    border-radius: 50%;
-    opacity: 0.6;
-}
-/* それぞれのパーツが中央の光に向かって引き寄せられる動き */
-.part-1 { top: 15%; left: 15%; animation: gather1 5s infinite ease-in-out; }
-.part-2 { bottom: 20%; right: 15%; animation: gather2 5s infinite ease-in-out; animation-delay: 1.5s; }
-.part-3 { top: 25%; right: 10%; animation: gather3 5s infinite ease-in-out; animation-delay: 3s; }
+        /* -----------------------------------------
+           プロセス1：深層へのアクセス
+           ----------------------------------------- */
+        .step1-showcase .core-light-large {
+            opacity: 0.8;
+        }
+        .parts-large {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background-color: var(--color-main);
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+        /* それぞれのパーツが中央の光に向かって引き寄せられる動き */
+        .part-1 { top: 15%; left: 15%; animation: gather1 5s infinite ease-in-out; }
+        .part-2 { bottom: 20%; right: 15%; animation: gather2 5s infinite ease-in-out; animation-delay: 1.5s; }
+        .part-3 { top: 25%; right: 10%; animation: gather3 5s infinite ease-in-out; animation-delay: 3s; }
 
-@keyframes gather1 { 0%, 100% { transform: translate(0, 0); opacity: 0.2; } 50% { transform: translate(60px, 40px); opacity: 0.8; } }
-@keyframes gather2 { 0%, 100% { transform: translate(0, 0); opacity: 0.2; } 50% { transform: translate(-50px, -40px); opacity: 0.8; } }
-@keyframes gather3 { 0%, 100% { transform: translate(0, 0); opacity: 0.2; } 50% { transform: translate(-50px, 20px); opacity: 0.8; } }
+        @keyframes gather1 { 0%, 100% { transform: translate(0, 0); opacity: 0.2; } 50% { transform: translate(60px, 40px); opacity: 0.8; } }
+        @keyframes gather2 { 0%, 100% { transform: translate(0, 0); opacity: 0.2; } 50% { transform: translate(-50px, -40px); opacity: 0.8; } }
+        @keyframes gather3 { 0%, 100% { transform: translate(0, 0); opacity: 0.2; } 50% { transform: translate(-50px, 20px); opacity: 0.8; } }
 
-/* -----------------------------------------
-   プロセス2：深い統合（自律神経の休息・深呼吸）
-   ----------------------------------------- */
-.step2-showcase .core-light-large {
-    width: 80px;
-    height: 80px;
-    background: radial-gradient(circle, var(--color-accent) 0%, var(--color-main) 100%);
-    animation: somaticBreatheLarge 6s infinite ease-in-out;
-}
-@keyframes somaticBreatheLarge {
-    0%, 100% { transform: scale(0.9); box-shadow: 0 0 15px rgba(184, 156, 106, 0.2); }
-    50% { transform: scale(1.15); box-shadow: 0 0 50px rgba(184, 156, 106, 0.6); }
-}
+        /* -----------------------------------------
+           プロセス2：深い統合（自律神経の休息・深呼吸）
+           ----------------------------------------- */
+        .step2-showcase .core-light-large {
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, var(--color-accent) 0%, var(--color-main) 100%);
+            animation: somaticBreatheLarge 6s infinite ease-in-out;
+        }
+        @keyframes somaticBreatheLarge {
+            0%, 100% { transform: scale(0.9); box-shadow: 0 0 15px rgba(184, 156, 106, 0.2); }
+            50% { transform: scale(1.15); box-shadow: 0 0 50px rgba(184, 156, 106, 0.6); }
+        }
 
-/* -----------------------------------------
-   プロセス3：真の自己主導（波紋・エネルギーの広がり）
-   ----------------------------------------- */
-.step3-showcase .core-light-large {
-    background-color: var(--color-accent);
-    box-shadow: 0 0 35px rgba(184, 156, 106, 0.7);
-}
-.step3-showcase .core-light-large::before,
-.step3-showcase .core-light-large::after {
-    content: '';
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%; height: 100%;
-    border: 1px solid var(--color-accent);
-    border-radius: 50%;
-    animation: rippleEffectLarge 4s infinite cubic-bezier(0.4, 0, 0.2, 1);
-}
-.step3-showcase .core-light-large::after {
-    animation-delay: 2s;
-}
-@keyframes rippleEffectLarge {
-    0% { width: 100%; height: 100%; opacity: 0.8; }
-    100% { width: 350%; height: 350%; opacity: 0; }
-}
+        /* -----------------------------------------
+           プロセス3：真の自己主導（波紋・エネルギーの広がり）
+           ----------------------------------------- */
+        .step3-showcase .core-light-large {
+            background-color: var(--color-accent);
+            box-shadow: 0 0 35px rgba(184, 156, 106, 0.7);
+        }
+        .step3-showcase .core-light-large::before,
+        .step3-showcase .core-light-large::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%; height: 100%;
+            border: 1px solid var(--color-accent);
+            border-radius: 50%;
+            animation: rippleEffectLarge 4s infinite cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .step3-showcase .core-light-large::after {
+            animation-delay: 2s;
+        }
+        @keyframes rippleEffectLarge {
+            0% { width: 100%; height: 100%; opacity: 0.8; }
+            100% { width: 350%; height: 350%; opacity: 0; }
+        }
 
     </style>
 </head>
@@ -944,7 +955,7 @@
             <div class="profile-data" data-aos="fade-up">
                 <ul>
                     <li><strong>経歴</strong><br>大手通信・グローバルIT企業でのカスタマーサポート現場責任者を経て、組織・人事領域へキャリアチェンジ。<br>現在は外資系コンサルティング企業で、大手日本企業の従業員エンゲージメント調査プロジェクトを率いるコンサルタントとして従事。<br>会社員として働く傍ら、ライフワークであるコーチングを副業で提供。教育現場への関りも積極的に行っている。</li>
-                    <li><strong>資格</strong><br>国際コーチング連盟 アソシエイト認定コーチ（ACC）<br>CTI認定 プロフェッショナル・コーアクティブ・コーチ（CPCC）<br>CTI提供 Co-Active Leadership® Program 参加中（2025年12月～）<br>CRR Global提供 Organization & Relationship Systems Coaching 基礎コース 修了</li>
+                    <li><strong>資格</strong><br>国際コーチング連盟 アソシエイト認定コーチ（ACC）<br>CTI認定 プロフェッショナル・コーアクティブ・コーチ（CPCC）<br>CTI提供 Co-Active Leadership&reg; Program 参加中（2025年12月～）<br>CRR Global提供 Organization & Relationship Systems Coaching 基礎コース 修了</li>
                 </ul>
             </div>
         </div>
@@ -1191,24 +1202,24 @@
             init();
             animate();
 
-// 追加：ハンバーガーメニューの開閉処理
-const hamburger = document.getElementById('hamburger');
-const navLinks = document.getElementById('nav-links');
-const navItems = document.querySelectorAll('.nav-links a');
+        // 追加：ハンバーガーメニューの開閉処理
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+        const navItems = document.querySelectorAll('.nav-links a');
 
-// ハンバーガーボタンをクリックした時の処理
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    navLinks.classList.toggle('open');
-});
+        // ハンバーガーボタンをクリックした時の処理
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('open');
+            navLinks.classList.toggle('open');
+        });
 
-// メニュー内のリンク（ボタン含む）をクリックしたらメニューを閉じる
-navItems.forEach(item => {
-    item.addEventListener('click', () => {
-        hamburger.classList.remove('open');
-        navLinks.classList.remove('open');
-    });
-});
+        // メニュー内のリンク（ボタン含む）をクリックしたらメニューを閉じる
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                hamburger.classList.remove('open');
+                navLinks.classList.remove('open');
+            });
+        });
         });
 
     </script>
