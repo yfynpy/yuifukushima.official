@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yui Fukushima Official Website | 深層変容コーチ</title>
+    <title>Yui Fukushima Official Website | 深層対話コーチ</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
@@ -48,40 +49,30 @@
         h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 400; color: var(--color-main); }
         a { text-decoration: none; color: inherit; }
         img { max-width: 100%; height: auto; display: block; }
-        
+        .text-center { text-align: center; }
+
         .container { max-width: 900px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 10; }
         .section-padding { padding: 140px 0; position: relative; }
 
-        /* スマホ用調整: セクションの余白を少し引き締める */
         @media (max-width: 768px) { .section-padding { padding: 80px 0; } }
 
-        .section-title { font-size: 24px; text-align: center; margin-bottom: 80px; letter-spacing: 0.1em; }
+        .section-title { font-size: 24px; text-align: center; margin-bottom: 80px; letter-spacing: 0.1em; line-height: 1.6; }
         .section-title::after { content: ''; display: block; width: 1px; height: 30px; background-color: var(--color-accent); margin: 20px auto 0; }
 
-        /* スマホ用調整: PC表示用の改行を無効化 */
+        .br-sp { display: none; } 
         @media (max-width: 768px) { 
-            .br-pc { display: none; }
-        }
-
-        /* スマホ用調整: PC・スマホの改行コントロール */
-        .br-sp { display: none; } /* PCではスマホ用改行を隠す */
-
-        @media (max-width: 768px) { 
-            .br-pc { display: none; }   /* スマホではPC用改行を隠す */
-            .br-sp { display: inline; } /* スマホではスマホ用改行を表示する */
+            .br-pc { display: none; }   
+            .br-sp { display: inline; } 
         }
 
         /* =========================================
-           Canvas Stardust (金箔のような星)
+           Canvas Stardust
            ========================================= */
         #stardust-canvas {
             position: fixed;
-            top: 0; 
-            left: 0; 
-            width: 100vw; 
-            height: 100vh;
-            pointer-events: none; 
-            z-index: 5; 
+            top: 0; left: 0; 
+            width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 5; 
         }
 
         /* =========================================
@@ -89,18 +80,13 @@
            ========================================= */
         .btn {
             display: inline-flex; align-items: center; justify-content: center;
-            background-color: var(--color-accent); 
-            color: #fff; 
-            padding: 12px 32px; 
-            border: none; 
-            border-radius: 0; font-size: 14px;
-            letter-spacing: 0.1em; transition: all 0.4s ease; position: relative; z-index: 10;
+            background-color: var(--color-accent); color: #fff; 
+            padding: 12px 32px; border: none; border-radius: 0; font-size: 14px;
+            letter-spacing: 0.1em; transition: all 0.4s ease; position: relative; z-index: 10; cursor: pointer;
         }
         .btn:hover { 
-            background-color: #c4a977; 
-            color: #fff; 
-            box-shadow: 0 0 15px rgba(184, 156, 106, 0.6); 
-            transform: translateY(-1px); 
+            background-color: #c4a977; color: #fff; 
+            box-shadow: 0 0 15px rgba(184, 156, 106, 0.6); transform: translateY(-1px); 
         }
 
         /* =========================================
@@ -112,377 +98,207 @@
             z-index: 1000; display: flex; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.03);
         }
         .header-inner { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 30px; display: flex; justify-content: space-between; align-items: center; }
-        
-        .logo { 
-            font-family: var(--font-heading); 
-            font-size: 18px; 
-            color: var(--color-main); 
-            letter-spacing: 0.15em; 
-            white-space: nowrap; /* 改行を禁止 */
-            position: relative; 
-            z-index: 1001; 
-        }
+        .logo { font-family: var(--font-heading); font-size: 18px; color: var(--color-main); letter-spacing: 0.15em; white-space: nowrap; position: relative; z-index: 1001; }
 
-        /* ハンバーガーボタン（PCでは非表示） */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 28px;
-            height: 18px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            z-index: 1001; 
-        }
-        .hamburger span {
-            display: block;
-            width: 100%;
-            height: 2px;
-            background-color: var(--color-main);
-            transition: all 0.3s ease;
-        }
+        .hamburger { display: none; flex-direction: column; justify-content: space-between; width: 28px; height: 18px; background: transparent; border: none; cursor: pointer; z-index: 1001; }
+        .hamburger span { display: block; width: 100%; height: 2px; background-color: var(--color-main); transition: all 0.3s ease; }
 
-        /* メニューの基本スタイル（PC用） */
         .nav-links { display: flex; gap: 40px; align-items: center; }
         .nav-links a.link-item { font-size: 13px; color: var(--color-text); letter-spacing: 0.1em; transition: opacity 0.3s; }
         .nav-links a.link-item:hover { opacity: 0.6; }
 
-        /* スマホ用メニューのスタイル */
         @media (max-width: 768px) { 
-            .hamburger {
-                display: flex;
-            }
-            
+            .hamburger { display: flex; }
             .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%; /* 初期状態は画面右の外側に配置 */
-                width: 100%;
-                height: 100vh;
-                background-color: rgba(252, 252, 252, 0.98); 
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 40px;
-                transition: right 0.4s ease; 
-                z-index: 1000;
+                position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
+                background-color: rgba(252, 252, 252, 0.98); display: flex; flex-direction: column;
+                justify-content: center; align-items: center; gap: 40px; transition: right 0.4s ease; z-index: 1000;
             }
-            
-            /* JavaScriptで .open クラスが付与されたらスライドイン */
-            .nav-links.open {
-                right: 0; 
-            }
-            
-            .nav-links .link-item { 
-                display: block; 
-                font-size: 18px; 
-            }
-            
-            /* ハンバーガーが「×」に変化するアニメーション */
-            .hamburger.open span:nth-child(1) {
-                transform: translateY(8px) rotate(45deg);
-            }
-            .hamburger.open span:nth-child(2) {
-                opacity: 0;
-            }
-            .hamburger.open span:nth-child(3) {
-                transform: translateY(-8px) rotate(-45deg);
-            }
+            .nav-links.open { right: 0; }
+            .nav-links .link-item { display: block; font-size: 18px; }
+            .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .hamburger.open span:nth-child(2) { opacity: 0; }
+            .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
         }
 
         /* =========================================
-           Hero Section (モダン・ホリゾンタル ＋ 温かな光)
+           Hero
            ========================================= */
         .hero {
-            min-height: 100vh; 
-            display: flex; 
-            align-items: center; 
-            justify-content: flex-start; 
-            text-align: left; 
-            position: relative; 
-            background-color: var(--color-base); 
-            background-image: url('hero2.jpg'); 
-            
-            /* 【変更点】100%ではなく130%に拡大し、腰上あたりにズームします */
-            background-size: auto 175%; 
-            /* 【変更点】右に配置しつつ、頭が切れないよう上から5%の余白を持たせます */
-            background-position: right 13% top 15%; 
-            background-repeat: no-repeat;
-            overflow: hidden; 
+            min-height: 100vh; display: flex; align-items: center; justify-content: flex-start; text-align: left; 
+            position: relative; background-color: var(--color-base); background-image: url('hero2.jpg'); 
+            background-size: auto 175%; background-position: right 13% top 15%; background-repeat: no-repeat; overflow: hidden; 
         }
-
-        /* モノトーンの硬さを和らげる、ふんわりとした温かい光（ゴールド〜サンド系） */
         .hero-glow {
-            position: absolute;
-            top: 15%;
-            left: -10%;
-            width: 55vw;
-            height: 55vw;
+            position: absolute; top: 15%; left: -10%; width: 55vw; height: 55vw;
             background: radial-gradient(circle, rgba(184, 156, 106, 0.08) 0%, rgba(249, 248, 246, 0.5) 40%, rgba(252, 252, 252, 0) 70%);
-            border-radius: 50%;
-            z-index: 1;
-            pointer-events: none;
+            border-radius: 50%; z-index: 1; pointer-events: none;
         }
-
-        /* 白壁と同化させ、画像の境目を完全に隠すグラデーション */
         .hero::before {
-            content: ''; 
-            position: absolute; 
-            top: 0; left: 0; 
-            width: 100%; height: 100%;
-            /* 変更点：不透明の白(1)の範囲を50%まで広げ、境目をすっぽり塗りつぶします */
-            background: linear-gradient(to right, 
-                rgba(252, 252, 252, 1) 0%, 
-                rgba(252, 252, 252, 1) 50%, 
-                rgba(252, 252, 252, 0) 77%
-            ); 
-            z-index: 2; 
-            pointer-events: none;
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to right, rgba(252, 252, 252, 1) 0%, rgba(252, 252, 252, 1) 50%, rgba(252, 252, 252, 0) 77%); 
+            z-index: 2; pointer-events: none;
         }
+        .hero-content { position: relative; z-index: 10; padding-left: 25%; max-width: 1100px; }
+        .hero-en-title { display: block; font-size: 13px; color: var(--color-accent); letter-spacing: 0.2em; margin-bottom: 25px; text-transform: uppercase; }
+        .hero-title { font-size: clamp(22px, 2.8vw, 34px); line-height: 1.8; color: var(--color-main); letter-spacing: 0.1em; margin-bottom: 30px; white-space: nowrap; }
+        .hero-subtitle { font-size: 15px; color: #555555; line-height: 2.2; letter-spacing: 0.1em; margin-bottom: 40px; }
+        .hero-name { font-size: 14px; letter-spacing: 0.15em; color: var(--color-main); display: flex; align-items: center; gap: 15px; margin-top: 0; }
+        .hero-name span { font-size: 16px; font-family: var(--font-heading); }
 
-        .hero-content { 
-            position: relative; 
-            z-index: 10; 
-            /* 変更点：テキストを右にずらします（お好みで 25% 〜 28% など調整してください） */
-            padding-left: 25%; 
-            /* 変更点：文字が壁にぶつからないよう、箱の幅を広げます */
-            max-width: 1100px;
-        }
-
-        /* スタイリッシュさを引き立てる英語のアクセント */
-        .hero-en-title {
-            display: block;
-            font-family: var(--font-body);
-            font-size: 13px;
-            color: var(--color-accent);
-            letter-spacing: 0.2em;
-            margin-bottom: 25px;
-            text-transform: uppercase;
-        }
-
-        .hero-title { 
-            /* 変更：画面幅に合わせて文字サイズが滑らかに縮みます（最小22px 〜 最大34px） */
-            font-size: clamp(22px, 2.8vw, 34px); 
-            line-height: 1.8; 
-            color: var(--color-main); 
-            letter-spacing: 0.1em; 
-            margin-bottom: 30px;
-            text-shadow: none;
-            white-space: nowrap; 
-        }
-
-        .hero-subtitle { 
-            font-size: 15px; 
-            color: #555555; 
-            line-height: 2.2; 
-            letter-spacing: 0.1em; 
-            margin-bottom: 40px;
-            text-shadow: none;
-        }
-
-        .hero-name { 
-            font-size: 14px; 
-            letter-spacing: 0.15em; 
-            color: var(--color-main);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-top: 0;
-        }
-
-        .hero-name span { 
-            font-size: 16px; 
-            color: var(--color-main);
-            font-family: var(--font-heading);
-            margin-top: 0;
-        }
-
-        /* =========================================
-           ノートPC・タブレット用調整（文字と画像の被り防止）
-           ========================================= */
         @media (max-width: 1150px) and (min-width: 769px) {
-            .hero {
-                /* 人物の位置を右端に固定し、中央に寄ってくるのを防ぎます */
-                background-position: right 0% top 15%; 
-            }
-            .hero-content {
-                /* 画面が狭くなったらテキスト全体を左に寄せて、画像とのスペースを確保します */
-                padding-left: 8%; 
-            }
-            .hero::before {
-                /* テキストが左に寄る分、グラデーションの不透明な白の幅も少し狭めます */
-                background: linear-gradient(to right, 
-                    rgba(252, 252, 252, 1) 0%, 
-                    rgba(252, 252, 252, 1) 30%, 
-                    rgba(252, 252, 252, 0) 70%
-                );
-            }
+            .hero { background-position: right 0% top 15%; }
+            .hero-content { padding-left: 8%; }
+            .hero::before { background: linear-gradient(to right, rgba(252, 252, 252, 1) 0%, rgba(252, 252, 252, 1) 30%, rgba(252, 252, 252, 0) 70%); }
         }
 
-        /* スマホ用調整 */
         @media (max-width: 768px) { 
-            .hero {
-                /* 【変更】テキストを画面上部に配置するため、縦の並びを「上揃え」に変更 */
-                align-items: flex-start; 
-                padding-top: 140px; /* ヘッダーの高さ＋少しの余白分、上から下げる */
-
-                /* 【変更】画像をさらにズームさせ、腰上の表示にする（数値でズーム率を調整可能） */
-                background-size: auto 140%; 
-                /* 【変更】人物を画面の右下に配置し、テキストとの重なりを回避 */
-                background-position: right 40% bottom 175%; 
-            }
-            
-            .hero::before {
-                /* 【変更】上半分（テキスト背景）は白くはっきりさせ、下半分（人物）は透けさせるグラデーション */
-                background: linear-gradient(to bottom, 
-                    rgba(252, 252, 252, 1) 0%, 
-                    rgba(252, 252, 252, 0.95) 45%, 
-                    rgba(252, 252, 252, 0) 65%
-                ); 
-            }
-            
-            .hero-content { 
-                padding: 0 5%; 
-                margin-top: 0; /* 以前設定されていたマイナスの余白（上にずらす設定）を解除 */
-            }
-            
-            .hero-title { 
-                font-size: clamp(16px, 5vw, 24px); 
-                line-height: 1.7; 
-                margin-bottom: 20px; 
-                white-space: nowrap; 
-            }
+            .hero { align-items: flex-start; padding-top: 140px; background-size: auto 140%; background-position: right 40% bottom 175%; }
+            .hero::before { background: linear-gradient(to bottom, rgba(252, 252, 252, 1) 0%, rgba(252, 252, 252, 0.95) 45%, rgba(252, 252, 252, 0) 65%); }
+            .hero-content { padding: 0 5%; }
+            .hero-title { font-size: clamp(16px, 5vw, 24px); line-height: 1.7; margin-bottom: 20px; }
             .hero-subtitle { font-size: 13px; margin-bottom: 30px; }
             .hero-name { gap: 10px; }
         }
 
         /* =========================================
-           Vision & Concept Section
+           Intro Lead (Hero 直下)
            ========================================= */
-        .message-box { max-width: 680px; margin: 0 auto 100px; padding-left: 40px; border-left: 1px solid var(--color-accent); position: relative; z-index: 10;}
+        .intro-lead {
+            padding: 80px 20px 40px;
+            background-color: var(--color-base);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        .intro-lead p {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            line-height: 2.2;
+            color: var(--color-main);
+            letter-spacing: 0.1em;
+            margin: 0;
+        }
+        @media (max-width: 768px) {
+            .intro-lead { padding: 60px 20px 20px; }
+            .intro-lead p { font-size: 15px; text-align: left; max-width: 500px; margin: 0 auto; line-height: 2.0; }
+        }
+
+        /* =========================================
+           Empathy & Message
+           ========================================= */
+        .message-box { max-width: 680px; margin: 0 auto; padding-left: 40px; border-left: 1px solid var(--color-accent); position: relative; z-index: 10;}
         .story-text { font-size: 15px; color: #444; margin-bottom: 30px; line-height: 2.2; }
-        
-        /* Messageの続きを読む機能（PCではすべて表示、ボタンは非表示） */
         .btn-read-more { display: none; }
         .message-more-content { display: block; }
 
         @media (max-width: 768px) { 
-            .message-box { padding-left: 20px; margin-bottom: 60px; } 
-            
-            /* スマホ版のみ、続きを読むの中身を隠す */
-            .message-more-content {
-                max-height: 0;
-                overflow: hidden;
-                opacity: 0;
-                transition: max-height 0.8s ease, opacity 0.8s ease;
-            }
-            /* 開いたときの設定 */
-            .message-more-content.is-open {
-                max-height: 800px; /* テキストが十分に収まる高さを指定 */
-                opacity: 1;
-            }
-            /* スマホ版のみ、ボタンを表示 */
+            .message-box { padding-left: 20px; } 
+            .message-more-content { max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.8s ease, opacity 0.8s ease; }
+            .message-more-content.is-open { max-height: 800px; opacity: 1; }
             .btn-read-more {
-                display: inline-flex;
-                align-items: center;
-                background: transparent;
-                border: none;
-                color: var(--color-accent);
-                font-size: 14px;
-                letter-spacing: 0.1em;
-                margin-top: 5px;
-                padding: 0;
-                cursor: pointer;
-                border-bottom: 1px solid var(--color-accent);
+                display: inline-flex; align-items: center; background: transparent; border: none; color: var(--color-accent);
+                font-size: 14px; letter-spacing: 0.1em; margin-top: 5px; padding: 0; cursor: pointer; border-bottom: 1px solid var(--color-accent);
             }
-            .btn-read-more i {
-                margin-left: 8px;
-                font-size: 12px;
-                transition: transform 0.3s ease;
-            }
-            /* 開いたときに矢印を上に向ける */
-            .btn-read-more.is-open i {
-                transform: rotate(180deg);
-            }
+            .btn-read-more i { margin-left: 8px; font-size: 12px; transition: transform 0.3s ease; }
+            .btn-read-more.is-open i { transform: rotate(180deg); }
         }
 
+        /* =========================================
+           Inner Voices (自己否定セクション)
+           ========================================= */
+        .voice-container {
+            position: relative; width: 100%; height: 500px; display: flex; align-items: center; justify-content: center; margin: 0 auto; max-width: 800px;
+        }
+        .voice-core {
+            width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, var(--color-accent) 0%, var(--color-main) 100%);
+            box-shadow: 0 0 30px rgba(184, 156, 106, 0.4); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 15px; letter-spacing: 0.1em; z-index: 2;
+        }
+        .voice-bubble { position: absolute; width: 160px; height: 160px; perspective: 1000px; cursor: pointer; }
+
+        @keyframes float1 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        @keyframes float2 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(15px); } }
+
+        .v1 { top: 5%; left: 10%; animation: float1 6s infinite ease-in-out; }
+        .v2 { top: 10%; right: 10%; animation: float2 7s infinite ease-in-out; }
+        .v3 { top: 40%; left: -5%; animation: float2 8s infinite ease-in-out; }
+        .v4 { top: 45%; right: -5%; animation: float1 6.5s infinite ease-in-out; }
+        .v5 { bottom: 5%; left: 20%; animation: float1 7.5s infinite ease-in-out; }
+        .v6 { bottom: 10%; right: 20%; animation: float2 6s infinite ease-in-out; }
+
+        .voice-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
+        .voice-bubble:hover .voice-inner { transform: rotateY(180deg); }
+        .voice-front, .voice-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; border-radius: 50%; padding: 15px; font-size: 14px; line-height: 1.6; letter-spacing: 0.05em; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .voice-front { background: rgba(255,255,255,0.95); border: 1px solid rgba(184, 156, 106, 0.3); color: #444; }
+        .voice-back { background: var(--color-main); color: #fff; transform: rotateY(180deg); }
+
+        @media (max-width: 768px) {
+            .voice-container { height: auto; flex-direction: column; gap: 20px; }
+            .voice-core { position: relative; margin: 20px 0 40px; }
+            .voice-bubble { position: relative; top: auto !important; left: auto !important; right: auto !important; bottom: auto !important; width: 100%; max-width: 280px; height: 80px; animation: none; }
+            .voice-front, .voice-back { border-radius: 8px; }
+        }
+
+        /* =========================================
+           Transformation (変化)
+           ========================================= */
+        .transformation-list { list-style: none; max-width: 700px; margin: 0 auto; }
+        .transformation-list li { background: #fff; padding: 30px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 5px 20px rgba(0,0,0,0.02); display: flex; gap: 25px; align-items: flex-start; border-left: 3px solid var(--color-accent); }
+        .transform-icon { font-size: 24px; color: var(--color-accent); margin-top: 5px; }
+        .transformation-list h4 { font-size: 17px; margin-bottom: 10px; }
+        .transformation-list p { font-size: 14px; color: #555; line-height: 1.8; }
+        @media (max-width: 768px) { .transformation-list li { padding: 20px; flex-direction: column; gap: 15px; } }
+
+        /* =========================================
+           Vision & Process & Safe Space
+           ========================================= */
         .vision-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px; position: relative; z-index: 10;}
         .vision-card { text-align: left; }
-        .vision-icon { font-size: 24px; color: var(--color-accent); margin-bottom: 25px; opacity: 0.8; }
-        .vision-card h3 { font-size: 17px; margin-bottom: 20px; line-height: 1.7; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 15px; }
         .vision-card p { font-size: 14px; color: #555; }
-        @media (max-width: 768px) { .vision-grid { grid-template-columns: 1fr; gap: 40px; } }
-
-        .vision-title-inline {
-            font-size: 17px;
-            margin-bottom: 20px;
-            line-height: 1.7;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            padding-bottom: 15px;
-            display: flex;        /* 横並びにする設定 */
-            align-items: center;  /* 縦方向の中央で揃える */
-            gap: 12px;            /* アイコンと文字の間の隙間 */
-        }
-
-        .vision-title-inline i {
-            font-size: 20px;      /* アイコンのサイズ */
-            color: var(--color-accent);
-            opacity: 0.8;
-        }
-
+        .vision-title-inline { font-size: 17px; margin-bottom: 20px; line-height: 1.7; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 15px; display: flex; align-items: center; gap: 12px; }
+        .vision-title-inline i { font-size: 20px; color: var(--color-accent); opacity: 0.8; }
         .vision-closing { text-align: center; margin-top: 100px; padding: 60px 0; border-top: 1px solid rgba(0,0,0,0.03); border-bottom: 1px solid rgba(0,0,0,0.03); position: relative; z-index: 10;}
         .closing-text { font-family: var(--font-heading); font-size: 18px; line-height: 2.4; color: var(--color-main); letter-spacing: 0.15em; }
-        @media (max-width: 768px) { .vision-closing { margin-top: 60px; padding: 40px 0; } .closing-text { font-size: 16px; } }
+        @media (max-width: 768px) { .vision-grid { grid-template-columns: 1fr; gap: 40px; } .vision-closing { margin-top: 60px; padding: 40px 0; } .closing-text { font-size: 16px; } }
 
-        /* =========================================
-           Delicate Divider
-           ========================================= */
-        .delicate-divider {
-            display: flex; align-items: center; justify-content: center;
-            padding: 100px 20px; position: relative; z-index: 10;
-        }
-        @media (max-width: 768px) { .delicate-divider { padding: 60px 20px; } }
-        
-        .delicate-divider::before, .delicate-divider::after {
-            content: ''; flex: 1; max-width: 200px; height: 1px;
-            background: linear-gradient(to right, transparent, var(--color-accent));
-        }
+        .delicate-divider { display: flex; align-items: center; justify-content: center; padding: 100px 20px; position: relative; z-index: 10; }
+        .delicate-divider::before, .delicate-divider::after { content: ''; flex: 1; max-width: 200px; height: 1px; background: linear-gradient(to right, transparent, var(--color-accent)); }
         .delicate-divider::after { background: linear-gradient(to left, transparent, var(--color-accent)); }
         .divider-icon { color: var(--color-accent); font-size: 14px; margin: 0 25px; opacity: 0.8; }
+        @media (max-width: 768px) { .delicate-divider { padding: 60px 20px; } }
 
-        /* =========================================
-           Service Section
-           ========================================= */
         .bg-sage { background-color: rgba(242, 245, 243, 0.7); }
-        
-        .flow-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 50px; }
-        .flow-card { background: transparent; padding: 0; text-align: left; }
-        .flow-icon { font-size: 20px; color: var(--color-accent); margin-bottom: 15px; }
-        .flow-title { font-size: 16px; margin-bottom: 15px; }
+        .bg-sand { background-color: rgba(249, 248, 246, 0.7); }
+
+        .flow-grid-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1000px; margin: 50px auto 0; }
+        @media (max-width: 900px) { .flow-grid-cards { grid-template-columns: 1fr; gap: 40px; } }
+        .flow-card-large { background-color: #ffffff; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.4s ease, box-shadow 0.4s ease; }
+        .flow-card-large:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.08); }
+        .anim-showcase { width: 100%; height: 220px; background-color: var(--color-base); display: flex; align-items: center; justify-content: center; position: relative; border-bottom: 1px solid rgba(0,0,0,0.02); overflow: hidden; }
+        .flow-card-content { padding: 35px 25px; text-align: left; flex: 1; }
+        .flow-card-content .flow-title { font-size: 16px; margin-bottom: 15px; line-height: 1.6; letter-spacing: 0.05em; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 15px; }
         .flow-desc { font-size: 14px; color: #555; }
-        @media (max-width: 768px) { .flow-grid { grid-template-columns: 1fr; gap: 40px; } }
 
-        .safe-space-box { 
-            background: rgba(255,255,255,0.9); 
-            padding: 60px 50px; 
-            margin: 80px auto 100px;  /* ◀︎ 【変更】最後の数値を「100px」にして、下部に豊かな余白を作ります */
-            max-width: 900px;     
-            border: 1px solid rgba(0,0,0,0.03); 
-            border-radius: 8px;   
-            position: relative; 
-            z-index: 10; 
-        }
+        .core-light-large { width: 60px; height: 60px; background-color: var(--color-accent); border-radius: 50%; box-shadow: 0 0 30px rgba(184, 156, 106, 0.4); position: relative; z-index: 2; }
+        .step1-showcase .core-light-large { opacity: 0.8; }
+        .parts-large { position: absolute; width: 14px; height: 14px; background-color: var(--color-main); border-radius: 50%; opacity: 0.6; }
+        .part-1 { top: 15%; left: 15%; animation: gather1 5s infinite ease-in-out; }
+        .part-2 { bottom: 20%; right: 15%; animation: gather2 5s infinite ease-in-out; animation-delay: 1.5s; }
+        .part-3 { top: 25%; right: 10%; animation: gather3 5s infinite ease-in-out; animation-delay: 3s; }
+        @keyframes gather1 { 0%, 100% { transform: translate(0, 0); opacity: 0.2; } 50% { transform: translate(60px, 40px); opacity: 0.8; } }
+        @keyframes gather2 { 0%, 100% { transform: translate(0, 0); opacity: 0.2; } 50% { transform: translate(-50px, -40px); opacity: 0.8; } }
+        @keyframes gather3 { 0%, 100% { transform: translate(0, 0); opacity: 0.2; } 50% { transform: translate(-50px, 20px); opacity: 0.8; } }
 
-        /* スマホ用調整: 横幅と上下の余白を調整 */
-        @media (max-width: 768px) { 
-            .safe-space-box { 
-                padding: 40px 20px; 
-                margin: 50px auto 80px; /* ◀︎ 【変更】スマホ表示でも下に80pxの余白を確保します */
-            } 
-        }
-        
+        .step2-showcase .core-light-large { width: 80px; height: 80px; background: radial-gradient(circle, var(--color-accent) 0%, var(--color-main) 100%); animation: somaticBreatheLarge 6s infinite ease-in-out; }
+        @keyframes somaticBreatheLarge { 0%, 100% { transform: scale(0.9); box-shadow: 0 0 15px rgba(184, 156, 106, 0.2); } 50% { transform: scale(1.15); box-shadow: 0 0 50px rgba(184, 156, 106, 0.6); } }
+
+        .step3-showcase .core-light-large { background-color: var(--color-accent); box-shadow: 0 0 35px rgba(184, 156, 106, 0.7); }
+        .step3-showcase .core-light-large::before, .step3-showcase .core-light-large::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; border: 1px solid var(--color-accent); border-radius: 50%; animation: rippleEffectLarge 4s infinite cubic-bezier(0.4, 0, 0.2, 1); }
+        .step3-showcase .core-light-large::after { animation-delay: 2s; }
+        @keyframes rippleEffectLarge { 0% { width: 100%; height: 100%; opacity: 0.8; } 100% { width: 350%; height: 350%; opacity: 0; } }
+
+        .safe-space-box { background: rgba(255,255,255,0.9); padding: 60px 50px; margin: 0 auto; max-width: 900px; border: 1px solid rgba(0,0,0,0.03); border-radius: 8px; position: relative; z-index: 10; }
+        @media (max-width: 768px) { .safe-space-box { padding: 40px 20px; } }
         .safe-space-title { text-align: center; margin-bottom: 15px; font-size: 20px; }
         .safe-space-intro { text-align: center; margin-bottom: 35px; font-size: 14px; color: #777; letter-spacing: 0.1em; }
         .safe-space-list { list-style: none; margin: 0 auto; max-width: 680px; }
@@ -491,9 +307,8 @@
         .safe-space-list strong { color: var(--color-main); font-weight: 500; display: block; margin-bottom: 4px; font-size: 15px; }
 
         /* =========================================
-           Profile Section
+           Profile & Modal
            ========================================= */
-        .bg-sand { background-color: rgba(249, 248, 246, 0.7); }
         .profile-flex { display: flex; gap: 80px; align-items: center; margin-bottom: 80px; }
         .profile-img { flex: 0 0 45%; }
         .profile-info { flex: 1; }
@@ -502,121 +317,35 @@
         @media (max-width: 768px) { .profile-flex { flex-direction: column; gap: 40px; margin-bottom: 50px; } }
 
         .story-main-title { text-align: center; font-size: 20px; margin-bottom: 40px; letter-spacing: 0.1em; }
-        .accordion-item { border-bottom: 1px solid rgba(0,0,0,0.05); }
-        .accordion-item:first-of-type { border-top: 1px solid rgba(0,0,0,0.05); }
-        .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 25px 0; cursor: pointer; }
-        .profile-story-title { font-size: 16px; margin: 0; }
-        .accordion-icon { color: var(--color-accent); font-size: 14px; transition: transform 0.3s ease; }
-        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
-        .accordion-item.active .accordion-content { padding-bottom: 25px; }
-        .accordion-item.active .accordion-icon { transform: rotate(45deg); }
-        .accordion-content .story-text { font-size: 14px; margin-bottom: 0; }
-
         .profile-data { margin-top: 60px; font-size: 13px; border-top: 1px solid var(--color-accent); padding-top: 30px; }
         .profile-data ul { list-style: none; color: #555; }
         .profile-data li { margin-bottom: 15px; }
 
-        /* =========================================
-           Modal (My Story)
-           ========================================= */
-        .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 2000; 
-            left: 0; 
-            top: 0; 
-            width: 100%; 
-            height: 100%; 
-            /* 背景を深い緑色で少し透けさせ、静寂を演出します */
-            background-color: rgba(42, 59, 50, 0.80); 
-            backdrop-filter: blur(5px);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-        .modal.show {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 1;
-        }
-        .modal-wrapper {
-            position: relative;
-            width: 90%;
-            max-width: 700px;
-        }
-        .modal-content {
-            background-color: var(--color-base);
-            /* 変更：幅の指定を100%にし、サイズ調整はwrapperに任せます */
-            width: 100%; 
-            max-height: 85vh;
-            overflow-y: auto; 
-            padding: 60px 50px;
-            transform: translateY(20px);
-            transition: transform 0.4s ease;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-        }
-        .modal.show .modal-content {
-            transform: translateY(0);
-        }
-        .close-btn {
-            /* 変更：画面全体ではなく、wrapper（枠）を基準に位置を固定します */
-            position: absolute; 
-            top: 0;             /* 枠の上端に合わせる */
-            right: -50px;       /* 枠の右端から50px外側に配置する */
-            font-size: 32px;
-            color: rgba(255, 255, 255, 0.6);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 2010;
-        }
-        .close-btn:hover { 
-            color: #ffffff; 
-            transform: scale(1.1); 
-        }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(42, 59, 50, 0.80); backdrop-filter: blur(5px); opacity: 0; transition: opacity 0.4s ease; }
+        .modal.show { display: flex; align-items: center; justify-content: center; opacity: 1; }
+        .modal-wrapper { position: relative; width: 90%; max-width: 700px; }
+        .modal-content { background-color: var(--color-base); width: 100%; max-height: 85vh; overflow-y: auto; padding: 60px 50px; transform: translateY(20px); transition: transform 0.4s ease; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+        .modal.show .modal-content { transform: translateY(0); }
+        .close-btn { position: absolute; top: 0; right: -50px; font-size: 32px; color: rgba(255, 255, 255, 0.6); cursor: pointer; transition: all 0.3s ease; z-index: 2010; }
+        .close-btn:hover { color: #ffffff; transform: scale(1.1); }
         .modal-title { text-align: center; font-size: 22px; margin-bottom: 40px; letter-spacing: 0.1em; }
         .modal-chapter { font-size: 16px; color: var(--color-accent); margin-bottom: 15px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 10px; }
         .modal-body .story-text { margin-bottom: 80px; }
         .modal-body .story-text:last-child { margin-bottom: 0; }
-        
-        /* My Storyを読むボタンのデザイン */
-        .btn-story { 
-            background-color: transparent; 
-            color: var(--color-main); 
-            border: 1px solid var(--color-main); 
-            padding: 12px 32px;
-            font-size: 14px;
-            letter-spacing: 0.1em;
-            cursor: pointer;
-            transition: all 0.4s ease;
-        }
-        .btn-story:hover { 
-            background-color: var(--color-main); 
-            color: #fff; 
-        }
-        
-        /* スマホ用調整 */
-        @media (max-width: 768px) {
-            .close-btn {
-                top: -45px; /* 枠の少し「上」に配置 */
-                right: 0;   /* 枠の右端にピッタリ揃える */
-                font-size: 28px;
-            }
-            .modal-content { padding: 40px 25px; max-height: 80vh; }
-        .btn-story { 
-            background-color: transparent; 
-            color: #fff; 
-            background-color: var(--color-main); 
-            padding: 12px 32px;
-            font-size: 14px;
-            letter-spacing: 0.1em;
-            cursor: pointer;
-            transition: all 0.4s ease;
-        }
-        }
+        .btn-story { background-color: transparent; color: var(--color-main); border: 1px solid var(--color-main); padding: 12px 32px; font-size: 14px; letter-spacing: 0.1em; cursor: pointer; transition: all 0.4s ease; }
+        .btn-story:hover { background-color: var(--color-main); color: #fff; }
+        @media (max-width: 768px) { .close-btn { top: -45px; right: 0; font-size: 28px; } .modal-content { padding: 40px 25px; max-height: 80vh; } .btn-story { background-color: var(--color-main); color: #fff; } }
 
         /* =========================================
-           FAQ Section
+           FAQ
            ========================================= */
+        .accordion-item { border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .accordion-item:first-of-type { border-top: 1px solid rgba(0,0,0,0.05); }
+        .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 25px 0; cursor: pointer; }
+        .accordion-icon { color: var(--color-accent); font-size: 14px; transition: transform 0.3s ease; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
+        .accordion-item.active .accordion-content { padding-bottom: 25px; }
+        .accordion-item.active .accordion-icon { transform: rotate(45deg); }
         .faq-list { margin: 0 0 0 1.5em; padding-left: 0.5em; }
         .faq-list li { margin-bottom: 15px; line-height: 1.8; color: #666; }
         .faq-list strong { color: var(--color-main); font-weight: 500; }
@@ -624,13 +353,21 @@
         .faq-answer-box { font-size: 14px; color: #666; padding-top: 10px; }
 
         /* =========================================
-           CTA Section
+           Trial Session Flow
+           ========================================= */
+        .step-list { max-width: 600px; margin: 0 auto 60px; }
+        .step-item { display: flex; align-items: flex-start; margin-bottom: 25px; background: #fff; padding: 25px 30px; border-radius: 8px; box-shadow: 0 5px 20px rgba(0,0,0,0.02); border-left: 3px solid var(--color-accent); }
+        .step-num { font-family: var(--font-heading); font-size: 22px; color: var(--color-accent); margin-right: 25px; min-width: 25px; font-weight: 500; }
+        .step-title { font-size: 16px; margin-bottom: 8px; color: var(--color-main); font-weight: 500; }
+        .step-desc { font-size: 14px; color: #555; line-height: 1.8; }
+        @media (max-width: 768px) { .step-item { padding: 20px; flex-direction: column; } .step-num { margin-bottom: 10px; } }
+
+        /* =========================================
+           CTA & Form
            ========================================= */
         .cta-section { background-color: var(--color-main); color: #fff; text-align: center; padding: 140px 20px; position: relative; }
         @media (max-width: 768px) { .cta-section { padding: 80px 20px; } }
-        
         .cta-header { margin-bottom: 60px; position: relative; z-index: 10; }
-        .cta-section .section-title { color: #fff; margin-bottom: 15px; }
         .cta-subtitle { display: block; color: var(--color-accent); font-style: italic; letter-spacing: 0.15em; font-size: 14px; }
         .cta-intro { margin-bottom: 80px; font-size: 15px; color: rgba(255,255,255,0.8); position: relative; z-index: 10; }
         @media (max-width: 768px) { .cta-intro { margin-bottom: 50px; } }
@@ -642,90 +379,22 @@
         .menu-title { font-size: 16px; margin-bottom: 10px; color: #fff; letter-spacing: 0.05em; }
         .menu-desc { color: rgba(255,255,255,0.6); display: block; line-height: 1.8; }
         .menu-price { text-align: right; color: var(--color-accent); font-size: 18px; margin-top: 10px; font-family: var(--font-heading); }
-        
-        .btn-large { 
-            font-size: 14px; 
-            padding: 18px 60px; 
-            background-color: var(--color-accent); 
-            color: #fff; 
-            border: none; 
-            transition: all 0.4s ease; 
-            position: relative; 
-            z-index: 10; 
-        }
-        .btn-large:hover { 
-            background-color: #c4a977; 
-            color: #fff; 
-            box-shadow: 0 0 20px rgba(184, 156, 106, 0.6); 
-            transform: translateY(-1px); 
-        }
-        /* スマホ用調整: ボタンの左右の余白を調整し、画面に収まりやすくする */
-        @media (max-width: 768px) { 
-            .btn-large { padding: 15px 40px; display: inline-block; width: auto; } 
-        }
 
-        .cta-footer-text { 
-            margin-top: 100px; 
-            font-size: 15px; 
-            color: rgba(255, 255, 255, 0.8); 
-            font-family: var(--font-heading); 
-            letter-spacing: 0.15em; 
-            line-height: 2.4; 
-            position: relative; 
-            z-index: 10; 
-        }
+        .btn-large { font-size: 14px; padding: 18px 60px; background-color: var(--color-accent); color: #fff; border: none; transition: all 0.4s ease; position: relative; z-index: 10; cursor: pointer; }
+        .btn-large:hover { background-color: #c4a977; color: #fff; box-shadow: 0 0 20px rgba(184, 156, 106, 0.6); transform: translateY(-1px); }
+        @media (max-width: 768px) { .btn-large { padding: 15px 40px; display: inline-block; width: auto; } }
+
+        .contact-form { margin-top: 40px; max-width: 600px; margin: 0 auto; text-align: left; position: relative; z-index: 10; }
+        .form-group { margin-bottom: 25px; }
+        .form-label { display: block; margin-bottom: 8px; color: rgba(255, 255, 255, 0.9); font-size: 14px; letter-spacing: 0.1em; }
+        .form-input, .form-textarea { width: 100%; padding: 15px; background-color: rgba(255, 255, 255, 0.09); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; font-family: var(--font-body); font-size: 15px; border-radius: 0; transition: all 0.3s ease; }
+        .form-input:focus, .form-textarea:focus { outline: none; border-color: var(--color-accent); background-color: rgba(255, 255, 255, 0.1); }
+        .form-textarea { min-height: 150px; resize: vertical; }
+        .form-submit { text-align: center; margin-top: 40px; }
+        .required-mark { color: var(--color-accent); font-size: 12px; margin-left: 5px; }
+
+        .cta-footer-text { margin-top: 100px; font-size: 15px; color: rgba(255, 255, 255, 0.8); font-family: var(--font-heading); letter-spacing: 0.15em; line-height: 2.4; position: relative; z-index: 10; }
         @media (max-width: 768px) { .cta-footer-text { margin-top: 60px; } }
-
-        /* =========================================
-           Contact Form (埋め込みフォーム用)
-           ========================================= */
-        .contact-form {
-            margin-top: 100px; 
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: left;
-            position: relative;
-            z-index: 10;
-        }
-        .form-group {
-            margin-bottom: 25px;
-        }
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 14px;
-            letter-spacing: 0.1em;
-        }
-        .form-input, .form-textarea {
-            width: 100%;
-            padding: 15px;
-            background-color: rgba(255, 255, 255, 0.09);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
-            font-family: var(--font-body);
-            font-size: 15px;
-            border-radius: 0;
-            transition: all 0.3s ease;
-        }
-        .form-input:focus, .form-textarea:focus {
-            outline: none;
-            border-color: var(--color-accent);
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        .form-textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-        .form-submit {
-            text-align: center;
-            margin-top: 40px;
-        }
-        .required-mark {
-            color: var(--color-accent);
-            font-size: 12px;
-            margin-left: 5px;
-        }
 
         /* =========================================
            Footer
@@ -735,131 +404,35 @@
         .social-links a { display: inline-block; margin: 0 15px; font-size: 18px; color: #888; transition: color 0.3s ease; }
         .social-links a:hover { color: #fff; }
 
-        /* =========================================
-           プロセス・アニメーション (カード型・大画面用)
-           ========================================= */
+        #flow .container {
+            max-width: 1100px; 
+        }
         .flow-grid-cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            max-width: 1000px;     
-            margin: 50px auto 0;  
+            max-width: 100%; 
         }
 
-        @media (max-width: 900px) {
-            .flow-grid-cards { grid-template-columns: 1fr; gap: 40px; }
+        .profile-catchphrase {
+            display: inline-block;
+            font-size: 15px; /* PCでの少し大きめのサイズ */
+        }
+        @media (max-width: 768px) {
+            .profile-catchphrase {
+                /* 画面幅に合わせて文字を縮小し、強制的に1行にする */
+                font-size: clamp(11px, 4.2vw, 14px); 
+                white-space: nowrap; 
+                letter-spacing: 0.05em; /* スマホでは少し字間を詰めて収まりを良くする */
+            }
         }
 
-        .flow-card-large {
-            background-color: #ffffff;
-            border-radius: 8px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-        .flow-card-large:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-        }
-
-        .anim-showcase {
-            width: 100%;
-            height: 220px;
-            background-color: var(--color-base); 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            border-bottom: 1px solid rgba(0,0,0,0.02);
-            overflow: hidden;
-        }
-
-        .flow-card-content {
-            padding: 35px 25px;
-            text-align: left;
-            flex: 1; 
-        }
-        .flow-card-content .flow-title {
-            font-size: 16px;
-            margin-bottom: 15px;
-            line-height: 1.6;
-            letter-spacing: 0.05em;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            padding-bottom: 15px;
-        }
-
-        .core-light-large {
-            width: 60px;
-            height: 60px;
-            background-color: var(--color-accent);
-            border-radius: 50%;
-            box-shadow: 0 0 30px rgba(184, 156, 106, 0.4);
-            position: relative;
-            z-index: 2;
-        }
-
-        /* -----------------------------------------
-           プロセス1：深層へのアクセス
-           ----------------------------------------- */
-        .step1-showcase .core-light-large {
-            opacity: 0.8;
-        }
-        .parts-large {
-            position: absolute;
-            width: 14px;
-            height: 14px;
-            background-color: var(--color-main);
-            border-radius: 50%;
-            opacity: 0.6;
-        }
-        .part-1 { top: 15%; left: 15%; animation: gather1 5s infinite ease-in-out; }
-        .part-2 { bottom: 20%; right: 15%; animation: gather2 5s infinite ease-in-out; animation-delay: 1.5s; }
-        .part-3 { top: 25%; right: 10%; animation: gather3 5s infinite ease-in-out; animation-delay: 3s; }
-
-        @keyframes gather1 { 0%, 100% { transform: translate(0, 0); opacity: 0.2; } 50% { transform: translate(60px, 40px); opacity: 0.8; } }
-        @keyframes gather2 { 0%, 100% { transform: translate(0, 0); opacity: 0.2; } 50% { transform: translate(-50px, -40px); opacity: 0.8; } }
-        @keyframes gather3 { 0%, 100% { transform: translate(0, 0); opacity: 0.2; } 50% { transform: translate(-50px, 20px); opacity: 0.8; } }
-
-        /* -----------------------------------------
-           プロセス2：深い統合（自律神経の休息・深呼吸）
-           ----------------------------------------- */
-        .step2-showcase .core-light-large {
-            width: 80px;
-            height: 80px;
-            background: radial-gradient(circle, var(--color-accent) 0%, var(--color-main) 100%);
-            animation: somaticBreatheLarge 6s infinite ease-in-out;
-        }
-        @keyframes somaticBreatheLarge {
-            0%, 100% { transform: scale(0.9); box-shadow: 0 0 15px rgba(184, 156, 106, 0.2); }
-            50% { transform: scale(1.15); box-shadow: 0 0 50px rgba(184, 156, 106, 0.6); }
-        }
-
-        /* -----------------------------------------
-           プロセス3：真の自己主導（波紋・エネルギーの広がり）
-           ----------------------------------------- */
-        .step3-showcase .core-light-large {
-            background-color: var(--color-accent);
-            box-shadow: 0 0 35px rgba(184, 156, 106, 0.7);
-        }
-        .step3-showcase .core-light-large::before,
-        .step3-showcase .core-light-large::after {
-            content: '';
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%; height: 100%;
-            border: 1px solid var(--color-accent);
-            border-radius: 50%;
-            animation: rippleEffectLarge 4s infinite cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .step3-showcase .core-light-large::after {
-            animation-delay: 2s;
-        }
-        @keyframes rippleEffectLarge {
-            0% { width: 100%; height: 100%; opacity: 0.8; }
-            100% { width: 350%; height: 350%; opacity: 0; }
+        @media (max-width: 768px) {
+            .step-item {
+                flex-direction: row !important; /* 縦並びを解除して強制的に横並びにする */
+                align-items: flex-start;
+            }
+            .step-num {
+                margin-bottom: 0 !important;   /* 下の余白をなくす */
+                margin-right: 15px !important; /* 番号とタイトルの間の隙間を少し狭める */
+            }
         }
 
     </style>
@@ -869,65 +442,196 @@
     <canvas id="stardust-canvas"></canvas>
 
     <header>
-    <div class="header-inner">
-        <div class="logo">Yui Fukushima</div>
-        
-        <button class="hamburger" id="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-
-        <nav class="nav-links" id="nav-links">
-            <a href="#vision" class="link-item">Vision</a>
-            <a href="#service" class="link-item">Service</a>
-            <a href="#profile" class="link-item">Profile</a>
-            <a href="#contact" class="btn" style="padding: 8px 24px;">体験セッション</a>
-        </nav>
-    </div>
-</header>
+        <div class="header-inner">
+            <div class="logo">Yui Fukushima</div>
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="nav-links" id="nav-links">
+                <a href="#empathy" class="link-item">Message</a>
+                <a href="#vision" class="link-item">Vision</a>
+                <a href="#flow" class="link-item">Service</a>
+                <a href="#profile" class="link-item">Profile</a>
+                <a href="#contact" class="btn" style="padding: 8px 24px;">体験セッション</a>
+            </nav>
+        </div>
+    </header>
 
     <section class="hero" id="home">
         <div class="hero-glow"></div>
-        
         <div class="hero-content" data-aos="fade-in" data-aos-duration="2500">
             <span class="hero-en-title">Awaken Your Authentic Self</span>
-            <h1 class="hero-title">「制限」という檻を抜け出し、<br>１００％のあなたを生きる</h1>
+            <h1 class="hero-title">「制限」という檻を抜け出し、<br>本来のあなたを生きる</h1>
             <p class="hero-subtitle">内なる平和から、人生の完全なリーダーへ<br>自分に驚かされる人生を、ここから</p>
-            <div class="hero-name">深層変容コーチ<span>福島 ゆい</span></div>
+            <div class="hero-name">深層対話コーチ<span>福島 ゆい</span></div>
         </div>
     </section>
 
-    <section class="section-padding" id="vision"> 
+    <section class="intro-lead">
+        <div class="container" data-aos="fade-up">
+            <p>
+                自己否定や繰り返す生きづらさに悩む方へ。<br class="br-pc">
+                深い対話と身体感覚へのアプローチを通して、自分との関係を修復し、<br class="br-pc">
+                内なる平和と自己主導を取り戻していくための、静かな対話の時間です。
+            </p>
+        </div>
+    </section>
+
+    <section class="section-padding" id="empathy" style="background-color: var(--color-bg-sage);">
+        <div class="container text-center" data-aos="fade-up">
+            <h2 class="section-title">あなたは、こんな感覚を抱えたことはありませんか？</h2>
+            <p class="story-text" style="max-width: 680px; margin: 0 auto; text-align: left;">
+                頭ではわかっているのに同じ悩みを繰り返してしまう。<br><br>
+                人間関係で自分を抑えてしまう。<br><br>
+                本音や願いがわからなくなって、どこか満たされない。<br><br>
+                変わりたいが、無理に前向きになることに疲れた・・・<br><br>
+                もし、あなたがそんな感覚を一度でも抱いたことがあるのなら。<br>
+                それはあなたの中にある本来の生命の力が、目を覚まそうとしている大切なサインです。
+            </p>
+        </div>
+    </section>
+
+    <section class="section-padding" id="message"> 
         <div class="container">
             <div class="message-box" data-aos="fade-up">
-            <h2 class="section-title" data-aos="fade-up">Message</h2>
-                <p class="story-text">これまで、傷つかないように、あるいは正しい道から外れないようにと、<br class="br-pc">懸命に自分を守りながら生きてきたあなたへ。</p>
+                <h2 class="section-title" style="margin-bottom: 40px;">すべては「自分との関係」から始まる</h2>
+                <p class="story-text">ありたい姿とのギャップに苦しみ、自分を責めてしまう日々は、決してあなたが弱いからではありません。それは、本来のあなたの中にある<b>生命の力が行き場を失っているサイン</b>です。</p>
+                <p class="story-text">私たちは人生を変えようとするとき、仕事や環境、人間関係など、外側の世界を変えようとします。けれど、本当の変化はそこからは始まりません。</p>
+                <p class="story-text">現実を根本から変える鍵は外側ではなく、<b>あなた自身の内側</b>にあります。</p>
                 
                 <div class="message-more-content" id="messageMoreContent">
-                    <p class="story-text">ありたい姿とのギャップに苦しみ、自分を責めてしまう日々は、<br class="br-pc">決してあなたが弱いからではありません。<br class="br-pc">それは、本来の煌めくような命の力が、行き場を失っているサインです。</p>
-                    <p class="story-text">現実を根本から変える鍵は、外側の世界にはありません。<br class="br-pc">唯一の鍵は、あなた自身の「内側」を統合し、<br class="br-pc">人生の主導権を取り戻すことにあります。</p>
-                    <p class="story-text" style="margin-bottom: 0;">否定してきた自分の一部を赦し、一番の味方として自己受容の土台を築いたとき。<br class="br-pc">想像をはるかに超える可能性がひらき、世界は全く新しい姿を見せ始めます。<br class="br-pc">あなたがあなた自身に驚かされるような、本領発揮のプロセスをご一緒します。</p>
+                    <p class="story-text">否定してきた自分を赦し、自分自身と和解したとき。あなたの中に眠っていた可能性は、静かな夜明けのように、しかし確実に目を覚まし始めます。</p>
+                    <p class="story-text" style="margin-bottom: 0;">そしてある日、あなた自身があなたに驚く瞬間が訪れます。<br>その本領発揮のプロセスを、私はあなたのすぐ隣で見守ります。</p>
                 </div>
-                
                 <button class="btn-read-more" id="btnReadMore" onclick="toggleMessage()">続きを読む <i class="fa-solid fa-chevron-down"></i></button>
             </div>
+        </div>
+    </section>
+
+    <section class="section-padding bg-sand" id="inner-voices">
+        <div class="container" data-aos="fade-up">
+            <h2 class="section-title" style="margin-bottom: 30px;">内なる厳しい声は、あなたを守るための盾だった</h2>
+            <p class="text-center" style="font-size: 14px; color: #555; margin-bottom: 60px; line-height: 2;">
+                心の中で響く厳しい声。それは決して、あなたを痛めつけるためのものではありません。<br class="br-pc">
+                傷つかないように、見放されないように……<br class="br-pc">かつて必死であなたを守ろうとした「愛」の形でした。<br><br>
+                <span style="color: var(--color-accent); font-weight: 500;">※声（円）に触れて、その奥にある本当の願いを感じてみてください。</span>
+            </p>
+
+            <div class="voice-container">
+                <div class="voice-core">あなた自身</div>
+                
+                <div class="voice-bubble v1">
+                    <div class="voice-inner">
+                        <div class="voice-front">まだ足りない</div>
+                        <div class="voice-back">成長して<br>認められたかった</div>
+                    </div>
+                </div>
+                <div class="voice-bubble v2">
+                    <div class="voice-inner">
+                        <div class="voice-front">もっと<br>頑張らないと</div>
+                        <div class="voice-back">見放されないよう<br>必死だった</div>
+                    </div>
+                </div>
+                <div class="voice-bubble v3">
+                    <div class="voice-inner">
+                        <div class="voice-front">こんな自分じゃ<br>ダメだ</div>
+                        <div class="voice-back">これ以上<br>傷つかないように<br>守っていた</div>
+                    </div>
+                </div>
+                <div class="voice-bubble v4">
+                    <div class="voice-inner">
+                        <div class="voice-front">失敗したら<br>終わりだ</div>
+                        <div class="voice-back">安全な場所に<br>いさせたかった</div>
+                    </div>
+                </div>
+                <div class="voice-bubble v5">
+                    <div class="voice-inner">
+                        <div class="voice-front">迷惑をかけては<br>いけない</div>
+                        <div class="voice-back">大切な繋がりを<br>失うのが怖かった</div>
+                    </div>
+                </div>
+                <div class="voice-bubble v6">
+                    <div class="voice-inner">
+                        <div class="voice-front">ちゃんと<br>しなければ</div>
+                        <div class="voice-back">愛される価値を<br>証明したかった</div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-center" style="font-size: 15px; color: var(--color-main); margin-top: 60px; font-weight: 500;">
+                戦うのをやめ、そっと触れてみませんか。<br class="br-sp">その声の奥にある、本当の願いに。
+            </p>
+        </div>
+    </section>
+
+    <section class="section-padding" id="transformation">
+        <div class="container" data-aos="fade-up">
+            <h2 class="section-title">深い自己受容から始まる、<br class="br-sp">新しい景色</h2>
+            <p class="text-center" style="font-size: 14px; color: #555; margin-bottom: 50px;">内なる声と和解し、平和を取り戻したとき。あなたの世界は、静かに変わり始めます。</p>
             
+            <ul class="transformation-list">
+                <li data-aos="fade-up" data-aos-delay="0">
+                    <i class="fa-regular fa-moon transform-icon"></i>
+                    <div>
+                        <h4>自分を責める声が静まる</h4>
+                        <p>過剰な自己否定がやわらぎ、ありのままの自分を包み込む「セルフ・コンパッション」が育ちます。</p>
+                    </div>
+                </li>
+                <li data-aos="fade-up" data-aos-delay="100">
+                    <i class="fa-solid fa-seedling transform-icon"></i>
+                    <div>
+                        <h4>深い安心感が戻る</h4>
+                        <p>常に気を張っていた神経系が休息し、身体の奥底から揺るぎない安心感が蘇ります。</p>
+                    </div>
+                </li>
+                <li data-aos="fade-up" data-aos-delay="200">
+                    <i class="fa-regular fa-star transform-icon"></i>
+                    <div>
+                        <h4>「本当の願い」が見えてくる</h4>
+                        <p>他者の目線や社会の「正解」を手放すことで、自分が本当に望む人生の輪郭が透き通るように見えてきます。</p>
+                    </div>
+                </li>
+                <li data-aos="fade-up" data-aos-delay="300">
+                    <i class="fa-solid fa-water transform-icon"></i>
+                    <div>
+                        <h4>人間関係の苦しさが軽くなる</h4>
+                        <p>相手をコントロールしようとする力みが消え、他者との境界線を穏やかに引けるようになります。</p>
+                    </div>
+                </li>
+                <li data-aos="fade-up" data-aos-delay="400">
+                    <i class="fa-solid fa-dove transform-icon"></i>
+                    <div>
+                        <h4>自分の人生を自分で選べる</h4>
+                        <p>環境の犠牲者をやめ、自らの足で立ち、自分の人生を自分自身で舵取りする「自己主導」の感覚を取り戻します。</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="delicate-divider" data-aos="fade-in" data-aos-duration="1500">
+        <span class="divider-icon"><i class="fa-solid fa-moon"></i></span>
+    </div>
+
+    <section class="section-padding" id="vision" style="padding-top: 40px;"> 
+        <div class="container">
             <h2 class="section-title" data-aos="fade-up">Vision & Concept</h2>
             <div class="vision-grid">
-    <div class="vision-card" data-aos="fade-up" data-aos-delay="0">
-        <h3 class="vision-title-inline"><i class="fa-solid fa-moon"></i>制限からの解放</h3>
-        <p>ひとの命は本来、美しく煌めいています。けれど私たちは、社会の通念や過去の痛みによって自分を削り、「制限」という檻の中で光を忘れてしまいます。一番の味方であるはずの自分が、いつしか一番の敵になっている。その苦しみに、まずはそっと光を当てます。</p>
-    </div>
-    <div class="vision-card" data-aos="fade-up" data-aos-delay="100">
-        <h3 class="vision-title-inline"><i class="fa-solid fa-spa"></i>内なる平和</h3>
-        <p>外側の世界や他者をコントロールしようとする力みを手放し、自分自身の内なる平和（統合）に100％コミットします。バラバラになっていた自分の内側を赦し、無条件に受け入れること。環境の犠牲者をやめ、完全な自己主導として立ち上がるプロセスです。</p>
-    </div>
-    <div class="vision-card" data-aos="fade-up" data-aos-delay="200">
-        <h3 class="vision-title-inline"><i class="fa-solid fa-dove"></i>セルフ・リーダーシップ</h3>
-        <p>内なる平和が訪れたとき、外側の世界の見え方も静かに変わり始めます。自分の中心が定まることで、他者との違いを脅威ではなく「豊かさ」として受け取れるようになります。個が確立されて初めて、対立を超えた真の共創や、新しいつながりが生まれるのです。</p>
-    </div>
-</div>
+                <div class="vision-card" data-aos="fade-up" data-aos-delay="0">
+                    <h3 class="vision-title-inline"><i class="fa-solid fa-moon"></i>制限からの解放</h3>
+                    <p>ひとの命は本来、美しく煌めいています。けれど私たちは、社会の通念や過去の痛みによって自分を削り、「制限」という檻の中で光を忘れてしまいます。一番の味方であるはずの自分が、いつしか一番の敵になっている。その苦しみに、まずはそっと光を当てます。</p>
+                </div>
+                <div class="vision-card" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="vision-title-inline"><i class="fa-solid fa-spa"></i>内なる統合</h3>
+                    <p>外側の世界や他者をコントロールしようとする力みを手放し、自分自身の内なる平和（統合）に100％コミットします。バラバラになっていた自分の内側を赦し、無条件に受け入れること。環境の犠牲者をやめ、完全な自己主導として立ち上がるプロセスです。</p>
+                </div>
+                <div class="vision-card" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="vision-title-inline"><i class="fa-solid fa-dove"></i>セルフ・リーダーシップ</h3>
+                    <p>内なる平和が訪れたとき、外側の世界の見え方も静かに変わり始めます。自分の中心が定まることで、他者との違いを脅威ではなく「豊かさ」として受け取れるようになります。個が確立されて初めて、対立を超えた真の共創や、新しいつながりが生まれるのです。</p>
+                </div>
+            </div>
             
             <div class="vision-closing" data-aos="fade-up">
                 <p class="closing-text">
@@ -940,48 +644,52 @@
         </div>
     </section>
 
-    <div class="delicate-divider" data-aos="fade-in" data-aos-duration="1500">
-        <span class="divider-icon"><i class="fa-solid fa-moon"></i></span>
-    </div>
+    <section class="section-padding bg-sage" id="flow">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Session Process</h2>
+            <p class="text-center" style="font-size: 14px; color: #555; margin-bottom: 50px;">一般的な対話中心のコーチングに加え、身体感覚・内なるパーツ・イメージを扱いながら、深層からの変容をサポートします。</p>
+            <div class="flow-grid-cards">
+                <div class="flow-card-large" data-aos="fade-up" data-aos-delay="0">
+                    <div class="anim-showcase step1-showcase">
+                        <div class="parts-large part-1"></div>
+                        <div class="parts-large part-2"></div>
+                        <div class="parts-large part-3"></div>
+                        <div class="core-light-large"></div>
+                    </div>
+                    <div class="flow-card-content">
+                        <h3 class="flow-title">1. 深層へのアクセスと受容</h3>
+                        <p class="flow-desc">私たちの内側には、「傷ついた自分」や「自分を厳しく責める自分」など、いくつもの内なる側面が存在しています。セッションでは、それらを排除するのではなく安全な場の中で一つ一つ丁寧に対話していきます。すると、これまで衝突していた内側が少しずつ静まり始めます。</p>
+                    </div>
+                </div>
 
-    <div class="flow-grid-cards">
-    <div class="flow-card-large" data-aos="fade-up" data-aos-delay="0">
-        <div class="anim-showcase step1-showcase">
-            <div class="parts-large part-1"></div>
-            <div class="parts-large part-2"></div>
-            <div class="parts-large part-3"></div>
-            <div class="core-light-large"></div>
-        </div>
-        <div class="flow-card-content">
-            <h3 class="flow-title">1. 深層へのアクセスと受容</h3>
-            <p class="flow-desc">私たちの内側には、「傷ついた自分」や、「厳しく批判する自分」など、様々な無意識の「部分」が存在しています。これまでは見ないように蓋をしてきた痛みや否定してきた感情を、ジャッジすることなく、ただあるがままに迎え入れ、深いレベルで対話を行います。</p>
-        </div>
-    </div>
+                <div class="flow-card-large" data-aos="fade-up" data-aos-delay="100">
+                    <div class="anim-showcase step2-showcase">
+                        <div class="core-light-large"></div>
+                    </div>
+                    <div class="flow-card-content">
+                        <h3 class="flow-title">2. 身体感覚を通じた深い統合</h3>
+                        <p class="flow-desc">反発し合い、バラバラになっていた内側の「部分」たちが安心を取り戻すと、「内なる平和（統合）」が訪れます。安心感を「頭の理解」だけで終わらせず、身体感覚のレベルへ定着させます。圧倒的な安心感のなかで神経系を深く休息させ、エネルギーを根本から回復させます。</p>
+                    </div>
+                </div>
 
-    <div class="flow-card-large" data-aos="fade-up" data-aos-delay="100">
-        <div class="anim-showcase step2-showcase">
-            <div class="core-light-large"></div>
+                <div class="flow-card-large" data-aos="fade-up" data-aos-delay="200">
+                    <div class="anim-showcase step3-showcase">
+                        <div class="core-light-large"></div>
+                    </div>
+                    <div class="flow-card-content">
+                        <h3 class="flow-title">3. 真の自己主導の確立</h3>
+                        <p class="flow-desc">内側の統合が進むと訪れるのは、深い自己受容です。自分自身が揺るぎない「安全基地」になるからこそ、恐れを乗り越え、自ら人生の舵を握ることができます。この「自己主導（セルフ・リーダーシップ）」が確立されることで、あなたは本来持っていた100％の力を発揮できるようになります。</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="flow-card-content">
-            <h3 class="flow-title">2. 身体感覚を通じた深い統合</h3>
-            <p class="flow-desc">反発し合い、バラバラになっていた内側の「部分」たちが安心を取り戻すと、「内なる平和（統合）」が訪れます。安心感を「頭の理解」だけで終わらせず、身体感覚のレベルへ定着させます。圧倒的な安心感のなかで神経系を深く休息させ、エネルギーを根本から回復させます。</p>
-        </div>
-    </div>
+    </section>
 
-    <div class="flow-card-large" data-aos="fade-up" data-aos-delay="200">
-        <div class="anim-showcase step3-showcase">
-            <div class="core-light-large"></div>
-        </div>
-        <div class="flow-card-content">
-            <h3 class="flow-title">3. 真の自己主導の確立</h3>
-            <p class="flow-desc">内側の統合が進むと訪れるのは、深い自己受容です。自分自身が揺るぎない「安全基地」になるからこそ、恐れを乗り越え、自ら人生の舵を握ることができます。この「自己主導（セルフ・リーダーシップ）」が確立されることで、あなたは本来持っていた100％の力を発揮できるようになります。</p>
-        </div>
-    </div>
-</div>
-
-            <div class="safe-space-box" data-aos="fade-up">
+    <section class="section-padding" id="safe-space">
+        <div class="container">
+            <div class="safe-space-box" data-aos="fade-up" style="margin-top: 0;">
                 <h3 class="safe-space-title">安心安全な「場」のお約束</h3>
-                <p class="safe-space-intro">あなたの内なる叡智を信じ、ともに静寂に留まります。</p>
+                <p class="safe-space-intro">あなたの内なる叡智を信じ、<br class="br-sp">ともに静寂に留まります。</p>
                 <ul class="safe-space-list">
                     <li><strong>非審判的であること</strong>どんな感情やパーツ（内なる側面）が現れても、それを否定せず、あるがままに迎え入れます。社会通念や「正しさ」から離れ、あなたの真実にのみ光を当てます。</li>
                     <li><strong>あなたのペースを尊重する</strong>変化を急がせることはしません。身体の感覚や直感が「今だ」と告げるタイミングを待ち、安全にプロセスを進めます。</li>
@@ -1000,9 +708,9 @@
                 </div>
                 <div class="profile-info" data-aos="fade-left">
                     <h3 class="profile-name">福島 ゆい</h3>
-                    <p class="profile-title">YUI FUKUSHIMA / 深層変容コーチ</p>
+                    <p class="profile-title">YUI FUKUSHIMA / 深層対話コーチ</p>
                     <p style="font-size: 14px; color: #444; line-height: 2.2; margin-bottom: 20px;">
-                        <strong>自分のために立ち上がり、他者とともに世界を創る</strong><br><br>
+                        <strong class="profile-catchphrase">自分のために立ち上がり、他者とともに世界を創る</strong><br><br>
                         私はこれまで、組織・人事領域で数多くの「関係性」の現場に立ち会い、同時にライフコーチとして個人の「魂の深層」に触れる対話を重ねてきました。<br>
                         その二つの道の先に見つけた答え。それは、「すべての始まりは、自分自身との関係を修復することから」という真実です。<br><br>
                         かつて自分を一番の敵にしていた私が、自分を無条件に愛すると決めたとき、世界は一変しました。<br>
@@ -1014,21 +722,21 @@
             <div data-aos="fade-up" style="max-width: 700px; margin: 0 auto;">
                 <h3 class="story-main-title">My Story</h3>
                 <div data-aos="fade-up" style="max-width: 700px; margin: 0 auto; text-align: center;">
-                <p style="font-size: 14px; color: #555; margin-bottom: 30px;">私がなぜ、このプロセスを提供するに至ったのか。<br class="br-pc">暗闇の中で見つけた、真実の物語をお伝えします。</p>
-                <button onclick="openModal()" class="btn btn-story">My Story を読む</button>
-            </div>
+                    <p style="font-size: 14px; color: #555; margin-bottom: 30px;">私がなぜ、このプロセスを提供するに至ったのか。<br class="br-pc">暗闇の中で見つけた、真実の物語をお伝えします。</p>
+                    <button onclick="openModal()" class="btn btn-story">My Story を読む</button>
+                </div>
             </div>
 
             <div class="profile-data" data-aos="fade-up">
                 <ul>
-                    <li><strong>経歴</strong><br>大手通信・グローバルIT企業でのカスタマーサポート現場責任者を経て、組織・人事領域へキャリアチェンジ。<br>現在は外資系コンサルティング企業で、大手日本企業の従業員エンゲージメント調査プロジェクトを率いるコンサルタントとして従事。<br>会社員として働く傍ら、ライフワークであるコーチングを副業で提供。教育現場への関りも積極的に行っている。</li>
+                    <li><strong>経歴</strong><br>大手通信・グローバルIT企業でのカスタマーサポート現場責任者を経て、組織・人事領域へキャリアチェンジ。<br>現在は外資系コンサルティング企業で、大手日本企業の従業員エンゲージメント調査プロジェクトを率いるなど対人支援に従事。<br>会社員として働く傍ら、ライフワークであるコーチングを提供。教育現場への関りも積極的に行っている。</li>
                     <li><strong>資格</strong><br>国際コーチング連盟 アソシエイト認定コーチ（ACC）<br>CTI認定 プロフェッショナル・コーアクティブ・コーチ（CPCC）<br>CTI提供 Co-Active Leadership&reg; Program 参加中（2025年12月～）<br>CRR Global提供 Organization & Relationship Systems Coaching 基礎コース 修了</li>
                 </ul>
             </div>
         </div>
     </section>
 
-    <section class="section-padding" style="background-color: var(--color-base);">
+    <section class="section-padding" id="faq" style="background-color: var(--color-base);">
         <div class="container" data-aos="fade-up" style="max-width: 700px;">
             <h2 class="section-title">FAQ</h2>
             
@@ -1046,7 +754,7 @@
 
             <div class="accordion-item">
                 <div class="accordion-header" onclick="toggleAccordion(this)">
-                    <h4 class="faq-question">Q. コーチングセッションの流れを教えてください。</h4>
+                    <h4 class="faq-question">Q. セッションの中では、どのようなことを行いますか？</h4>
                     <span class="accordion-icon"><i class="fa-solid fa-plus"></i></span>
                 </div>
                 <div class="accordion-content">
@@ -1061,21 +769,94 @@
                     </div>
                 </div>
             </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h4 class="faq-question">Q. 体験セッションを受けたら、継続プログラムを申し込まなければいけませんか？</h4>
+                    <span class="accordion-icon"><i class="fa-solid fa-plus"></i></span>
+                </div>
+                <div class="accordion-content">
+                    <div class="faq-answer-box">
+                        <p>A. いいえ。体験セッションは、今のご自身に安心して出会っていただくための時間です。無理に継続をおすすめすることはありません。実際に話してみたうえで、必要だと感じた場合にのみ、継続プログラムをご案内します。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h4 class="faq-question">Q. まだ自分の悩みがはっきり言語化できていません。それでも申し込めますか？</h4>
+                    <span class="accordion-icon"><i class="fa-solid fa-plus"></i></span>
+                </div>
+                <div class="accordion-content">
+                    <div class="faq-answer-box">
+                        <p>A. はい、大丈夫です。むしろ、「何か違和感はあるけれど、うまく言葉にできない」という状態こそ、体験セッションで丁寧に扱えることがあります。最初から整理されている必要はありません。今ここにある感覚から、一緒に見つめていきます。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h4 class="faq-question">Q. オンラインでも十分に受けられますか？</h4>
+                    <span class="accordion-icon"><i class="fa-solid fa-plus"></i></span>
+                </div>
+                <div class="accordion-content">
+                    <div class="faq-answer-box">
+                        <p>A. はい。オンラインでも、安心して深くご自身の内側に触れていただけるように進めています。静かに話せる場所と、できれば少し落ち着ける時間をご用意いただけると、よりセッションに入りやすくなります。対面をご希望の場合は、状況に応じてご相談ください。</p>
+                    </div>
+                </div>
+            </div>
             
+        </div>
+    </section>
+
+    <section class="section-padding bg-sage" id="trial-flow" style="padding-bottom: 0;">
+        <div class="container" data-aos="fade-up">
+            <h2 class="section-title" style="margin-bottom: 50px;">体験セッションまでの流れ</h2>
+            
+            <div class="step-list">
+                <div class="step-item" data-aos="fade-up" data-aos-delay="0">
+                    <div class="step-num">1.</div>
+                    <div>
+                        <h4 class="step-title">フォーム送信</h4>
+                        <p class="step-desc">お名前、メールアドレス、ご希望日時や今気になっていることをご記入ください。</p>
+                    </div>
+                </div>
+                <div class="step-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="step-num">2.</div>
+                    <div>
+                        <h4 class="step-title">日程調整のご連絡</h4>
+                        <p class="step-desc">内容を確認後、日程調整のご連絡をお送りします。</p>
+                    </div>
+                </div>
+                <div class="step-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="step-num">3.</div>
+                    <div>
+                        <h4 class="step-title">体験セッション（60分）</h4>
+                        <p class="step-desc">オンラインで、今のあなたが感じていることを丁寧に伺いながら、内側で起きていることを一緒に見つめていきます。</p>
+                    </div>
+                </div>
+                <div class="step-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="step-num">4.</div>
+                    <div>
+                        <h4 class="step-title">必要に応じて継続のご案内</h4>
+                        <p class="step-desc">ご希望があれば継続プログラムをご案内します。無理な勧誘はありませんので、ご安心ください。</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <section class="cta-section" id="contact">
         <div class="container" data-aos="fade-up">
             <div class="cta-header">
-                <h2 class="section-title">世界を創る旅へ</h2>
+                <h2 class="section-title" style="color: #fff;">世界を創る旅へ</h2>
                 <span class="cta-subtitle">A Journey to the New World</span>
             </div>
             
             <p class="cta-intro">
-                ここまで読んでくださり、ありがとうございます。<br class="br-pc">
-                頭（思考）でどうにかしようとするのを少しだけお休みして、<br class="br-pc">
-                あなたの奥底にある「身体の声」や「本当の願い」に耳を澄ませてみませんか？
+                もし今、このページのどこかに小さくても「何か」を感じたなら。<br class="br-pc">
+                それは、あなたの内側からのサインかもしれません。<br><br>
+                まずは、今のあなたのお話を聞かせてください。
             </p>
 
             <div class="cta-box">
@@ -1083,12 +864,15 @@
                 <ul class="cta-menu-list">
                     <li>
                         <div class="menu-title">初回体験セッション（60分）</div>
-                        <span class="menu-desc">まずは現在地の整理を。無理な勧誘は一切行いません。</span>
+                        <span class="menu-desc">オンライン実施（対面はご相談ください）<br>
+                        現在感じている違和感やモヤモヤを丁寧に言葉にしていきます。<br class="br-pc">
+                        対話を通してあなたの内側で起きていることを一緒に見つめていきます。<br class="br-pc">
+                        まずは安心して「今の自分」に出会う時間です。</span>
                         <div class="menu-price">無料</div>
                     </li>
                     <li>
                         <div class="menu-title">継続プログラム</div>
-                        <span class="menu-desc">導入セッション（120分）＋通常セッション6回（各60分）<br class="br-pc">自己主導の人生を取り戻すための伴走プログラム。</span>
+                        <span class="menu-desc">導入セッション（120分）＋通常セッション6回（各60分）<br class="br-pc">自己主導の人生を取り戻すための伴走プログラム。<br class="br-pc">単発の気づきで終わらせず、自己主導の感覚を日常に定着させていくための継続的な伴走です。</span>
                         <div class="menu-price">50,000円 <span style="font-size: 12px; font-family: var(--font-body);">(税込)</span></div>
                     </li>
                 </ul>
@@ -1096,7 +880,7 @@
             </div>
 
             <p class="cta-intro">
-                <br><br>各種お問い合わせ、体験セッションのご希望は、<br class="br-pc">以下の項目をご入力のうえ、「送信」ボタンを押してください。
+                <br><br>各種お問い合わせ、体験セッションのご希望は、<br class="br-pc">以下の項目をご入力のうえ、「送信」ボタンを押してください。<br>通常48時間以内に返信いたします。<br>ご記入いただいた内容は、お問い合わせ対応以外の目的では使用しません。
             </p>
             
             <div class="contact-form-wrapper" data-aos="fade-up">
@@ -1134,28 +918,31 @@
         </div>
         <p>&copy; 2026 Yui Fukushima. All Rights Reserved.</p>
     </footer>
+
     <div id="storyModal" class="modal">
         <div class="modal-wrapper">
-        <span class="close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></span>
-        
-        <div class="modal-content">
-            <h3 class="modal-title">My Story</h3>
-            <div class="modal-body">
-                
-                <h4 class="modal-chapter">崩れ落ちた夜と、たった一人の「敵」</h4>
-                <p class="story-text">仕事に人生のすべてを懸けていた私に突きつけられた「離婚」という現実。<br>「女性として見られない」という言葉に心を抉られ、私は自分に「欠陥品」というレッテルを貼りました。<br>そして、数年経ったある夜のこと。何も悲しいことが起きたわけではないのに、ただポロポロと涙が流れ落ちる暗闇の中で、ふと気づいたのです。<br>「周りの誰も、私のことを責めていない。世界中でただ一人、私を攻撃し続け、私を嫌っているのは、私自身だけだった」と。</p>
+            <span class="close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></span>
+            
+            <div class="modal-content">
+                <h3 class="modal-title">My Story</h3>
+                <div class="modal-body">
+                    <h4 class="modal-chapter">崩れ落ちた夜と、たった一人の「敵」</h4>
+                    <p class="story-text">仕事に人生のすべてを懸けていた私に突きつけられた「離婚」という現実。<br>「女性として見られない」という言葉に心を抉られ、私は自分に「欠陥品」というレッテルを貼りました。<br>そして、数年経ったある夜のこと。何も悲しいことが起きたわけではないのに、ただポロポロと涙が流れ落ちる暗闇の中で、ふと気づいたのです。<br>「周りの誰も、私のことを責めていない。世界中でただ一人、私を攻撃し続け、私を嫌っているのは、私自身だけだった」と。</p>
 
-                <h4 class="modal-chapter">思考の限界と、「身体の感覚」という真実</h4>
-                <p class="story-text">「もう、こんなことはやめよう。私が私の一番の理解者になろう」 そう決意したものの、長年染み付いた自己否定は、頭（思考）で言い聞かせるだけでは簡単に拭い去れるものではありませんでした。<br>そして、コーチングと出会い、その学びを深める中で、本当の変容の鍵は「思考」ではなく「深層」にあることに気づきます。<br>頭は巧妙に言い訳を作り、感情をごまかします。しかし、身体の感覚にアクセスしたとき、そこには「本当はもう傷つきたくない、愛されたい」という本心がありました。<br>理屈を超えて、自分の身体の声や直感に繋がったとき、自分がダメだからと握りしめていた「制限の檻」が消え、内側から本来の力が溢れ出すのを感じました。<br>思考の整理だけでなく、身体知や潜在意識へのアプローチを大切にしているのは、この原体験があるからです。</p>
+                    <h4 class="modal-chapter">思考の限界と、「身体の感覚」という真実</h4>
+                    <p class="story-text">「もう、こんなことはやめよう。私が私の一番の理解者になろう」 そう決意したものの、長年染み付いた自己否定は、頭（思考）で言い聞かせるだけでは簡単に拭い去れるものではありませんでした。<br>そして対人支援の学びを深める中で、本当の変容の鍵は「思考」ではなく「深層」にあることに気づきます。<br>頭は巧妙に言い訳を作り、感情をごまかします。しかし、身体の感覚にアクセスしたとき、そこには「本当はもう傷つきたくない、愛されたい」という本心がありました。<br>理屈を超えて、自分の身体の声や直感に繋がったとき、自分がダメだからと握りしめていた「制限の檻」が消え、内側から本来の力が溢れ出すのを感じました。<br>思考の整理だけでなく、身体知や潜在意識へのアプローチを大切にしているのは、この原体験があるからです。</p>
 
-                <h4 class="modal-chapter">自己主導の先にある、「共創」への挑戦</h4>
-                <p class="story-text">自分との関係が修復され、「内なる平和」を取り戻した私に起きた一番の変化は、最も避けていた「パートナーシップ」に、再び自らの意志で飛び込めたことです。<br>かつての私にとって、関係性とは「自己犠牲」の上に成り立つものでした。<br>しかし、自分が自分の絶対的な味方となり「自己主導」を取り戻したとき、相手の反応を恐れず、自分の本当の願いに真っ直ぐ手を伸ばすことができたのです。その一歩が起点となり、現在私はパートナーとともに、日々「真のパートナーシップ」を探求しています。<br>本当の関係性とは、自分を削って相手に差し出すことではなく、自立した二人が響き合い、対立を超えた未知の世界をともに創り出していく喜びなのだと、今なら心から言えます。</p>
-
+                    <h4 class="modal-chapter">自己主導の先にある、「共創」への挑戦</h4>
+                    <p class="story-text">自分との関係が修復され、「内なる平和」を取り戻した私に起きた一番の変化は、最も避けていた「パートナーシップ」に、再び自らの意志で飛び込めたことです。<br>かつての私にとって、関係性とは「自己犠牲」の上に成り立つものでした。<br>しかし、自分が自分の絶対的な味方となり「自己主導」を取り戻したとき、相手の反応を恐れず、自分の本当の願いに真っ直ぐ手を伸ばすことができたのです。その一歩が起点となり、現在私はパートナーとともに、日々「真のパートナーシップ」を探求しています。<br>本当の関係性とは、自分を削って相手に差し出すことではなく、自立した二人が響き合い、対立を超えた未知の世界をともに創り出していく喜びなのだと、今なら心から言えます。</p>
+                </div>
             </div>
         </div>
     </div>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
     <script>
+        // AOS アニメーション初期化
         AOS.init({
             once: true,
             offset: 50,
@@ -1163,150 +950,136 @@
             easing: 'ease-out-quad',
         });
 
-        // モーダルを開く
+        // モーダル処理
         function openModal() {
             const modal = document.getElementById("storyModal");
             modal.style.display = "flex";
-            // フワッと表示させるための遅延処理
-            setTimeout(() => {
-                modal.classList.add("show");
-            }, 10);
-            // モーダルが開いている間は、後ろの背景がスクロールしないように固定
+            setTimeout(() => { modal.classList.add("show"); }, 10);
             document.body.style.overflow = "hidden"; 
         }
 
-        // モーダルを閉じる
         function closeModal() {
             const modal = document.getElementById("storyModal");
             modal.classList.remove("show");
-            // フワッと消えるアニメーションが終わってから非表示にする
-            setTimeout(() => {
-                modal.style.display = "none";
-            }, 400);
-            // 背景のスクロール固定を解除
+            setTimeout(() => { modal.style.display = "none"; }, 400);
             document.body.style.overflow = "auto";
         }
 
-        // モーダルの外側（暗い背景）をクリックした時も閉じるようにする
         window.onclick = function(event) {
             const modal = document.getElementById("storyModal");
-            if (event.target == modal) {
-                closeModal();
-            }
+            if (event.target == modal) { closeModal(); }
         }
 
+        // キャンバス星屑エフェクト
         document.addEventListener("DOMContentLoaded", () => {
             const canvas = document.getElementById('stardust-canvas');
-            const ctx = canvas.getContext('2d');
-            
-            let width, height;
-            let particles = [];
-            const particleCount = 200; 
+            if(canvas) {
+                const ctx = canvas.getContext('2d');
+                let width, height;
+                let particles = [];
+                const particleCount = 200; 
 
-            function resize() {
-                width = window.innerWidth;
-                height = window.innerHeight;
-                canvas.width = width;
-                canvas.height = height;
-            }
-
-            class Particle {
-                constructor() {
-                    this.x = Math.random() * width;
-                    this.y = Math.random() * height;
-                    this.radius = Math.random() * 1.3 + 0.5;
-                    this.maxAlpha = Math.random() * 0.8 + 0.2; 
-                    this.alpha = Math.random() * this.maxAlpha; 
-                    this.alphaSpeed = (Math.random() * 0.005) + 0.002; 
-                    this.isFading = Math.random() > 0.5; 
+                function resize() {
+                    width = window.innerWidth;
+                    height = window.innerHeight;
+                    canvas.width = width;
+                    canvas.height = height;
                 }
 
-                update() {
-                    if (this.isFading) {
-                        this.alpha -= this.alphaSpeed;
-                        if (this.alpha <= 0) {
-                            this.isFading = false;
-                            this.alpha = 0;
-                            this.x = Math.random() * width;
-                            this.y = Math.random() * height;
+                class Particle {
+                    constructor() {
+                        this.x = Math.random() * width;
+                        this.y = Math.random() * height;
+                        this.radius = Math.random() * 1.3 + 0.5;
+                        this.maxAlpha = Math.random() * 0.8 + 0.2; 
+                        this.alpha = Math.random() * this.maxAlpha; 
+                        this.alphaSpeed = (Math.random() * 0.005) + 0.002; 
+                        this.isFading = Math.random() > 0.5; 
+                    }
+
+                    update() {
+                        if (this.isFading) {
+                            this.alpha -= this.alphaSpeed;
+                            if (this.alpha <= 0) {
+                                this.isFading = false;
+                                this.alpha = 0;
+                                this.x = Math.random() * width;
+                                this.y = Math.random() * height;
+                            }
+                        } else {
+                            this.alpha += this.alphaSpeed;
+                            if (this.alpha >= this.maxAlpha) {
+                                this.isFading = true;
+                                this.alpha = this.maxAlpha;
+                            }
                         }
-                    } else {
-                        this.alpha += this.alphaSpeed;
-                        if (this.alpha >= this.maxAlpha) {
-                            this.isFading = true;
-                            this.alpha = this.maxAlpha;
-                        }
+                    }
+
+                    draw() {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(197, 160, 89, ${this.alpha})`;
+                        ctx.fill();
                     }
                 }
 
-                draw() {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(197, 160, 89, ${this.alpha})`;
-                    ctx.fill();
+                function init() {
+                    resize();
+                    particles = [];
+                    for (let i = 0; i < particleCount; i++) {
+                        particles.push(new Particle());
+                    }
                 }
+
+                function animate() {
+                    ctx.clearRect(0, 0, width, height);
+                    particles.forEach(particle => {
+                        particle.update();
+                        particle.draw();
+                    });
+                    requestAnimationFrame(animate);
+                }
+
+                window.addEventListener('resize', init);
+                init();
+                animate();
             }
 
-            function init() {
-                resize();
-                particles = [];
-                for (let i = 0; i < particleCount; i++) {
-                    particles.push(new Particle());
-                }
-            }
+            // ハンバーガーメニュー
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('nav-links');
+            const navItems = document.querySelectorAll('.nav-links a');
 
-            function animate() {
-                ctx.clearRect(0, 0, width, height);
-                particles.forEach(particle => {
-                    particle.update();
-                    particle.draw();
+            if(hamburger && navLinks) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('open');
+                    navLinks.classList.toggle('open');
                 });
-                requestAnimationFrame(animate);
+
+                navItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        hamburger.classList.remove('open');
+                        navLinks.classList.remove('open');
+                    });
+                });
             }
-
-            window.addEventListener('resize', init);
-
-            init();
-            animate();
-
-        // 追加：ハンバーガーメニューの開閉処理
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('nav-links');
-        const navItems = document.querySelectorAll('.nav-links a');
-
-        // ハンバーガーボタンをクリックした時の処理
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('open');
-            navLinks.classList.toggle('open');
         });
 
-        // メニュー内のリンク（ボタン含む）をクリックしたらメニューを閉じる
-        navItems.forEach(item => {
-            item.addEventListener('click', () => {
-                hamburger.classList.remove('open');
-                navLinks.classList.remove('open');
-            });
-        });
-        });
-
-        // FAQのアコーディオンを開閉する関数
+        // FAQアコーディオン
         function toggleAccordion(element) {
             const item = element.parentElement;
             const content = element.nextElementSibling;
             
-            // activeクラスを付け外しして、アイコンの十字を回転させる
             item.classList.toggle('active');
             
-            // 中身の高さ（scrollHeight）を取得して、アニメーション付きで開閉する
             if (item.classList.contains('active')) {
-                // CSSで指定されている padding-bottom: 25px 分を足して高さを設定します
                 content.style.maxHeight = content.scrollHeight + 25 + "px";
             } else {
                 content.style.maxHeight = null;
             }
         }
 
-        // Messageの「続きを読む」アコーディオン機能
+        // Message「続きを読む」アコーディオン
         function toggleMessage() {
             const content = document.getElementById('messageMoreContent');
             const btn = document.getElementById('btnReadMore');
