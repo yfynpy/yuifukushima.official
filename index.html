@@ -334,7 +334,18 @@
         .modal-body .story-text:last-child { margin-bottom: 0; }
         .btn-story { background-color: transparent; color: var(--color-main); border: 1px solid var(--color-main); padding: 12px 32px; font-size: 14px; letter-spacing: 0.1em; cursor: pointer; transition: all 0.4s ease; }
         .btn-story:hover { background-color: var(--color-main); color: #fff; }
-        @media (max-width: 768px) { .close-btn { top: -45px; right: 0; font-size: 28px; } .modal-content { padding: 40px 25px; max-height: 80vh; } .btn-story { background-color: var(--color-main); color: #fff; } }
+        @media (max-width: 768px) {
+            .close-btn {
+                top: 15px;      /* 白い枠の内側に配置 */
+                right: 15px;    /* 右端から少し内側に入れる */
+                font-size: 28px;
+                color: #888;    /* 白背景でしっかり見えるようにグレーに変更 */
+            }
+            .modal-content { 
+                padding: 60px 25px 40px; /* ✖マークとタイトルが被らないよう、上部の余白を広げる */
+                max-height: 85vh; 
+            }
+             .btn-story { background-color: var(--color-main); color: #fff; } }
 
         /* =========================================
            FAQ
