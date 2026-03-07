@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yui Fukushima Official Website | 深層対話コーチ</title>
+    <title>Yui Fukushima Official Website | セルフ・リーダーシップ・コーチ</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -369,7 +369,7 @@
         @media (max-width: 768px) { .cta-section { padding: 80px 20px; } }
         .cta-header { margin-bottom: 60px; position: relative; z-index: 10; }
         .cta-subtitle { display: block; color: var(--color-accent); font-style: italic; letter-spacing: 0.15em; font-size: 14px; }
-        .cta-intro { margin-bottom: 80px; font-size: 15px; color: rgba(255,255,255,0.8); position: relative; z-index: 10; }
+        .cta-intro { margin-bottom: 40px; font-size: 15px; color: rgba(255,255,255,0.8); position: relative; z-index: 10; }
         @media (max-width: 768px) { .cta-intro { margin-bottom: 50px; } }
 
         .cta-box { background: transparent; padding: 0; border: none; max-width: 600px; margin: 0 auto 60px; text-align: left; position: relative; z-index: 10; }
@@ -435,6 +435,64 @@
             }
         }
 
+           /* =========================================
+           Transformation（変化）のスマホ向け横並び設定
+           ========================================= */
+        @media (max-width: 768px) {
+            .transformation-list li {
+                flex-direction: row !important; /* 縦並びを解除し、スマホでも横並びを強制する */
+                align-items: flex-start;        /* 上端で揃える */
+                gap: 15px;                      /* アイコンとテキストの間隔をスマホ向けに少し狭める */
+            }
+            .transform-icon {
+                margin-top: 0 !important;       /* タイトルの文字の高さとアイコンが揃うように微調整 */
+            }
+            .transformation-list h4 {
+                line-height: 1.4;               /* タイトルが複数行になった場合も美しく見せる */
+                margin-bottom: 8px;
+            }
+        }
+
+        /* =========================================
+           Inner Voicesのスマホ向けアコーディオン設定
+           ========================================= */
+        .btn-voice-read-more { display: none; }
+        .voice-more-content { display: block; }
+
+        @media (max-width: 768px) {
+            .voice-more-content {
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                transition: max-height 0.8s ease, opacity 0.8s ease;
+            }
+            .voice-more-content.is-open {
+                max-height: 1200px; /* スマホでのバブル全体の高さ分、開くように設定 */
+                opacity: 1;
+            }
+            .btn-voice-read-more {
+                display: inline-flex;
+                align-items: center;
+                background: transparent;
+                border: none;
+                color: var(--color-accent);
+                font-size: 14px;
+                letter-spacing: 0.1em;
+                margin-top: 15px;
+                padding: 0;
+                cursor: pointer;
+                border-bottom: 1px solid var(--color-accent);
+            }
+            .btn-voice-read-more i {
+                margin-left: 8px;
+                font-size: 12px;
+                transition: transform 0.3s ease;
+            }
+            .btn-voice-read-more.is-open i {
+                transform: rotate(180deg);
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -465,7 +523,7 @@
             <span class="hero-en-title">Awaken Your Authentic Self</span>
             <h1 class="hero-title">「制限」という檻を抜け出し、<br>本来のあなたを生きる</h1>
             <p class="hero-subtitle">内なる平和から、人生の完全なリーダーへ<br>自分に驚かされる人生を、ここから</p>
-            <div class="hero-name">深層対話コーチ<span>福島 ゆい</span></div>
+            <div class="hero-name">セルフ・リーダーシップ・コーチ<span>福島 ゆい</span></div>
         </div>
     </section>
 
@@ -512,56 +570,66 @@
 
     <section class="section-padding bg-sand" id="inner-voices">
         <div class="container" data-aos="fade-up">
-            <h2 class="section-title" style="margin-bottom: 30px;">内なる厳しい声は、あなたを守るための盾だった</h2>
-            <p class="text-center" style="font-size: 14px; color: #555; margin-bottom: 60px; line-height: 2;">
-                心の中で響く厳しい声。それは決して、あなたを痛めつけるためのものではありません。<br class="br-pc">
-                傷つかないように、見放されないように……<br class="br-pc">かつて必死であなたを守ろうとした「愛」の形でした。<br><br>
-                <span style="color: var(--color-accent); font-weight: 500;">※声（円）に触れて、その奥にある本当の願いを感じてみてください。</span>
-            </p>
+            <h2 class="section-title" style="margin-bottom: 30px;">内なる厳しい声は、<br class="br-sp">あなたを守るための盾だった</h2>
+            
+            <div class="text-center" style="font-size: 14px; color: #555; margin-bottom: 50px; line-height: 2;">
+                <p style="margin-bottom: 0;">
+                    心の中で響く厳しい声。それは決して、あなたを痛めつけるためのものではありません。<br class="br-pc">
+                    傷つかないように、見放されないように……<br class="br-pc">かつて必死であなたを守ろうとした「愛」の形でした。
+                </p>
 
-            <div class="voice-container">
-                <div class="voice-core">あなた自身</div>
-                
-                <div class="voice-bubble v1">
-                    <div class="voice-inner">
-                        <div class="voice-front">まだ足りない</div>
-                        <div class="voice-back">成長して<br>認められたかった</div>
-                    </div>
-                </div>
-                <div class="voice-bubble v2">
-                    <div class="voice-inner">
-                        <div class="voice-front">もっと<br>頑張らないと</div>
-                        <div class="voice-back">見放されないよう<br>必死だった</div>
-                    </div>
-                </div>
-                <div class="voice-bubble v3">
-                    <div class="voice-inner">
-                        <div class="voice-front">こんな自分じゃ<br>ダメだ</div>
-                        <div class="voice-back">これ以上<br>傷つかないように<br>守っていた</div>
-                    </div>
-                </div>
-                <div class="voice-bubble v4">
-                    <div class="voice-inner">
-                        <div class="voice-front">失敗したら<br>終わりだ</div>
-                        <div class="voice-back">安全な場所に<br>いさせたかった</div>
-                    </div>
-                </div>
-                <div class="voice-bubble v5">
-                    <div class="voice-inner">
-                        <div class="voice-front">迷惑をかけては<br>いけない</div>
-                        <div class="voice-back">大切な繋がりを<br>失うのが怖かった</div>
-                    </div>
-                </div>
-                <div class="voice-bubble v6">
-                    <div class="voice-inner">
-                        <div class="voice-front">ちゃんと<br>しなければ</div>
-                        <div class="voice-back">愛される価値を<br>証明したかった</div>
+                <button class="btn-voice-read-more" id="btnVoiceReadMore" onclick="toggleVoice()">続きを読む <i class="fa-solid fa-chevron-down"></i></button>
+
+                <div class="voice-more-content" id="voiceMoreContent">
+                    <p style="margin-top: 20px; margin-bottom: 0;">
+                        <span style="color: var(--color-accent); font-weight: 500;">※声（円）に触れて、その奥にある本当の願いを感じてみてください。</span>
+                    </p>
+
+                    <div class="voice-container">
+                        <div class="voice-core">あなた自身</div>
+                        
+                        <div class="voice-bubble v1">
+                            <div class="voice-inner">
+                                <div class="voice-front">まだ足りない</div>
+                                <div class="voice-back">成長して<br>認められたかった</div>
+                            </div>
+                        </div>
+                        <div class="voice-bubble v2">
+                            <div class="voice-inner">
+                                <div class="voice-front">もっと<br>頑張らないと</div>
+                                <div class="voice-back">見放されないよう<br>必死だった</div>
+                            </div>
+                        </div>
+                        <div class="voice-bubble v3">
+                            <div class="voice-inner">
+                                <div class="voice-front">こんな自分じゃ<br>ダメだ</div>
+                                <div class="voice-back">これ以上<br>傷つかないように<br>守っていた</div>
+                            </div>
+                        </div>
+                        <div class="voice-bubble v4">
+                            <div class="voice-inner">
+                                <div class="voice-front">失敗したら<br>終わりだ</div>
+                                <div class="voice-back">安全な場所に<br>いさせたかった</div>
+                            </div>
+                        </div>
+                        <div class="voice-bubble v5">
+                            <div class="voice-inner">
+                                <div class="voice-front">迷惑をかけては<br>いけない</div>
+                                <div class="voice-back">大切な繋がりを<br>失うのが怖かった</div>
+                            </div>
+                        </div>
+                        <div class="voice-bubble v6">
+                            <div class="voice-inner">
+                                <div class="voice-front">ちゃんと<br>しなければ</div>
+                                <div class="voice-back">愛される価値を<br>証明したかった</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <p class="text-center" style="font-size: 15px; color: var(--color-main); margin-top: 60px; font-weight: 500;">
-                戦うのをやめ、そっと触れてみませんか。<br class="br-sp">その声の奥にある、本当の願いに。
+            <p class="text-center" style="font-size: 15px; color: var(--color-main); margin-top: 0; font-weight: 500;">
+                戦うのをやめ、その声の奥にある本当の願いに、そっと触れてみませんか。
             </p>
         </div>
     </section>
@@ -708,13 +776,13 @@
                 </div>
                 <div class="profile-info" data-aos="fade-left">
                     <h3 class="profile-name">福島 ゆい</h3>
-                    <p class="profile-title">YUI FUKUSHIMA / 深層対話コーチ</p>
+                    <p class="profile-title">YUI FUKUSHIMA / セルフ・リーダーシップ・コーチ</p>
                     <p style="font-size: 14px; color: #444; line-height: 2.2; margin-bottom: 20px;">
-                        <strong class="profile-catchphrase">自分のために立ち上がり、他者とともに世界を創る</strong><br><br>
-                        私はこれまで、組織・人事領域で数多くの「関係性」の現場に立ち会い、同時にライフコーチとして個人の「魂の深層」に触れる対話を重ねてきました。<br>
-                        その二つの道の先に見つけた答え。それは、「すべての始まりは、自分自身との関係を修復することから」という真実です。<br><br>
-                        かつて自分を一番の敵にしていた私が、自分を無条件に愛すると決めたとき、世界は一変しました。<br>
-                        個が立ち上がり、今度はその光が響き合って、対立を超えたつながりが生まれる。その「共創」の瞬間の証人として、私はここに在り続けます。
+                        <strong class="profile-catchphrase">無意識の制限をほどき、内なる平和と自己主導を育む</strong><br><br>
+                        私はこれまで、組織・人事の領域で数多くの「関係性」の現場に立ち会いながら、コーチとして一人ひとりの内面に深く寄り添う対話を重ねてきました。<br>
+その二つの経験を通して、私が確信するようになったことがあります。それは、<b>すべての始まりは「自分自身との関係を結び直すこと」にある</b>ということです。<br><br>
+私自身、かつては自分を一番厳しく責め、無意識の制限の中で生きていました。けれど、自分の内側と丁寧に向き合い、自分との関係を結び直していく中で、少しずつ内なる平和と自己主導を取り戻していきました。<br><br>
+自分との関係が変わると、世界との関わり方も変わっていきます。私はその変化のプロセスに伴走し、その人が本来持っている力で、自分の人生を主体的に生きていけるよう支えていきたいと願っています。
                     </p>
                 </div>
             </div>
@@ -730,7 +798,7 @@
             <div class="profile-data" data-aos="fade-up">
                 <ul>
                     <li><strong>経歴</strong><br>大手通信・グローバルIT企業でのカスタマーサポート現場責任者を経て、組織・人事領域へキャリアチェンジ。<br>現在は外資系コンサルティング企業で、大手日本企業の従業員エンゲージメント調査プロジェクトを率いるなど対人支援に従事。<br>会社員として働く傍ら、ライフワークであるコーチングを提供。教育現場への関りも積極的に行っている。</li>
-                    <li><strong>資格</strong><br>国際コーチング連盟 アソシエイト認定コーチ（ACC）<br>CTI認定 プロフェッショナル・コーアクティブ・コーチ（CPCC）<br>CTI提供 Co-Active Leadership&reg; Program 参加中（2025年12月～）<br>CRR Global提供 Organization & Relationship Systems Coaching 基礎コース 修了</li>
+                    <li><strong>資格</strong><br>CTI提供 Co-Active Coaching コア（基礎・応用）コース修了<br>CTI提供 Co-Active Leadership&reg; Program 参加中（2025年12月～）<br>CRR Global提供 Organization & Relationship Systems Coaching 基礎コース 修了</li>
                 </ul>
             </div>
         </div>
@@ -880,7 +948,8 @@
             </div>
 
             <p class="cta-intro">
-                <br><br>各種お問い合わせ、体験セッションのご希望は、<br class="br-pc">以下の項目をご入力のうえ、「送信」ボタンを押してください。<br>通常48時間以内に返信いたします。<br>ご記入いただいた内容は、お問い合わせ対応以外の目的では使用しません。
+                <br><br>各種お問い合わせ、体験セッションのご希望は、<br class="br-pc">以下の項目をご入力のうえ、「送信」ボタンを押してください。<br>通常48時間以内に返信いたします。<br>ご記入いただいた内容は、お問い合わせ対応以外の目的では使用しません。</p>
+                <p style="font-size: 12px; color: rgba(255,255,255,0.5); text-align: center; margin-top: 0px;">※本セッションは医療行為・心理療法ではありません。<br class="br-pc">現在、心療内科・精神科に通院中の方、または継続的にカウンセリング等を受けている方は、<br class="br-pc">原則としてお申し込みをご遠慮いただいております。<br><br><br><br>
             </p>
             
             <div class="contact-form-wrapper" data-aos="fade-up">
@@ -1093,6 +1162,22 @@
                 btn.innerHTML = '続きを読む <i class="fa-solid fa-chevron-down"></i>';
             }
         }
+
+        // Inner Voicesの「続きを読む」アコーディオン機能
+        function toggleVoice() {
+            const content = document.getElementById('voiceMoreContent');
+            const btn = document.getElementById('btnVoiceReadMore');
+            
+            content.classList.toggle('is-open');
+            btn.classList.toggle('is-open');
+            
+            if (content.classList.contains('is-open')) {
+                btn.innerHTML = '閉じる <i class="fa-solid fa-chevron-up"></i>';
+            } else {
+                btn.innerHTML = '続きを読む <i class="fa-solid fa-chevron-down"></i>';
+            }
+        }
+
     </script>
 </body>
 </html>
